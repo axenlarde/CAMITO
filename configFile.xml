@@ -1,0 +1,44 @@
+﻿<!--
+Overal configuration file
+-->
+
+<xml>
+	<config>
+		<!--Misc-->
+		<log4j>DEBUG</log4j><!--Logging level : ERROR,INFO,DEBUG-->
+		<language>french</language><!--french,english-->
+		<splitter>+</splitter>
+		<csvsplitter>,</csvsplitter>
+		<pingtimeout>5000</pingtimeout><!--used when trying to reach a device--><!--In millisecond-->
+		<maxpingthread>50</maxpingthread>
+		<maxtaskthread>1</maxtaskthread>
+		<maxinfochar>60</maxinfochar>
+		<!--Cli parameters-->
+		<maxclithread>10</maxclithread>
+		<cliconnectiontimeout>10000</cliconnectiontimeout>
+		<!--Smtp parameters-->
+		<smtpemailenable>true</smtpemailenable>
+		<smtpemailport>25</smtpemailport>
+		<smtpemailprotocol>smtp</smtpemailprotocol>
+		<smtpemailserver>smtp.certiam.cnaf</smtpemailserver>
+		<smtpemail>perceler_noreply@certiam.cnaf</smtpemail>
+		<smtpemailpassword></smtpemailpassword>
+		<smtpemailreceiver>alexandre.ratel@spie.com</smtpemailreceiver><!--One or more destinations separated by a ;-->
+		<smtperroremailenable>true</smtperroremailenable>
+		<smtperroremail>alexandre.ratel@spie.com</smtperroremail>
+		<!--CUCM parameters-->
+		<srccucmip>10.0.1.172</srccucmip><!--IP of the source CUCM-->
+		<dstcucmip>10.0.1.172</dstcucmip><!--IP of the destination CUCM-->
+		<axlversionsrc>105</axlversionsrc><!--AXL version of the source CUCM-->
+		<axlversiondst>105</axlversiondst><!--AXL version of the destination CUCM-->
+		<port>8443</port><!--Port to contact the CUCM server-->
+		<username>CAMITO</username><!--Username to contact the CUCM server-->
+		<password>CCMCisco92</password><!--Password in clear !!!!Warning : keep it secret!!!!-->
+		<!--RISPORT parameters-->
+		<rismaxphonerequest>999</rismaxphonerequest><!--Max Phone response per request-->
+		<!--Web server parameters-->
+		<webserverport>8092</webserverport>
+		<!--Copy Log parameters-->
+		<targetdirectory>F:\Clients\REXEL\CAMITO\WebPortal\log</targetdirectory>
+	</config>
+</xml>

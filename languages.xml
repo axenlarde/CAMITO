@@ -1,0 +1,78 @@
+<!--
+Language configuration file
+-->
+
+<languages>
+	<language>
+		<misc>
+			<name>english</name>
+		</misc>
+		<values>
+			<!--Misc-->
+			<selectbutton>Select</selectbutton>
+			<submitbutton>Submit</submitbutton>
+			<cancelbutton>Cancel</cancelbutton>
+			<yes>Yes</yes>
+			<no>No</no>
+			<error>Error</error>
+			<emailreportsubject>PERCELER : Task ends</emailreportsubject>
+			<emailreportcontent>The following task ends. Please find here bellow its summary :</emailreportcontent>
+			<emailfooter>\r\nPERCELER : CNAF : Version 1.0</emailfooter>
+			<migrated>migrated</migrated>
+			<tomigrate>To migrate</tomigrate>
+			<preaudit>Pre audit</preaudit>
+			<update>Update</update>
+			<rollback>Rollback</rollback>
+			<reset>Reset</reset>
+			<postaudit>Post audit</postaudit>
+			<done>Done</done>
+			<error>Error</error>
+			<phone>Phones</phone>
+			<found>found</found>
+			<lost>lost</lost>
+			<isr>MG</isr>
+			<vg>VG</vg>
+			<audiocode>Audiocode</audiocode>
+			<office>Office</office>
+			<sip>SIP</sip>
+			<ascom>Ascom</ascom>
+			<unknownoffice>Unknown Office</unknownoffice>
+		</values>
+	</language>
+	<language>
+		<misc>
+			<name>french</name>
+		</misc>
+		<values>
+			<!--Misc-->
+			<selectbutton>Sélectionner</selectbutton>
+			<submitbutton>Valider</submitbutton>
+			<cancelbutton>Annuler</cancelbutton>
+			<yes>Oui</yes>
+			<no>Non</no>
+			<error>Erreur</error>
+			<emailreportsubject>PERCELER : Action terminée</emailreportsubject>
+			<emailreportcontent>Bonjour,\r\nUne action de migration vient de se terminer.\r\nVeuillez trouvez ci-dessous son compte rendu :\r\n</emailreportcontent>
+			<emailfooter>CNAF</emailfooter>
+			<migrated>Migré</migrated>
+			<tomigrate>A migrer</tomigrate>
+			<preaudit>Audit préparatoire</preaudit>
+			<update>Migration</update>
+			<rollback>Retour arrière</rollback>
+			<reset>Reset</reset>
+			<postaudit>Audit post opération</postaudit>
+			<done>Terminé</done>
+			<error>Erreur</error>
+			<phone>Téléphones</phone>
+			<found>Trouvés</found>
+			<lost>Perdus</lost>
+			<isr>MG</isr>
+			<vg>VG</vg>
+			<audiocode>Audiocode</audiocode>
+			<office>SITE (CAF ou ANT)</office>
+			<sip>Portier IP</sip>
+			<ascom>Ascom</ascom>
+			<unknownoffice>Site inconnu</unknownoffice>
+		</values>
+	</language>
+</languages>

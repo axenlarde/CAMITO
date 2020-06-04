@@ -1,0 +1,398 @@
+<!--
+#################
+PERCELER
+Api command list
+#################
+
+All request are followed by their reply
+Example :
+The doAuthenticate request :
+<xml>
+	<request>
+		<type>doAuthenticate</type>
+		<content>
+			<userid>alexandre.ratel</userid>
+			<userpassword>password</userpassword>
+		</content>
+	</request>
+</xml>
+
+Will get the following reply from the server :
+<xml>
+	<reply>
+		<type>success</type>
+		<content>
+			</success>
+		</content>
+	</reply>
+</xml>
+-->
+
+<!--doAuthenticate-->
+<xml>
+	<request>
+		<type>doAuthenticate</type>
+		<content>
+			<userid>alexandre.ratel</userid>
+			<userpassword>password</userpassword>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>success</type><!--success, error-->
+		<content>
+			</success><!--success, error-->
+		</content>
+	</reply>
+</xml>
+
+<!--search-->
+<xml>
+	<request>
+		<type>search</type>
+		<content>
+			<search></search><!--The search content-->
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>search</type>
+		<content>
+			<offices>
+				<office><!--One or more office-->
+					<id></id>
+					<idcomu></idcomu>
+					<fullname></fullname>
+					<newname></newname>
+					<status></status>
+					<devices>
+						<device><!--One or more device-->
+							<id></id>
+							<name></name>
+							<type></type>
+							<ip></ip>
+							<status></status>
+						</device>
+					</devices>
+				</office>
+			</offices>
+			<devices>
+				<device><!--One or more device-->
+					<id></id>
+					<name></name>
+					<type></type>
+					<ip></ip>
+					<officeid></officeid>
+					<officename></officename>
+					<status></status>
+				</device>
+			</devices>
+		</content>
+	</reply>
+</xml>
+
+<!--getOfficeList-->
+<xml>
+	<request>
+		<type>getOfficeList</type>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>getOfficeList</type>
+		<content>
+			<offices>
+				<office><!--One or more office-->
+					<id></id>
+					<idcomu></idcomu>
+					<idcaf></idcaf>
+					<fullname></fullname>
+					<shortname></shortname>
+					<newname></newname>
+					<officetype></officetype>
+					<voiceiprange></voiceiprange>
+					<dataiprange></dataiprange>
+					<newvoiceiprange></newvoiceiprange>
+					<newdataiprange></newdataiprange>
+				</office>
+			</offices>
+		</content>
+	</reply>
+</xml>
+
+<!--getDeviceList-->
+<xml>
+	<request>
+		<type>getDeviceList</type>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>getDeviceList</type>
+		<content>
+			<devices>
+				<device><!--One or more device-->
+					<id></id>
+					<name></name>
+					<type></type>
+					<ip></ip>
+					<mask></mask>
+					<gateway></gateway>
+					<newip></newip>
+					<newmask></newmask>
+					<newgateway></newgateway>
+					<officeid></officeid>
+				</device>
+			</devices>
+		</content>
+	</reply>
+</xml>
+
+<!--getTaskList-->
+<xml>
+	<request>
+		<type>getTaskList</type>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>getTaskList</type>
+		<content>
+			<tasks>
+				<task><!--One or more task-->
+					<id></id>
+					<overallstatus>done</overallstatus><!--The current step--><!--init,preaudit,migration,postaudit,done,error-->
+					<itemlist>
+						<item><!--One or more item-->
+							<id></id>
+							<status>done</status><!--init,preaudit,migration,postaudit,done,error-->
+							<desc></desc><!--Description in case of error or warning-->
+						</item>
+					</itemlist>
+				</task>
+			</tasks>
+		</content>
+	</reply>
+</xml>
+
+<!--getOffice-->
+<xml>
+	<request>
+		<type>getOffice</type>
+		<content>
+			<officeid></officeid>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>getOffice</type>
+		<content>
+			<office>
+				<id></id>
+				<idcomu></idcomu>
+				<idcaf></idcaf>
+				<fullname></fullname>
+				<shortname></shortname>
+				<newname></newname>
+				<officetype></officetype>
+				<voiceiprange></voiceiprange>
+				<dataiprange></dataiprange>
+				<newvoiceiprange></newvoiceiprange>
+				<newdataiprange></newdataiprange>
+				<devices>
+					<device><!--One or more device-->
+						<id></id>
+						<name></name>
+						<type></type>
+						<ip></ip>
+						<status></status>
+					</device>
+				</devices>
+			</office>
+		</content>
+	</reply>
+</xml>
+
+<!--getDevice-->
+<xml>
+	<request>
+		<type>getDevice</type>
+		<content>
+			<deviceid></deviceid>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>getDevice</type>
+		<content>
+			<device>
+				<id></id>
+				<name></name>
+				<type></type>
+				<ip></ip>
+				<mask></mask>
+				<gateway></gateway>
+				<newip></newip>
+				<newmask></newmask>
+				<newgateway></newgateway>
+				<officeid></officeid>
+			</device>
+		</content>
+	</reply>
+</xml>
+
+<!--getTask-->
+<xml>
+	<request>
+		<type>getTask</type>
+		<content>
+			<taskid></taskid><!--If empty will return the current task-->
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>getTask</type>
+		<content>
+			<task>
+				<id></id>
+				<overallstatus></overallstatus><!--The current status--><!--init,preaudit,migration,postaudit,done,error-->
+				<itemlist>
+					<item><!--One or more item-->
+						<id></id>
+						<type></type>
+						<info></info>
+						<status></status><!--init,preaudit,migration,postaudit,done,error-->
+						<desc></desc><!--Description in case of error or warning-->
+					</item>
+				</itemlist>
+			</task>
+		</content>
+	</reply>
+</xml>
+
+<!--newTask-->
+<xml>
+	<request>
+		<type>newTask</type>
+		<content>
+			<action></action><!--update,rollback,reset-->
+			<ownerid></ownerid><!--The user id of the task owner-->
+			<itemlist>
+				<itemid></itemid><!--One or more item id-->
+			</itemlist>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>newTask</type>
+		<content>
+			<taskid>mkjmljmlkml</taskid>
+		</content>
+	</reply>
+</xml>
+
+<!--setTask-->
+<xml>
+	<request>
+		<type>setTask</type>
+		<content>
+			<task>
+				<taskid></taskid><!--Task ID-->
+				<action></action><!--Task action--><!--start,stop,pause-->
+			</task>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>success</type><!--success, error-->
+		<content>
+			</success><!--success, error-->
+		</content>
+	</reply>
+</xml>
+
+<!--copyLogFile-->
+<xml>
+	<request>
+		<type>copyLogFile</type>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>success</type><!--success, error-->
+		<content>
+			</success><!--success, error-->
+		</content>
+	</reply>
+</xml>
+
+<!--newDevice-->
+<xml>
+	<request>
+		<type>newDevice</type>
+		<content>
+			<device>
+				<name></name>
+				<type></type>
+				<ip></ip>
+				<mask></mask>
+				<gateway></gateway>
+				<newip></newip>
+				<newmask></newmask>
+				<newgateway></newgateway>
+				<officeid></officeid>
+				<user></user>
+				<password></password>
+				<protocol></protocol>
+			</device>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>success</type><!--success, error-->
+		<content>
+			</success><!--success, error-->
+		</content>
+	</reply>
+</xml>
+
+<!--newOffice-->
+<xml>
+	<request>
+		<type>newOffice</type>
+		<content>
+			<office>
+				<idcomu></idcomu>
+				<idcaf></idcaf>
+				<fullname></fullname>
+				<shortname></shortname>
+				<newname></newname>
+				<officetype></officetype>
+				<voiceiprange></voiceiprange>
+				<dataiprange></dataiprange>
+				<newvoiceiprange></newvoiceiprange>
+				<newdataiprange></newdataiprange>
+			</office>
+		</content>
+	</request>
+</xml>
+<xml>
+	<reply>
+		<type>success</type><!--success, error-->
+		<content>
+			</success><!--success, error-->
+		</content>
+	</reply>
+</xml>

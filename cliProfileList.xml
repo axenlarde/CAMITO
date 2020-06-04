@@ -1,0 +1,286 @@
+<!--
+Gateway config file
+-->
+<xml>
+	<profiles>
+		<profile>
+			<misc>
+				<name>ISR</name>
+				<type>ISR</type>
+				<defaultintercommandtimer>50</defaultintercommandtimer>
+			</misc>
+			<howtoconnect>
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<config>
+				<connect>device.ip</connect>
+				<write>enable</write>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload in 5</write>
+				<write></write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write>configure terminal</write>
+				<!--SRST-->
+				<write>voice register pool 1</write>
+				<write>'no id network '+office.voiceiprange.subnet+' mask '+office.voiceiprange.longmask</write>
+				<write>'id network '+office.newvoiceiprange.subnet+' mask '+office.newvoiceiprange.longmask</write>
+				<write>translation-profile incoming from-ipphone_SRST</write>
+				<write>translation-profile outgoing to-ipphone_SRST</write>
+				<write>dtmf-relay rtp-nte</write>
+				<write>voice-class codec 1</write>
+				<write>no vad</write>
+				<write></write>
+				<write>voice register pool 3</write>
+				<write>translation-profile incoming from-ipphone_SRST</write>
+				<write>translation-profile outgoing to-ipphone_SRST</write>
+				<write>'id network '+office.newdataiprange.subnet+' mask '+office.newdataiprange.longmask</write>
+				<write>dtmf-relay rtp-nte</write>
+				<write>voice-class codec 1</write>
+				<write>no vad</write>
+				<write></write>
+				<write>call-manager-fallback</write>
+				<write>'no ip source-address '+device.ip+' port 2000'</write>
+				<write>'ip source-address '+device.newip+' port 2000'</write>
+				<write>shut</write>
+				<write>no shut</write>
+				<write></write>
+				<!--IP-->
+				<write>'ip route 0.0.0.0 0.0.0.0 '+device.newgateway</write>
+				<write>interface GigabitEthernet0/0</write>
+				<write>'ip address '+device.newip+' '+device.newmask</write>
+				<disconnect></disconnect>
+				<connect>device.newip</connect>
+				<write>configure terminal</write>
+				<!--Cleaning-->
+				<write>'no ip route 0.0.0.0 0.0.0.0 '+device.gateway</write>
+				<write>no interface Loopback0</write>
+				<write>no ip tftp source-interface Loopback0</write>
+				<write>no interface GigabitEthernet0/0.4011</write>
+				<write>no ip route 193.105.90.0 255.255.255.0 10.10.200.1 name ADMIN</write>
+				<write>no ip route 194.250.187.0 255.255.255.128 10.10.200.1 name ADMIN</write>
+				<!--Misc-->
+				<write>ntp server 172.20.4.249</write>
+				<write>end</write>
+				<!--End-->
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload cancel</write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write></write>
+			</config>
+		</profile>
+		<profile>
+			<misc>
+				<name>GW1</name>
+				<type>ISR</type>
+				<defaultintercommandtimer>50</defaultintercommandtimer>
+			</misc>
+			<howtoconnect>
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<config>
+				<connect>device.ip</connect>
+				<write>enable</write>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload in 5</write>
+				<write></write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write>configure terminal</write>
+				<!--SRST-->
+				<write>voice register pool 1</write>
+				<write>'no id network '+office.voiceiprange.subnet+' mask '+office.voiceiprange.longmask</write>
+				<write>'id network '+office.newvoiceiprange.subnet+' mask '+office.newvoiceiprange.longmask</write>
+				<write>translation-profile incoming from-ipphone_SRST</write>
+				<write>translation-profile outgoing to-ipphone_SRST</write>
+				<write>dtmf-relay rtp-nte</write>
+				<write>voice-class codec 1</write>
+				<write>no vad</write>
+				<write></write>
+				<write>voice register pool 3</write>
+				<write>translation-profile incoming from-ipphone_SRST</write>
+				<write>translation-profile outgoing to-ipphone_SRST</write>
+				<write>'id network '+office.newdataiprange.subnet+' mask '+office.newdataiprange.longmask</write>
+				<write>dtmf-relay rtp-nte</write>
+				<write>voice-class codec 1</write>
+				<write>no vad</write>
+				<write></write>
+				<write>call-manager-fallback</write>
+				<write>'no ip source-address '+device.ip+' port 2000'</write>
+				<write>'ip source-address '+device.newip+' port 2000'</write>
+				<write>shut</write>
+				<write>no shut</write>
+				<write></write>
+				<!--IP-->
+				<write>'ip route 0.0.0.0 0.0.0.0 '+device.newgateway</write>
+				<write>interface GigabitEthernet0/0</write>
+				<write>'ip address '+device.newip+' '+device.newmask</write>
+				<disconnect></disconnect>
+				<connect>device.newip</connect>
+				<write>configure terminal</write>
+				<!--GW2-->
+				<write>dial-peer voice 101 voip</write>
+				<write>'session target ipv4:'+*1S\\.*device.newip+'.'+*2S\\.*device.newip+'.'+*3S\\.*device.newip+'.3'</write>
+				<write>dial-peer voice 102 voip</write>
+				<write>'session target ipv4:'+*1S\\.*device.newip+'.'+*2S\\.*device.newip+'.'+*3S\\.*device.newip+'.3'</write>
+				<!--Cleaning-->
+				<write>'no ip route 0.0.0.0 0.0.0.0 '+device.gateway</write>
+				<write>no interface Loopback0</write>
+				<write>no ip tftp source-interface Loopback0</write>
+				<write>no interface GigabitEthernet0/0.4011</write>
+				<write>no ip route 193.105.90.0 255.255.255.0 10.10.200.1 name ADMIN</write>
+				<write>no ip route 194.250.187.0 255.255.255.128 10.10.200.1 name ADMIN</write>
+				<!--Misc-->
+				<write>ntp server 172.20.4.249</write>
+				<write>end</write>
+				<!--End-->
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload cancel</write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write></write>
+			</config>
+		</profile>
+		<profile>
+			<misc>
+				<name>GW2</name>
+				<type>ISR</type>
+				<defaultintercommandtimer>50</defaultintercommandtimer>
+			</misc>
+			<howtoconnect>
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<config>
+				<connect>device.ip</connect>
+				<write>enable</write>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload in 5</write>
+				<write></write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write>configure terminal</write>
+				<!--IP-->
+				<write>'ip route 0.0.0.0 0.0.0.0 '+device.newgateway</write>
+				<write>interface GigabitEthernet0/0</write>
+				<write>'ip address '+device.newip+' '+device.newmask</write>
+				<disconnect></disconnect>
+				<connect>device.newip</connect>
+				<write>configure terminal</write>
+				<!--GW1-->
+				<write>dial-peer voice 100 voip</write>
+				<write>'session target ipv4:'+*1S\\.*device.newip+'.'+*2S\\.*device.newip+'.'+*3S\\.*device.newip+'.2'</write>
+				<!--Cleaning-->
+				<write>'no ip route 0.0.0.0 0.0.0.0 '+device.gateway</write>
+				<write>no interface Loopback0</write>
+				<write>no ip tftp source-interface Loopback0</write>
+				<write>no interface GigabitEthernet0/0.4011</write>
+				<write>no ip route 193.105.90.0 255.255.255.0 10.10.200.1 name ADMIN</write>
+				<write>no ip route 194.250.187.0 255.255.255.128 10.10.200.1 name ADMIN</write>
+				<!--Misc-->
+				<write>ntp server 172.20.4.249</write>
+				<write>end</write>
+				<!--End-->
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload cancel</write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write></write>
+			</config>
+		</profile>
+		<profile>
+			<misc>
+				<name>VG</name>
+				<type>VG</type>
+				<defaultintercommandtimer>50</defaultintercommandtimer>
+			</misc>
+			<howtoconnect>
+				<waitfor>User</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<config>
+				<connect>device.ip</connect>
+				<write>enable</write>
+				<write>configure terminal</write>
+				<write>end</write>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload in 5</write>
+				<write></write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write>configure terminal</write>
+				<!--IP-->
+				<write>'ip route 0.0.0.0 0.0.0.0 '+device.newgateway</write>
+				<write>interface fastethernet 0/0</write>
+				<write>'ip address '+device.newip+' '+device.newmask</write>
+				<disconnect></disconnect>
+				<connect>device.newip</connect>
+				<write>configure terminal</write>
+				<!--Cleaning-->
+				<write>'no ip route 0.0.0.0 0.0.0.0 '+device.gateway</write>
+				<write>no interface Loopback0</write>
+				<write>no ip route 193.105.90.0 255.255.255.0 10.10.200.1 name ADMIN</write>
+				<write>no ip route 194.250.187.0 255.255.255.128 10.10.200.1 name ADMIN</write>
+				<!--Misc-->
+				<write>ntp server 172.20.4.249</write>
+				<write>end</write>
+				<!--End-->
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+				<write>reload cancel</write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write></write>
+			</config>
+		</profile>
+		<profile>
+			<misc>
+				<name>Audiocode</name>
+				<type>AUDIOCODE</type>
+				<defaultintercommandtimer>50</defaultintercommandtimer>
+			</misc>
+			<howtoconnect>
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<config>
+				<connect>device.ip</connect>
+				<write></write>
+				<write>conf</write>
+				<write>ConfigFile set</write>
+				<write>'InterfaceTable 0 = 6, 10, '+device.newip+', '+device.newshortmask+', '+device.newgateway+', 200, analog, 0.0.0.0, 0.0.0.0</write>
+				<write>.</write>
+				<write></write>
+				<write>sar</write>
+				<disconnect></disconnect>
+				<wait>40000</wait>
+				<connect>device.ip</connect>
+				<write></write>
+				<write>conf</write>
+				<write>'SCP IP '+device.newip+' '+device.newmask+' '+device.newgateway</write>
+				<disconnect></disconnect>
+				<wait>40000</wait>
+				<connect>device.newip</connect>
+				<write></write>
+				<write>conf</write>
+				<write>sar</write>
+				<write></write>
+			</config>
+		</profile>
+	</profiles>
+</xml>

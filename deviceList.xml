@@ -1,0 +1,61 @@
+<xml>
+	<devices>
+		<device>
+			<id>1101</id>
+			<name>SEPF81CE50043B1</name>
+			<type>Device SIP</type>
+			<ascomtype></ascomtype>
+			<ip>20.158.42.4</ip>
+			<mask>255.255.255.268</mask>
+			<gateway>127.0.0.269</gateway>
+			<protocol>telnet</protocol>
+			<user>admin</user>
+			<password>changeme</password>
+			<cliprofile></cliprofile>
+			<officeid>285103</officeid>
+			<officefullname>851-ANT-CHALLANS</officefullname>
+			<newip>10.85.36.5</newip>
+			<newmask>255.255.254.0</newmask>
+			<newgateway>10.85.36.1</newgateway>
+			<description></description>
+		</device>
+		<device>
+			<id>1102</id>
+			<name>SEPF81CE5F0017C</name>
+			<type>Device SIP</type>
+			<ascomtype></ascomtype>
+			<ip>20.158.50.2</ip>
+			<mask>255.255.255.269</mask>
+			<gateway>127.0.0.270</gateway>
+			<protocol>telnet</protocol>
+			<user>admin</user>
+			<password>changeme</password>
+			<cliprofile></cliprofile>
+			<officeid>285102</officeid>
+			<officefullname>851-ANT-LESSABLES</officefullname>
+			<newip>10.85.60.5</newip>
+			<newmask>255.255.254.0</newmask>
+			<newgateway>10.85.60.1</newgateway>
+			<description></description>
+		</device>
+		<device>
+			<id>1103</id>
+			<name>SEPF81CE50043E5</name>
+			<type>Device SIP</type>
+			<ascomtype></ascomtype>
+			<ip>20.158.58.130</ip>
+			<mask>255.255.255.0</mask>
+			<gateway>127.0.0.1</gateway>
+			<protocol>telnet</protocol>
+			<user>admin</user>
+			<password>changeme</password>
+			<cliprofile></cliprofile>
+			<officeid>285106</officeid>
+			<officefullname>851-ANT-HERBIERS</officefullname>
+			<newip>10.85.52.5</newip>
+			<newmask>255.255.254.0</newmask>
+			<newgateway>10.85.52.1</newgateway>
+			<description></description>
+		</device>
+	</devices>
+</xml>
