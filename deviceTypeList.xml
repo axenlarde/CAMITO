@@ -1,0 +1,85 @@
+<!--
+List the device type and their specifications
+such as the way to authenticate
+-->
+
+<xml>
+	<devices>
+		<device>
+			<name>ISR</name>
+			<vendor>Cisco</vendor>
+			<howtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<howtosave>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+			</howtosave>
+			<howtoreboot>
+				<write>reload</write>
+				<write></write>
+				<disconnect></disconnect>
+			</howtoreboot>
+		</device>
+		<device>
+			<name>VG</name>
+			<vendor>Cisco</vendor>
+			<howtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<howtosave>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+			</howtosave>
+			<howtoreboot>
+				<write>reload</write>
+				<write></write>
+				<disconnect></disconnect>
+			</howtoreboot>
+		</device>
+		<device>
+			<name>DECT</name>
+			<vendor>Ascom</vendor>
+			<howtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<howtosave>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+			</howtosave>
+			<howtoreboot>
+				<write>reload</write>
+				<write></write>
+				<disconnect></disconnect>
+			</howtoreboot>
+		</device>
+		<device>
+			<name>SIP</name>
+			<vendor>Misc</vendor>
+			<howtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.user</write>
+				<write>device.password</write>
+			</howtoconnect>
+			<howtosave>
+				<write>copy running-config startup-config</write>
+				<write></write>
+				<waitfor>[OK]</waitfor>
+			</howtosave>
+			<howtoreboot>
+				<write>reload</write>
+				<write></write>
+				<disconnect></disconnect>
+			</howtoreboot>
+		</device>
+	</devices>
+</xml>

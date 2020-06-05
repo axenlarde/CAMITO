@@ -1,0 +1,17 @@
+<!--
+CallManager Group list
+-->
+<xml>
+	<cmgs>
+		<cmg>
+			<name>SUB1_SUB4_CMG</name>
+			<cucm1>10.102.118.151</cucm1>
+			<cucm2>10.102.118.154</cucm2>
+		</cmg>
+		<cmg>
+			<name>SUB2_SUB3_CMG</name>
+			<cucm1>10.102.118.152</cucm1>
+			<cucm2>10.102.118.153</cucm2>
+		</cmg>
+	</cmgs>
+</xml>
