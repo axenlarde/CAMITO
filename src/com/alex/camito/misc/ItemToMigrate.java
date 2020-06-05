@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ActionType;
-import com.alex.camito.utils.Variables.ItmType;
 import com.alex.camito.utils.Variables.StatusType;
 
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.alex.camito.device.Ascom;
-import com.alex.camito.device.BasicAscom;
 import com.alex.camito.device.BasicDevice;
 import com.alex.camito.device.Device;
 import com.alex.camito.misc.ItemToMigrate;
@@ -55,8 +53,7 @@ public class TaskManager
 						{
 						if(d.getId().equals(s))
 							{
-							if(d instanceof BasicAscom)todoList.add(new Ascom((BasicAscom)d, action));
-							else todoList.add(new Device(d, action));
+							todoList.add(new Device(d, action));
 							found = true;
 							break;
 							}

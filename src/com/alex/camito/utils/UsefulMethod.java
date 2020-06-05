@@ -21,27 +21,31 @@ import org.apache.commons.net.util.SubnetUtils.SubnetInfo;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.apache.log4j.Level;
 
+import com.alex.camito.cli.CliGetOutput;
 import com.alex.camito.cli.CliProfile;
 import com.alex.camito.cli.CliProfile.cliProtocol;
 import com.alex.camito.cli.OneLine;
 import com.alex.camito.cli.OneLine.cliType;
-import com.alex.camito.device.BasicAscom;
 import com.alex.camito.device.BasicDevice;
 import com.alex.camito.device.BasicPhone;
+import com.alex.camito.device.Device;
+import com.alex.camito.device.DeviceType;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.Did;
 import com.alex.camito.misc.Did.DidType;
 import com.alex.camito.misc.IPRange;
+import com.alex.camito.misc.ItmType;
+import com.alex.camito.misc.ItmType.TypeName;
 import com.alex.camito.misc.SimpleItem.basicItemStatus;
 import com.alex.camito.misc.SimpleRequest;
 import com.alex.camito.misc.ValueMatcher;
 import com.alex.camito.office.misc.BasicOffice;
+import com.alex.camito.office.misc.CMG;
+import com.alex.camito.office.misc.CMG.CMGName;
 import com.alex.camito.risport.RisportTools;
 import com.alex.camito.utils.Variables.AscomType;
-import com.alex.camito.utils.Variables.CMG;
 import com.alex.camito.utils.Variables.CucmVersion;
 import com.alex.camito.utils.Variables.ItemType;
-import com.alex.camito.utils.Variables.ItmType;
 import com.alex.camito.utils.Variables.Lot;
 import com.alex.camito.utils.Variables.OfficeType;
 import com.alex.camito.utils.Variables.StatusType;
@@ -337,10 +341,100 @@ public class UsefulMethod
 	public static void initDatabase() throws Exception
 		{
 		Variables.setMigratedItemList(initMigratedItemList());
+		Variables.setDeviceTypeList(initDeviceTypeList());
 		Variables.setCliProfileList(initCliProfileList());
 		Variables.setDeviceList(initDeviceList());
 		Variables.setDidList(initDidList());
+		Variables.setCmgList(initCmgList());
 		Variables.setOfficeList(initOfficeList());
+		}
+	
+	/************
+	 * Method used to initialize the Device Type list from
+	 * the xml file
+	 */
+	public static ArrayList<DeviceType> initDeviceTypeList() throws Exception
+		{
+		ArrayList<String> listParams = new ArrayList<String>();
+		ArrayList<String[][]> result;
+		ArrayList<ArrayList<String[][]>> extendedList;
+		ArrayList<DeviceType> deviceTypeList = new ArrayList<DeviceType>();
+		
+		Variables.getLogger().info("Initializing the Device Type list from collection file");
+		
+		listParams.add("devices");
+		listParams.add("device");
+		result = xMLGear.getResultListTab(UsefulMethod.getFlatFileContent(Variables.getDeviceTypeListFileName()), listParams);
+		extendedList = xMLGear.getResultListTabExt(UsefulMethod.getFlatFileContent(Variables.getDeviceTypeListFileName()), listParams);
+		
+		for(int i=0; i<result.size(); i++)
+			{
+			try
+				{
+				String[][] tab = result.get(i);
+				
+				/**
+				 * First we check for duplicates
+				 */
+				String DeviceTypeName = UsefulMethod.getItemByName("name", tab);
+				boolean found = false;
+				for(DeviceType dt : deviceTypeList)
+					{
+					if(dt.getName().equals(DeviceTypeName))
+						{
+						Variables.getLogger().debug("Duplicate found, do not adding the following device type : "+DeviceTypeName);
+						found = true;
+						break;
+						}
+					}
+				if(found)continue;
+				
+				ArrayList<String[][]> tabE = extendedList.get(i);
+				
+				ArrayList<OneLine> howToConnect = new ArrayList<OneLine>();
+				ArrayList<OneLine> howToSave = new ArrayList<OneLine>();
+				ArrayList<OneLine> howToReboot = new ArrayList<OneLine>();
+				
+				for(int j=0; j<tab.length; j++)
+					{
+					if(tab[j][0].equals("howtoconnect"))
+						{
+						for(String[] s : tabE.get(j))
+							{
+							howToConnect.add(new OneLine(s[1],cliType.valueOf(s[0])));
+							}
+						}
+					else if(tab[j][0].equals("howtosave"))
+						{
+						for(String[] s : tabE.get(j))
+							{
+							howToSave.add(new OneLine(s[1],cliType.valueOf(s[0])));
+							}
+						}
+					else if(tab[j][0].equals("howtoreboot"))
+						{
+						for(String[] s : tabE.get(j))
+							{
+							howToReboot.add(new OneLine(s[1],cliType.valueOf(s[0])));
+							}
+						}
+					}
+				
+				deviceTypeList.add(new DeviceType((UsefulMethod.getItemByName("name", tab).toLowerCase()),
+						UsefulMethod.getItemByName("vendor", tab),
+						howToConnect,
+						howToSave,
+						howToReboot));
+				}
+			catch (Exception e)
+				{
+				Variables.getLogger().error("Failed to load a new Device Type : "+e.getMessage(), e);
+				}
+			}
+		
+		Variables.getLogger().debug(deviceTypeList.size()+" device type found");
+		Variables.getLogger().debug("Device Type list initialization done");
+		return deviceTypeList;
 		}
 	
 	/**
@@ -361,30 +455,31 @@ public class UsefulMethod
 			
 			for(String[][] s : content)
 				{
+				String ip = UsefulMethod.getItemByName("ip", s);
+				
+				/**
+				 * We avoid duplicate
+				 */
+				boolean found = false;
+				for(BasicDevice bd : deviceList)
+					{
+					if(bd.getIp().equals(ip))
+						{
+						Variables.getLogger().debug(bd.getInfo()+ " : Device ip duplicate found so we do not add the following new device : "+ip);
+						found = true;
+						break;
+						}
+					}
+				
+				if(found)continue;
+				
 				try
 					{
-					ItmType type = getITMType(UsefulMethod.getItemByName("type", s));
-					BasicDevice d;
+					TypeName type = getITMType(UsefulMethod.getItemByName("type", s));
 					
-					if(type.equals(ItmType.ascom))
-						{
-						d = new BasicAscom(type,
+					BasicDevice	d = new BasicDevice(UsefulMethod.getDeviceType(type.name()),
 								UsefulMethod.getItemByName("name", s),
-								UsefulMethod.getItemByName("ip", s),
-								UsefulMethod.getItemByName("mask", s),
-								UsefulMethod.getItemByName("gateway", s),
-								UsefulMethod.getItemByName("officeid", s),
-								UsefulMethod.getItemByName("user", s),
-								UsefulMethod.getItemByName("password", s),
-								getCliProfile(UsefulMethod.getItemByName("cliprofile", s)),
-								getProtocolType(UsefulMethod.getItemByName("protocol", s)),
-								getAscomType(UsefulMethod.getItemByName("ascomtype", s)));
-						}
-					else
-						{
-						d = new BasicDevice(type,
-								UsefulMethod.getItemByName("name", s),
-								UsefulMethod.getItemByName("ip", s),
+								ip,
 								UsefulMethod.getItemByName("mask", s),
 								UsefulMethod.getItemByName("gateway", s),
 								UsefulMethod.getItemByName("officeid", s),
@@ -392,31 +487,13 @@ public class UsefulMethod
 								UsefulMethod.getItemByName("password", s),
 								getCliProfile(UsefulMethod.getItemByName("cliprofile", s)),
 								getProtocolType(UsefulMethod.getItemByName("protocol", s)));
-						}
 					
-					/**
-					 * We avoid duplicate
-					 */
-					boolean found = false;
-					for(BasicDevice bd : deviceList)
-						{
-						if(bd.getIp().equals(d.getIp()))
-							{
-							Variables.getLogger().debug(bd.getInfo()+ " : Device ip duplicate found so we do not add the following new device : "+d.getInfo());
-							found = true;
-							break;
-							}
-						}
-					
-					if(!found)
-						{
-						Variables.getLogger().debug("New device added to the device list : "+d.getInfo());
-						deviceList.add(d);
-						}
+					Variables.getLogger().debug("New device added to the device list : "+d.getInfo());
+					deviceList.add(d);
 					}
 				catch (Exception e)
 					{
-					Variables.getLogger().error("Could not add the following device : "+UsefulMethod.getItemByName("name", s)+" : "+e.getMessage());
+					Variables.getLogger().error("Could not add the following device : "+ip+" : "+e.getMessage());
 					}
 				}
 			Variables.getLogger().debug(deviceList.size()+ " devices found in the database");
@@ -446,11 +523,29 @@ public class UsefulMethod
 			
 			for(String[][] s : content)
 				{
+				String didS = UsefulMethod.getItemByName("dn", s);
+				
+				/**
+				 * We avoid duplicate
+				 */
+				boolean found = false;
+				for(Did d : didList)
+					{
+					if(d.getDid().equals(didS))
+						{
+						Variables.getLogger().debug("DID duplicate found so we do not add the following new DID : "+didS);
+						found = true;
+						break;
+						}
+					}
+				
+				if(found)continue;
+				
 				try
 					{
 					DidType didType = DidType.none; 
 					String sType = UsefulMethod.getItemByName("type", s);
-					String internalNumber = UsefulMethod.getItemByName("internalNumber", s);
+					String internalNumber = UsefulMethod.getItemByName("internal", s);
 					
 					if(!internalNumber.isEmpty() && sType.isEmpty())
 						{
@@ -465,32 +560,15 @@ public class UsefulMethod
 						didType = DidType.phone;
 						}
 					
-					Did did = new Did(UsefulMethod.getItemByName("officeid", s),
-							UsefulMethod.getItemByName("did", s),
-							UsefulMethod.getItemByName("internalNumber", s),
+					Did did = new Did(UsefulMethod.getItemByName("coda", s),
+							didS,
+							internalNumber,
 							UsefulMethod.getItemByName("description", s),
-							(UsefulMethod.getItemByName("toTest", s).isEmpty()?false:true),
+							(UsefulMethod.getItemByName("totest", s).isEmpty()?false:true),
 							didType);
 					
-					/**
-					 * We avoid duplicate
-					 */
-					boolean found = false;
-					for(Did d : didList)
-						{
-						if(did.getDid().equals(d.getDid()))
-							{
-							Variables.getLogger().debug("DID duplicate found so we do not add the following new DID : "+d.getDid());
-							found = true;
-							break;
-							}
-						}
-					
-					if(!found)
-						{
-						Variables.getLogger().debug("New DID added to the DID list : "+did.getDid());
-						didList.add(did);
-						}
+					Variables.getLogger().debug("New DID added to the DID list : "+did.getDid());
+					didList.add(did);
 					}
 				catch (Exception e)
 					{
@@ -503,6 +581,64 @@ public class UsefulMethod
 		catch (Exception e)
 			{
 			throw new Exception("ERROR while initializing the DID list : "+e.getMessage(),e);
+			}
+		}
+	
+	/**
+	 * Method used to initialize the CMG list from
+	 * the collection file
+	 */
+	public static ArrayList<CMG> initCmgList() throws Exception
+		{
+		try
+			{
+			Variables.getLogger().info("Initializing the CMG list from collection file");
+			ArrayList<CMG> cmgList = new ArrayList<CMG>();
+			ArrayList<String> params = new ArrayList<String>();
+			params.add("cmgs");
+			params.add("cmg");
+			
+			ArrayList<String[][]> content = xMLGear.getResultListTab(UsefulMethod.getFlatFileContent(Variables.getCmgListFileName()), params);
+			
+			for(String[][] s : content)
+				{
+				try
+					{
+					CMG cmg = new CMG(CMGName.valueOf(UsefulMethod.getItemByName("name",s).toUpperCase()),
+							UsefulMethod.getItemByName("cucm1",s),
+							UsefulMethod.getItemByName("cucm2",s));
+					
+					/**
+					 * We avoid duplicate
+					 */
+					boolean found = false;
+					for(CMG c : cmgList)
+						{
+						if(c.getName().equals(cmg.getName()))
+							{
+							Variables.getLogger().debug("CMG duplicate found so we do not add the following new CMG : "+c.getName());
+							found = true;
+							break;
+							}
+						}
+					
+					if(!found)
+						{
+						Variables.getLogger().debug("New CMG added to the CMG list : "+cmg.getName());
+						cmgList.add(cmg);
+						}
+					}
+				catch (Exception e)
+					{
+					Variables.getLogger().error("Could not add the following CMG : "+UsefulMethod.getItemByName("name", s)+" : "+e.getMessage());
+					}
+				}
+			Variables.getLogger().debug(cmgList.size()+ " CMG found in the database");
+			return cmgList;
+			}
+		catch (Exception e)
+			{
+			throw new Exception("ERROR while initializing the CMG list : "+e.getMessage(),e);
 			}
 		}
 	
@@ -524,9 +660,37 @@ public class UsefulMethod
 			
 			for(String[][] s : content)
 				{
-				String name = UsefulMethod.getItemByName("name", s);
 				String coda = UsefulMethod.getItemByName("coda", s);
+				String name = UsefulMethod.getItemByName("name", s);
+				
+				/**
+				 * We avoid duplicate
+				 */
+				boolean found = false;
+				for(BasicOffice bo : officeList)
+					{
+					if(bo.getCoda().equals(coda))
+						{
+						Variables.getLogger().debug(bo.getInfo()+ " : Office duplicate found so we do not add the following new office : "+coda+" "+name);
+						found = true;
+						break;
+						}
+					}
+				
+				if(found)continue;
+				
+				String devicePool = UsefulMethod.getItemByName("devicepool", s).toUpperCase();
 				ArrayList<Did> didList = new ArrayList<Did>();
+				ArrayList<BasicDevice> deviceList = new ArrayList<BasicDevice>();
+				
+				for(BasicDevice d : Variables.getDeviceList())
+					{
+					if(d.getOfficeid().equals(devicePool))
+						{
+						d.setOfficename(name);
+						deviceList.add(d);
+						}
+					}
 				
 				for(Did did : Variables.getDidList())
 					{
@@ -539,35 +703,19 @@ public class UsefulMethod
 							name,
 							UsefulMethod.getItemByName("pole", s),
 							UsefulMethod.getItemByName("dxi", s),
-							UsefulMethod.getItemByName("devicepool", s),
-							OfficeType.valueOf(UsefulMethod.getItemByName("officeType", s).toUpperCase()),
-							CMG.valueOf(UsefulMethod.getItemByName("cmg", s).toUpperCase()),
+							devicePool,
+							OfficeType.valueOf(UsefulMethod.getItemByName("type", s).toUpperCase()),
+							UsefulMethod.getCMG((UsefulMethod.getItemByName("cmg", s).toUpperCase())),
 							Lot.valueOf(UsefulMethod.getItemByName("lot",s).toUpperCase()),
-							didList);
+							didList,
+							deviceList);
 					
-					/**
-					 * We avoid duplicate
-					 */
-					boolean found = false;
-					for(BasicOffice bo : officeList)
-						{
-						if(bo.getCoda().equals(o.getCoda()))
-							{
-							Variables.getLogger().debug(bo.getInfo()+ " : Office duplicate found so we do not add the following new office : "+o.getInfo());
-							found = true;
-							break;
-							}
-						}
-					
-					if(!found)
-						{
-						Variables.getLogger().debug("New office added to the office list : "+o.getInfo());
-						officeList.add(o);
-						}
+					Variables.getLogger().debug("New office added to the office list : "+o.getInfo());
+					officeList.add(o);
 					}
 				catch (Exception e)
 					{
-					Variables.getLogger().error("Could not add the following office : "+name+" : "+e.getMessage());
+					Variables.getLogger().error("Could not add the following office : "+coda+" "+name+" : "+e.getMessage());
 					}
 				}
 			Variables.getLogger().debug(officeList.size()+ " offices found in the database");
@@ -606,7 +754,7 @@ public class UsefulMethod
 						if(i==0)//Misc
 							{
 							cp.setName(UsefulMethod.getItemByName("name", s));
-							cp.setType(getITMType(UsefulMethod.getItemByName("type", s)));
+							cp.setType(UsefulMethod.getDeviceType(getITMType(UsefulMethod.getItemByName("type", s)).name()));
 							cp.setDefaultInterCommandTimer(Integer.parseInt(UsefulMethod.getItemByName("defaultintercommandtimer", s)));
 							}
 						else if(i==1)//How to authenticate
@@ -1241,15 +1389,15 @@ public class UsefulMethod
 		
 		return false;
 		}
-	
-	public static ItmType findDeviceType(String type)
+	/*
+	public static TypeName findDeviceType(String type)
 		{
-		if(type.contains("ISR"))return ItmType.isr;
-		else if(type.contains("VG"))return ItmType.vg;
-		else if(type.contains("audiocode"))return ItmType.audiocode;
-		else if(type.contains("ascom"))return ItmType.ascom;
-		else return ItmType.sip;
-		}
+		if(type.contains("ISR"))return TypeName.isr;
+		else if(type.contains("VG"))return TypeName.vg;
+		else if(type.contains("audiocode"))return TypeName.audiocode;
+		else if(type.contains("ascom"))return TypeName.ascom;
+		else return TypeName.sip;
+		}*/
 	
 	/**
 	 * Used to check if the IP is in the subnet
@@ -1299,11 +1447,11 @@ public class UsefulMethod
 		return false;
 		}
 	
-	public static ItmType getITMType(String type) throws Exception
+	public static TypeName getITMType(String type) throws Exception
 		{
-		for(ItmType t : ItmType.values())
+		for(TypeName tn : ItmType.TypeName.values())
 			{
-			if(type.toLowerCase().replaceAll(" ", "").contains(t.name()))return t;
+			if(type.toLowerCase().replaceAll(" ", "").contains(tn.name()))return tn;
 			}
 		
 		throw new Exception("No itmType found for type : "+type);
@@ -1323,10 +1471,11 @@ public class UsefulMethod
 		{
 		for(cliProtocol p : cliProtocol.values())
 			{
-			if(protocol.toLowerCase().replaceAll(" ", "").equals(p.name()))return p;
+			if(protocol.toLowerCase().replaceAll(" ", "").contains(p.name().toLowerCase()))return p;
 			}
 		
-		throw new Exception("No cliProtocol found for protocol : "+protocol);
+		//throw new Exception("No cliProtocol found for protocol : "+protocol);
+		return null;
 		}
 	
 	/*****
@@ -1336,13 +1485,13 @@ public class UsefulMethod
 		{
 		for(CliProfile clip : Variables.getCliProfileList())
 			{
-			if(s.toLowerCase().replaceAll(" ", "").equals(clip.getName().toLowerCase()))return clip;
+			if(s.toLowerCase().replaceAll(" ", "").contains(clip.getName().toLowerCase()))return clip;
 			}
 		
 		//If we didn't find the pofile by name, we look for the profile type
 		for(CliProfile clip : Variables.getCliProfileList())
 			{
-			if(s.toLowerCase().replaceAll(" ", "").equals(clip.getType().name().toLowerCase()))return clip;
+			if(s.toLowerCase().replaceAll(" ", "").contains(clip.getType().getName().toLowerCase()))return clip;
 			}
 		
 		//throw new Exception("No CliProfile found for value : "+s);
@@ -1495,6 +1644,52 @@ public class UsefulMethod
 		}
 	
 	/**
+	 * used to get a CMG from the cmg list
+	 */
+	public static CMG getCMG(String name)
+		{
+		try
+			{
+			for(CMG cmg : Variables.getCmgList())
+				{
+				if(cmg.getName().equals(name))return cmg;
+				}
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().error("ERROR while looking for the cmg '"+name+"' : "+e.getMessage(),e);
+			}
+		
+		return null;
+		}
+	
+	/**
+	 * To get a cligetOutput from the associated device name
+	 */
+	public static CliGetOutput getCliGetOutput(Device d)
+		{
+		for(CliGetOutput cgo : Variables.getCliGetOutputList())
+			{
+			if(cgo.getDevice().getInfo().equals(d.getInfo()))return cgo;
+			}
+		
+		return null;
+		}
+	
+	/**
+	 * Used to get a deviceType from the list
+	 */
+	public static DeviceType getDeviceType(String deviceTypeName) throws Exception
+		{
+		for(DeviceType dt : Variables.getDeviceTypeList())
+			{
+			if(dt.getName().equals(deviceTypeName))return dt;
+			}
+		
+		throw new Exception("The given deviceType was not found : "+deviceTypeName);
+		}
+	
+	/**
 	 * Convert status to verbose String status
 	 */
 	public static String convertStatusToVerboseString(String status)
@@ -1563,6 +1758,27 @@ public class UsefulMethod
 		initRISConnectionToCUCM(dstcucm);
 		Variables.getLogger().debug("Destination CUCM done !");
 		Variables.setDstcucm(dstcucm);
+		}
+	
+	public static boolean isItInThisLot(String name, BasicOffice office)
+		{
+		Lot lot = getLot(name);
+		
+		if((lot != null) && (office.getLot().equals(lot)))return true;
+		
+		return false;
+		}
+	
+	public static Lot getLot(String name)
+		{
+		if(name.toLowerCase().contains("lot"))
+			{
+			if(name.contains("1"))return Lot.A;
+			else if(name.contains("2"))return Lot.B;
+			else if(name.contains("3"))return Lot.C;
+			}
+		
+		return null;
 		}
 	
 	

@@ -77,7 +77,7 @@ public class ManageWebRequest
 			String userID = UsefulMethod.getItemByName("userid", t);
 			String password = UsefulMethod.getItemByName("userpassword", t);
 			
-			if(UsefulMethod.doAuthenticate(userID, password))return WebRequestBuilder.buildWebRequest(webRequestType.success, null);
+			if(UsefulMethod.doAuthenticate(Variables.getDstcucm(), userID, password))return WebRequestBuilder.buildWebRequest(webRequestType.success, null);
 			else return WebRequestBuilder.buildWebRequest(webRequestType.error, null);
 			}
 		catch (Exception e)

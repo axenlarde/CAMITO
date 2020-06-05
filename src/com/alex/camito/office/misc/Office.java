@@ -4,20 +4,16 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import com.alex.camito.device.BasicPhone;
-import com.alex.camito.device.BasicPhone.PhoneStatus;
-import com.alex.camito.misc.CollectionTools;
 import com.alex.camito.misc.Did;
 import com.alex.camito.misc.ErrorTemplate;
-import com.alex.camito.misc.ItemToInject;
 import com.alex.camito.misc.ItemToMigrate;
+import com.alex.camito.misc.ItmType;
+import com.alex.camito.misc.ItmType.TypeName;
 import com.alex.camito.office.items.DevicePool;
-import com.alex.camito.risport.RisportTools;
 import com.alex.camito.utils.LanguageManagement;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ActionType;
-import com.alex.camito.utils.Variables.CMG;
-import com.alex.camito.utils.Variables.ItmType;
 import com.alex.camito.utils.Variables.Lot;
 import com.alex.camito.utils.Variables.OfficeType;
 
@@ -52,7 +48,7 @@ public class Office extends ItemToMigrate
 	public Office(String name, String id, ActionType action, String coda, String pole, String dxi,
 			OfficeType officeType, CMG cmg, Lot lot, ArrayList<Did> didList)
 		{
-		super(ItmType.office, name, id, action);
+		super(new ItmType(TypeName.office), name, id, action);
 		this.coda = coda;
 		this.pole = pole;
 		this.dxi = dxi;
@@ -67,7 +63,7 @@ public class Office extends ItemToMigrate
 	
 	public Office(BasicOffice bo, ActionType action)
 		{
-		super(ItmType.office, bo.getName(), bo.getId(), action);
+		super(bo.getType(), bo.getName(), bo.getId(), action);
 		this.coda = bo.getCoda();
 		this.unknownOffice = bo.isUnknownOffice();
 		phoneList = new ArrayList<BasicPhone>();
@@ -263,6 +259,19 @@ public class Office extends ItemToMigrate
 				if(f.getName().toLowerCase().equals(tab[1].toLowerCase()))
 					{
 					return (String) f.get(this);
+					}
+				}
+			}
+		else if(tab.length == 3)
+			{
+			for(Field f : this.getClass().getDeclaredFields())
+				{
+				if(f.getName().toLowerCase().equals(tab[1].toLowerCase()))
+					{
+					if(f.get(this) instanceof CMG)
+						{
+						return ((CMG) f.get(this)).getString(tab[2]);
+						}
 					}
 				}
 			}

@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import com.alex.camito.device.BasicDevice;
 import com.alex.camito.misc.Did;
+import com.alex.camito.misc.ItmType;
 import com.alex.camito.misc.SimpleItem;
-import com.alex.camito.utils.Variables.CMG;
+import com.alex.camito.misc.ItmType.TypeName;
+import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.Lot;
 import com.alex.camito.utils.Variables.OfficeType;
 
@@ -38,9 +40,9 @@ public class BasicOffice extends SimpleItem
 	 * Constructor
 	 */
 	public BasicOffice(String coda, String name, String pole, String dxi, String devicepool,
-			OfficeType officeType, CMG cmg, Lot lot, ArrayList<Did> didList)
+			OfficeType officeType, CMG cmg, Lot lot, ArrayList<Did> didList, ArrayList<BasicDevice> deviceList)
 		{
-		super(name+coda);
+		super(name+devicepool, new ItmType(TypeName.office));
 		this.coda = coda;
 		this.name = name;
 		this.pole = pole;
@@ -49,7 +51,7 @@ public class BasicOffice extends SimpleItem
 		this.officeType = officeType;
 		this.cmg = cmg;
 		this.lot = lot;
-		deviceList = new ArrayList<BasicDevice>();
+		this.deviceList = deviceList;
 		this.didList = didList;
 		unknownOffice = false;
 		}
@@ -58,15 +60,15 @@ public class BasicOffice extends SimpleItem
 	 * Used to create an office just for phone reset purpose
 	 * @throws Exception 
 	 */
-	public BasicOffice(String coda) throws Exception
+	public BasicOffice(String devicepool) throws Exception
 		{
-		super("Unknown"+coda);
+		super("Unknown"+devicepool, new ItmType(TypeName.office));
 		this.name = "Unknown office "+coda;
-		this.coda = coda;
+		this.coda = "Unknown";
 		this.pole = "Unknown";
 		this.dxi = "0";
-		this.devicepool = "Unknown";
-		this.cmg = CMG.SUB1_SUB4_CMG;
+		this.devicepool = devicepool;
+		this.cmg = Variables.getCmgList().get(0);//We take a random one
 		this.lot = Lot.UNKNOWN;
 		this.officeType = OfficeType.AGENCE;
 		deviceList = new ArrayList<BasicDevice>();
@@ -96,6 +98,19 @@ public class BasicOffice extends SimpleItem
 				if(f.getName().toLowerCase().equals(tab[1].toLowerCase()))
 					{
 					return (String) f.get(this);
+					}
+				}
+			}
+		else if(tab.length == 3)
+			{
+			for(Field f : this.getClass().getDeclaredFields())
+				{
+				if(f.getName().toLowerCase().equals(tab[1].toLowerCase()))
+					{
+					if(f.get(this) instanceof CMG)
+						{
+						return ((CMG) f.get(this)).getString(tab[2]);
+						}
 					}
 				}
 			}

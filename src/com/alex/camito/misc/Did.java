@@ -22,7 +22,7 @@ public class Did
 	private boolean toTest;
 	private DidType type;
 	
-	public Did(String officeid, String did, String internalNumber, String description, boolean toTest, DidType type)
+	public Did(String officeid, String did, String internalNumber, String description, boolean toTest, DidType type) throws Exception
 		{
 		super();
 		this.officeid = officeid;
@@ -31,6 +31,11 @@ public class Did
 		this.description = description;
 		this.toTest = toTest;
 		this.type = type;
+		
+		if(this.did.isEmpty())
+			{
+			throw new Exception("A mandatory field was either incorrect or empty");
+			}
 		}
 
 	public String getOfficeid()

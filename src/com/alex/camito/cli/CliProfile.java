@@ -2,7 +2,8 @@ package com.alex.camito.cli;
 
 import java.util.ArrayList;
 
-import com.alex.camito.utils.Variables.ItmType;
+import com.alex.camito.misc.ItmType;
+
 
 
 

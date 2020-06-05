@@ -487,6 +487,24 @@ public class CollectionTools
 		return regex.toString();
 		}
 	
+	/**
+	 * Used to return what match the given regex
+	 * here we use common java regex instead of my simplified version
+	 */
+	public synchronized static String resolveRegex(String content, String regex)
+		{
+		Pattern begin = Pattern.compile(regex);
+		Matcher mBegin = begin.matcher(content);
+		
+		if(mBegin.find())
+			{
+			return mBegin.group();
+			}
+		
+		//No match found
+		return content;
+		}
+	
 	/*2020*//*RATEL Alexandre 8)*/
 	}
 

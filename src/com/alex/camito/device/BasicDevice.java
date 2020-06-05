@@ -6,8 +6,8 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 
 import com.alex.camito.cli.CliProfile;
 import com.alex.camito.cli.CliProfile.cliProtocol;
+import com.alex.camito.misc.ItmType;
 import com.alex.camito.misc.SimpleItem;
-import com.alex.camito.utils.Variables.ItmType;
 
 
 
@@ -21,7 +21,6 @@ public class BasicDevice extends SimpleItem
 	/**
 	 * Variables
 	 */
-	protected ItmType type;
 	protected String id,
 	name,
 	ip,
@@ -39,8 +38,7 @@ public class BasicDevice extends SimpleItem
 	public BasicDevice(ItmType type, String name, String ip, String mask, String gateway, String officeid,
 			String user, String password, CliProfile cliProfile, cliProtocol connexionProtocol) throws Exception
 		{
-		super(name+ip+officeid);
-		this.type = type;
+		super(name+ip+officeid, type);
 		this.name = name;
 		this.officeid = officeid;
 		this.user = user;
@@ -52,7 +50,13 @@ public class BasicDevice extends SimpleItem
 		this.mask = (InetAddressValidator.getInstance().isValidInet4Address(mask))?mask:"";
 		this.gateway = (InetAddressValidator.getInstance().isValidInet4Address(gateway))?gateway:"";
 		
+		/*
 		if(this.ip.isEmpty() || this.mask.isEmpty() || this.gateway.isEmpty())
+			{
+			throw new Exception(getInfo()+" : A mandatory field was either incorrect or empty");
+			}*/
+		
+		if(this.ip.isEmpty())
 			{
 			throw new Exception(getInfo()+" : A mandatory field was either incorrect or empty");
 			}
@@ -60,7 +64,7 @@ public class BasicDevice extends SimpleItem
 
 	public String getInfo()
 		{
-		return type+" "+
+		return type.getName()+" "+
 		ip+" "+
 		name;
 		}
@@ -85,16 +89,6 @@ public class BasicDevice extends SimpleItem
 			}
 		
 		return null;
-		}
-
-	public ItmType getType()
-		{
-		return type;
-		}
-
-	public void setType(ItmType type)
-		{
-		this.type = type;
 		}
 
 	public String getIp()

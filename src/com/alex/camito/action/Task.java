@@ -3,6 +3,7 @@ package com.alex.camito.action;
 import java.util.ArrayList;
 
 import com.alex.camito.cli.CliInjector;
+import com.alex.camito.cli.CliTools;
 import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.BasicPhone.PhoneStatus;
 import com.alex.camito.device.Device;
@@ -447,6 +448,11 @@ public class Task extends Thread
 			
 			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
 			Variables.getLogger().info("UUID list cleared");
+			
+			if(Variables.getCliGetOutputList().size() > 0)
+				{
+				CliTools.writeCliGetOutputToCSV();
+				}
 			}
 		catch (Exception e)
 			{

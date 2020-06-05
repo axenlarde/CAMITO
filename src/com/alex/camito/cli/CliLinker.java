@@ -1,14 +1,16 @@
 package com.alex.camito.cli;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import com.alex.camito.cli.CliConnection.connectedTech;
 import com.alex.camito.cli.CliProfile.cliProtocol;
 import com.alex.camito.device.Device;
+import com.alex.camito.device.DeviceType;
+import com.alex.camito.misc.CollectionTools;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
-
 
 
 /**
@@ -65,25 +67,28 @@ public class CliLinker
 		{
 		try
 			{
-			connection = new CliConnection(device.getUser(),
-					device.getPassword(),
-					ip,
-					device.getInfo(),
-					device.getConnexionProtocol(),
-					timeout);
-			
-			connection.connect();
-			out = connection.getOut();
-			receiver = connection.getReceiver();
-			
-			/**
-			 * Using telnet credentials cannot be sent during the connection process
-			 * Instead, we have to send them once connected when prompted
-			 * So we add an extra step
-			 */
-			if(connection.getcTech().equals(connectedTech.telnet))
+			if((connection == null) || (!connection.isConnected()))
 				{
-				telnetAuth();
+				connection = new CliConnection(device.getUser(),
+						device.getPassword(),
+						ip,
+						device.getInfo(),
+						device.getConnexionProtocol(),
+						timeout);
+				
+				connection.connect();
+				out = connection.getOut();
+				receiver = connection.getReceiver();
+				
+				/**
+				 * Using telnet credentials cannot be sent during the connection process
+				 * Instead, we have to send them once connected when prompted
+				 * So we add an extra step
+				 */
+				if(connection.getcTech().equals(connectedTech.telnet))
+					{
+					telnetAuth();
+					}
 				}
 			}
 		catch (Exception e)
@@ -103,7 +108,7 @@ public class CliLinker
 	
 	public void disconnect()
 		{
-		connection.close();
+		if((connection != null) && (connection.isConnected()))connection.close();
 		}
 	
 	public String waitFor(String s) throws ConnectionException, Exception
@@ -152,7 +157,7 @@ public class CliLinker
 	 * Simply wait for a return from the gateway
 	 * @throws ConnectionException, Exception 
 	 */
-	private void waitForAReturn() throws ConnectionException, Exception
+	private String waitForAReturn() throws ConnectionException, Exception
 		{
 		int timer = 0;
 		
@@ -160,7 +165,7 @@ public class CliLinker
 		
 		while(true)
 			{
-			if(receiver.getExchange().size() > 0)break;
+			if(receiver.getExchange().size() > 0)return receiver.getExchange().get(0);
 			
 			clii.sleep(100);
 			if(timer>100)
@@ -170,25 +175,101 @@ public class CliLinker
 				}
 			timer++;
 			}
+		return null;
 		}
 	
 	
 	public void write(String s) throws ConnectionException, Exception
 		{
-		if(!connection.isConnected())connect();
-		
 		receiver.getExchange().clear();
 		out.write(s+carrierReturn);
 		out.flush();
-		//Variables.getLogger().debug(device.getInfo()+" : #CLI# "+s);
 		waitForAReturn();
+		}
+	
+	/**
+	 * Write a command and then analyze the result
+	 * if the result contains the given string we will write the given command
+	 * otherwise will write the other command instead
+	 * 
+	 * The command pattern is the following :
+	 * command to send:::string to compare:::write if the result contains the string to compare:::write if not
+	 * The last parameters is optional. You can write only a:::b:::c
+	 * @throws Exception 
+	 * @throws ConnectionException 
+	 */
+	public void writeIf(String s) throws ConnectionException, Exception 
+		{
+		String[] cmdTab = s.split(":::");
+		receiver.getExchange().clear();
+		out.write(cmdTab[0]+carrierReturn);
+		out.flush();
+		
+		if(waitForAReturn().toLowerCase().equals(cmdTab[1].toLowerCase()))
+			{
+			write(cmdTab[2]);
+			}
+		else
+			{
+			if(cmdTab.length == 4)write(cmdTab[3]);
+			}
+		}
+	
+	/**
+	 * Write a command and then store the result in an output file
+	 * 
+	 * The command pattern is the following :
+	 * Column name:::Command to send:::How many line to store:::Regex to apply to the collected output
+	 * The last two parameters are optional
+	 * If nothing is mentioned we will just collect the first line returned
+	 * 
+	 * Regex will come in a later release
+	 * @throws IOException 
+	 */
+	public void get(String s) throws IOException, Exception
+		{
+		String[] cmdTab = s.split(":::");
+		int howManyToReturn = 2;
+		String regex = null;
+		
+		clii.sleep(100);//Just to be sure we don't get something from the previous command
+		receiver.getExchange().clear();
+		out.write(cmdTab[1]+carrierReturn);
+		out.flush();
+		
+		if(cmdTab.length>2 && Integer.parseInt(cmdTab[2])>2)howManyToReturn = Integer.parseInt(cmdTab[2])+1;
+		if(cmdTab.length>3)regex = cmdTab[3];
+		waitForAReturn();
+		clii.sleep(100);//We've seen some latency, so better to wait a bit to get the data
+		
+		//We get just what we need
+		StringBuffer replyWanted = new StringBuffer("");
+		for(int i=1;(i<receiver.getExchange().size()) && (i<howManyToReturn); i++)//We start from 1 because the line 0 is just what we've just sent
+			{
+			replyWanted.append(receiver.getExchange().get(i));
+			}
+		
+		//Once we get a return we add it in a CliGetOutput
+		CliGetOutput cgo = UsefulMethod.getCliGetOutput(device);
+		if(cgo == null)
+			{
+			cgo = new CliGetOutput(device);
+			Variables.getCliGetOutputList().add(cgo);
+			}
+		
+		String result = replyWanted.toString();
+		if(regex != null)result = CollectionTools.resolveRegex(result, regex);
+		
+		cgo.add(new CliGetOutputEntry(cmdTab[0], result));
+		
+		Variables.getLogger().debug(device.getInfo()+" : Data retreived using a 'get' instruction : "+result);
 		}
 	
 	
 	/**
 	 * Aims to send telnet credentials once prompted
 	 */
-	public void telnetAuth() throws Exception
+	private void telnetAuth() throws Exception
 		{
 		try
 			{
@@ -196,7 +277,7 @@ public class CliLinker
 			 * Write instruction used to authenticate to gateway using telnet protocol 
 			 */
 			Variables.getLogger().debug(device.getInfo()+" : CLI : Authentication process begin");
-			for(OneLine l : clii.getHowToAuthenticate())
+			for(OneLine l : ((DeviceType)device.getType()).getHowToConnect())
 				{
 				execute(l);
 				}
@@ -241,12 +322,28 @@ public class CliLinker
 				}
 			case writeif:
 				{
-				//To be written						
+				writeIf(l.getCommand());
 				break;
 				}
 			case get:
 				{
-				//To be written
+				get(l.getCommand());
+				break;
+				}
+			case save:
+				{
+				for(OneLine ol : ((DeviceType)device.getType()).getHowToSave())
+					{
+					execute(ol);
+					}
+				break;
+				}
+			case reboot:
+				{
+				for(OneLine ol : ((DeviceType)device.getType()).getHowToReboot())
+					{
+					execute(ol);
+					}
 				break;
 				}
 			default:
@@ -256,8 +353,13 @@ public class CliLinker
 				}
 			}
 		}
+
+	public AnswerReceiver getReceiver()
+		{
+		return receiver;
+		}
 	
 	
 	
-	/*2019*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}

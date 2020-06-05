@@ -1,44 +1,7572 @@
 <xml>
 	<offices>
 		<office>
-			<idcomu>201100</idcomu>
-			<idcaf>011</idcaf>
-			<type>CAF</type>
-			<shortname>TEST</shortname>
-			<name>011-CAF-TEST</name>
-			<voiceiprange>20.79.16.0/21</voiceiprange>
-			<dataiprange>60.79.16.0/21</dataiprange>
-			<status>Ouvert</status>
-			<newname>011-CAF-TEST</newname>
-			<newvoiceiprange>20.80.16.0/21</newvoiceiprange>
-			<newdataiprange>60.80.16.0/21</newdataiprange>
-			<isr>OUI</isr>
-			<vg>OUI</vg>
-			<audiocodes></audiocodes>
-			<ascom>OUI</ascom>
-			<misc></misc>
-			<phones>OUI</phones>
+			<coda>3407</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SETE</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3407_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
 			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
 		</office>
 		<office>
-			<idcomu>201101</idcomu>
-			<idcaf>011</idcaf>
-			<type>CAF</type>
-			<shortname>BOURG</shortname>
-			<name>011-CAF-BOURG</name>
-			<voiceiprange>22.6.0.0/20</voiceiprange>
-			<dataiprange>62.6.0.0/20</dataiprange>
-			<status>Ouvert</status>
-			<newname>011-CAF-BOURG</newname>
-			<newvoiceiprange>10.101.8.0/21</newvoiceiprange>
-			<newdataiprange>10.101.0.0/21</newdataiprange>
-			<isr>OUI</isr>
-			<vg>OUI</vg>
-			<audiocodes></audiocodes>
-			<ascom>OUI</ascom>
-			<misc></misc>
-			<phones>OUI</phones>
+			<coda>1328</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AIX LA PIOLINE</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>2</dxi>
+			<devicepool>1328_1371_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
 			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>20</phones>
+		</office>
+		<office>
+			<coda>1371</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AIX LA PIOLINE</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>2</dxi>
+			<devicepool>1328_1371_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>20</phones>
+		</office>
+		<office>
+			<coda>6502</coda>
+			<type>AGENCE</type>
+			<name>SCT - TARBES</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT PYRENEES GASCOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6502_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>3420</coda>
+			<type>AGENCE</type>
+			<name>unknown</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>3420_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>2</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>0203</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST QUENTIN</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>0203_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>6212</coda>
+			<type>AGENCE</type>
+			<name>unknown</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>6212_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>0901</coda>
+			<type>AGENCE</type>
+			<name>SCT - PAMIERS</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT GARONNE LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>0901_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>4204</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANDREZIEUX</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4204_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>4411</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NANTES - BEAULIEU</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4411_4475_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>6</fxs>
+			<dect>1</dect>
+			<sip>1</sip>
+			<phones>136</phones>
+		</office>
+		<office>
+			<coda>4475</coda>
+			<type>CRCE</type>
+			<name>REXEL - NANTES - BEAULIEU</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4411_4475_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>6</fxs>
+			<dect>1</dect>
+			<sip>1</sip>
+			<phones>136</phones>
+		</office>
+		<office>
+			<coda>4904</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHOLET NORD</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4904_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>8502</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHALLANS</name>
+			<lot>A</lot>
+			<pole>POLE - VENDÉE</pole>
+			<dxi>0</dxi>
+			<devicepool>8502_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>5402</coda>
+			<type>CRCE</type>
+			<name>REXEL - HEILLECOURT</name>
+			<lot>none</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5402_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>52</phones>
+		</office>
+		<office>
+			<coda>6920</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VILLEURBANNE</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6920_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7701</coda>
+			<type>CRCE</type>
+			<name>REXEL - CROISSY BEAUBOURG</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>7701_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>44</phones>
+		</office>
+		<office>
+			<coda>3805</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ESTRABLIN</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>3805_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>3400</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST AUNES</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3400_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6923</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LYON CENTRE GERLAND</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>2</dxi>
+			<devicepool>6923_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>15</phones>
+		</office>
+		<office>
+			<coda>8802</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINT DIE</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>8802_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>0602</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VALLAURIS</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0602_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>8503</coda>
+			<type>CRCE</type>
+			<name>REXEL - LA ROCHE-SUR-YON</name>
+			<lot>A</lot>
+			<pole>POLE - VENDÉE</pole>
+			<dxi>0</dxi>
+			<devicepool>8503_8570_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>36</phones>
+		</office>
+		<office>
+			<coda>8570</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - LA ROCHE SUR YON</name>
+			<lot>A</lot>
+			<pole>POLE - VENDÉE</pole>
+			<dxi>0</dxi>
+			<devicepool>8503_8570_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>36</phones>
+		</office>
+		<office>
+			<coda>7601</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROUEN NORD</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7601_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>0612</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CAGNES SUR MER</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0612_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>3101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOULOUSE GRAMONT</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>13</phones>
+		</office>
+		<office>
+			<coda>5000</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINT LO</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>5000_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6408</coda>
+			<type>AGENCE</type>
+			<name>SCT - BAYONNE</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT PYRENEES GASCOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6408_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6205</coda>
+			<type>CRCE</type>
+			<name>REXEL - SAINTE-CATHERINE</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6205_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>54</phones>
+		</office>
+		<office>
+			<coda>9000</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BELFORT-MONTBELIARD</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>9000_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>4420</coda>
+			<type>CLR</type>
+			<name>Clr - Saint Herblain</name>
+			<lot>none</lot>
+			<pole>CENTRES LOGISTIQUES SUD</pole>
+			<dxi>0</dxi>
+			<devicepool>4420_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>28</dect>
+			<sip>0</sip>
+			<phones>43</phones>
+		</office>
+		<office>
+			<coda>7804</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VERSAILLES</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>7804_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>9204</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ISSY-LES-MOULINEAUX</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>1</dxi>
+			<devicepool>9204_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>4</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>55</phones>
+		</office>
+		<office>
+			<coda>6309</coda>
+			<type>AGENCE</type>
+			<name>REXEL - RIOM</name>
+			<lot>A</lot>
+			<pole>POLE - AUVERGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6309_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>7101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MACON FLANDINES</name>
+			<lot>none</lot>
+			<pole>POLE - VAL DE SAÔNE AIN JURA</pole>
+			<dxi>0</dxi>
+			<devicepool>7101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>5005</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COUTANCES</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>5005_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8600</coda>
+			<type>CRCE</type>
+			<name>REXEL - POITIERS - SUD</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>8600_8670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>55</phones>
+		</office>
+		<office>
+			<coda>8670</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - POITIERS</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>8600_8670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>55</phones>
+		</office>
+		<office>
+			<coda>7802</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SARTROUVILLE</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>7802_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>12</phones>
+		</office>
+		<office>
+			<coda>7109</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LE CREUSOT</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7109_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2501</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BESANCON EST</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2501_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>3414</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MAUGUIO</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3414_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8507</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINT-GILLES-CROIX-DE-VIE</name>
+			<lot>A</lot>
+			<pole>POLE - VENDÉE</pole>
+			<dxi>0</dxi>
+			<devicepool>8507_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>1706</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ILE D OLERON</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1706_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3403</coda>
+			<type>CRCE</type>
+			<name>REXEL - MONTPELLIER</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>1</dxi>
+			<devicepool>3403_3470_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>9</dect>
+			<sip>0</sip>
+			<phones>64</phones>
+		</office>
+		<office>
+			<coda>3470</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - MONTPELLIER</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3403_3470_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>9</dect>
+			<sip>0</sip>
+			<phones>64</phones>
+		</office>
+		<office>
+			<coda>6409</coda>
+			<type>AGENCE</type>
+			<name>SCT - PAU</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT PYRENEES GASCOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6409_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3102</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOULOUSE LES MINIMES</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3102_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>9300</coda>
+			<type>CRCN</type>
+			<name>REXEL - LA COURNEUVE</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9300_7512_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>53</phones>
+		</office>
+		<office>
+			<coda>7512</coda>
+			<type>CRCN</type>
+			<name>REXEL - AGENCE NATIONALE</name>
+			<lot>none</lot>
+			<pole>POLE - Agences Comptes nationaux</pole>
+			<dxi>0</dxi>
+			<devicepool>9300_7512_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>53</phones>
+		</office>
+		<office>
+			<coda>0302</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONTLUCON BLANZAT</name>
+			<lot>A</lot>
+			<pole>POLE - AUVERGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>0302_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>2600</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONTELIMAR NORD</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>2600_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>1318</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MARSEILLE EST</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1318_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>4900</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANGERS</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4900_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>11</phones>
+		</office>
+		<office>
+			<coda>5919</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CAMBRAI</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5919_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7001</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VESOUL</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7001_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>1303</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VITROLLES L'ANJOLY</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1303_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7305</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BOURG-SAINT-MAURICE</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7305_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6210</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CALAIS</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6210_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>4100</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BLOIS</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>4100_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>14</phones>
+		</office>
+		<office>
+			<coda>7800</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TRAPPES</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>7800_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>9501</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARGENTEUIL</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9501_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>8309</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GRIMAUD</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8309_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5925</coda>
+			<type>CRCE</type>
+			<name>REXEL - VILLENEUVE D ASCQ</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5925_5970_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>49</phones>
+		</office>
+		<office>
+			<coda>5970</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - LILLE</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5925_5970_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>49</phones>
+		</office>
+		<office>
+			<coda>7702</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MEAUX</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>7702_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>9201</coda>
+			<type>CRCE</type>
+			<name>REXEL - NANTERRE</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9201_9270_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>8</dect>
+			<sip>3</sip>
+			<phones>77</phones>
+		</office>
+		<office>
+			<coda>9270</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - NANTERRE</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9201_9270_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>8</dect>
+			<sip>3</sip>
+			<phones>77</phones>
+		</office>
+		<office>
+			<coda>1800</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BOURGES</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>1800_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>0500</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GAP</name>
+			<lot>A</lot>
+			<pole>POLE - DAUPHINE</pole>
+			<dxi>0</dxi>
+			<devicepool>0500_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6302</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ISSOIRE</name>
+			<lot>A</lot>
+			<pole>POLE - AUVERGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6302_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>7300</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MOUTIERS</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7300_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4003</coda>
+			<type>Agence</type>
+			<name>REXEL - HOSSEGOR</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>4003_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1304</coda>
+			<type>CRCE</type>
+			<name>REXEL - AIX LES MILLES</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1304_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>61</phones>
+		</office>
+		<office>
+			<coda>3701</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOURS NORD</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>3701_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>1310</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MARSEILLE EUROMED</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1310_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7506</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ORNANO</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7506_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3601</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHATEAUROUX MONTAIGNE</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>3601_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>0605</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CANNES</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0605_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>0600</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CARROS</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0600_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>4000</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONT DE MARSAN</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>4000_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>4518</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PITHIVIERS</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>4518_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>1312</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARLES</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>1312_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7102</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DIGOIN</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7102_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3100</coda>
+			<type>CRCE</type>
+			<name>REXEL - TOULOUSE LARRIEU</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3100_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>3</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>58</phones>
+		</office>
+		<office>
+			<coda>6211</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LONGUENESSE</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6211_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7805</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MANTES</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>7805_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>6103</coda>
+			<type>AGENCE</type>
+			<name>REXEL - L AIGLE</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6103_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1315</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VENELLES</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1315_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6217</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LENS</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6217_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>13</phones>
+		</office>
+		<office>
+			<coda>7108</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHALON SUR SAONE</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7108_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>2802</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NOGENT LE ROTROU</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2802_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>5701</coda>
+			<type>AGENCE</type>
+			<name>REXEL - THIONVILLE</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5701_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>5106</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VITRY LE FRANCOIS</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5106_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3001</coda>
+			<type>CRCE</type>
+			<name>REXEL - NIMES OUEST</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>3001_3070_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>3</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>58</phones>
+		</office>
+		<office>
+			<coda>3070</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - NIMES</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>3001_3070_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>3</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>58</phones>
+		</office>
+		<office>
+			<coda>1201</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MILLAU</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>1201_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>1802</coda>
+			<type>CRCE</type>
+			<name>REXEL - BOURGES - ST GERMAIN</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>1802_1870_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>31</phones>
+		</office>
+		<office>
+			<coda>1870</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - BOURGES</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>1802_1870_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>31</phones>
+		</office>
+		<office>
+			<coda>0109</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BEYNOST</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>0109_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6208</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARRAS</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6208_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>8</phones>
+		</office>
+		<office>
+			<coda>5301</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LAVAL</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5301_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>5600</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LORIENT - RAYMOND QUEUDET</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>5600_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>11</phones>
+		</office>
+		<office>
+			<coda>6712</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAVERNE</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6712_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6707</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SCHILTIGHEIM (fermé)</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6707_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>6902</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LYON VAISE</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6902_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6905</coda>
+			<type>AGENCE</type>
+			<name>REXEL - RILLIEUX-LA-PAPE</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6905_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>1407</coda>
+			<type>AGENCE</type>
+			<name>REXEL - IFS</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>1407_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>1405</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PONT L EVEQUE</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>1405_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3401</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BEZIERS VILLENEUVE</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3401_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3312</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANDERNOS</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>3312_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>5702</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LA MAXE</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5702_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>8404</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CAVAILLON</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>8404_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>3501</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CESSON SEVIGNE</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3501_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6216</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BAPAUME</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6216_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>9202</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LA PLAINE ST DENIS</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9202_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>0304</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MOULINS L'ETOILE</name>
+			<lot>A</lot>
+			<pole>POLE - AUVERGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>0304_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>0205</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHATEAU THIERRY</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>0205_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>9401</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FONTENAY</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9401_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>3502</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FOUGERES</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3502_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BEAUNE</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5929</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONS EN BAROEUL</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>2</dxi>
+			<devicepool>5929_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>13</phones>
+		</office>
+		<office>
+			<coda>6002</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COMPIEGNE</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>6002_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>5400</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NANCY NORD</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5400_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>1</dect>
+			<sip>1</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7203</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LE MANS ZI SUD</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7203_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3402</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BEZIERS</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3402_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>2400</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BERGERAC</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>2400_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>4800</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MENDE</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>4800_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>4801</coda>
+			<type>AGENCE</type>
+			<name>SCT - MENDE</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT LANGUEDOC AUBRAC</pole>
+			<dxi>0</dxi>
+			<devicepool>4801_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3007</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BAGNOLS-SUR-CEZE</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>3007_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LA ROCHELLE</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>2801</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DREUX</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2801_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>0801</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHARLEVILLE MEZIERES</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>0801_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6701</coda>
+			<type>AGENCE</type>
+			<name>REXEL - STRASBOURG SUD</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6701_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>7403</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANNEMASSE</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7403_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>9403</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VALENTON</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>9403_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>5704</coda>
+			<type>AGENCE</type>
+			<name>REXEL - STIRING WENDEL</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5704_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>8300</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOULON LA GARDE</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8300_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>3504</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST MALO</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3504_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>3406</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LUNEL</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3406_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6706</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SELESTAT</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6706_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>9100</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ETAMPES</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9100_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>1404</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LISIEUX</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>1404_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7302</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ALBERTVILLE</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7302_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>8202</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONTAUBAN ALBA SUD</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>8202_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4102</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VENDOME</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>4102_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>1305</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AUBAGNE</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1305_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>5931</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CAPPELLE LA GRANDE</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5931_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>2</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>2602</coda>
+			<type>CRCE</type>
+			<name>REXEL - VALENCE</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>2602_2670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>37</phones>
+		</office>
+		<office>
+			<coda>2670</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - VALENCE</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>2602_2670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>37</phones>
+		</office>
+		<office>
+			<coda>5801</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COSNE SUR LOIRE</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5801_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>5916</coda>
+			<type>AGENCE</type>
+			<name>REXEL - HAZEBROUCK</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5916_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>2604</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONTELIMAR SUD</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>2604_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>4207</coda>
+			<type>AGENCE</type>
+			<name>REXEL - RIVE DE GIER</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4207_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6801</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COLMAR</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>1</dxi>
+			<devicepool>6801_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>3107</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOULOUSE THIBAUD</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>1</dxi>
+			<devicepool>3107_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>1311</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SALON-DE-PROVENCE</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1311_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>5924</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DUNKERQUE</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5924_5971_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>5971</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DUNKERQUE</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5924_5971_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>7303</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AIX-LES-BAINS</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7303_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6213</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BOULOGNE SUR MER</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6213_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>10</phones>
+		</office>
+		<office>
+			<coda>6600</coda>
+			<type>CRCE</type>
+			<name>REXEL - PERPIGNAN</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>6600_6670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>24</phones>
+		</office>
+		<office>
+			<coda>6670</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - PERPIGNAN</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>6600_6670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>24</phones>
+		</office>
+		<office>
+			<coda>8204</coda>
+			<type>AGENCE</type>
+			<name>SCT - MONTAUBAN</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT GARONNE LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>8204_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2502</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PONTARLIER</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2502_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8105</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MAZAMET</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>8105_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2605</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROMANS</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>2605_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>5933</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROUBAIX</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5933_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6000</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NOYON</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>6000_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>5954</coda>
+			<type>AGENCE</type>
+			<name>REXEL - WAMBRECHIES</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5954_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>4002</coda>
+			<type>AGENCE</type>
+			<name>SCT - DAX</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT PYRENEES GASCOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>4002_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7621</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GRAND QUEVILLY</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>1</dxi>
+			<devicepool>7621_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>5909</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VALENCIENNES</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5909_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>0402</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SISTERON</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>0402_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1319</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MARSEILLE NORD</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1319_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>0613</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BEAUSOLEIL</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0613_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4300</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LE PUY</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4300_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>5200</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST DIZIER</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5200_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>8302</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SIX FOURS</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8302_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>0900</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PAMIERS</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>0900_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3500</coda>
+			<type>CRCE</type>
+			<name>REXEL - RENNES</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3500_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>47</phones>
+		</office>
+		<office>
+			<coda>0303</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VICHY CUSSET</name>
+			<lot>A</lot>
+			<pole>POLE - AUVERGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>0303_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>4401</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NANTES  - VERTOU</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4401_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7406</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANNECY NORD</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7406_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8301</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOULON LA VALETTE</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8301_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3325</coda>
+			<type>CLR</type>
+			<name>CLR de Cestas</name>
+			<lot>none</lot>
+			<pole>CENTRES LOGISTIQUES SUD</pole>
+			<dxi>0</dxi>
+			<devicepool>3325_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>24</dect>
+			<sip>2</sip>
+			<phones>35</phones>
+		</office>
+		<office>
+			<coda>0401</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MANOSQUE</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>0401_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8705</coda>
+			<type>AGENCE</type>
+			<name>SCT - LIMOGES</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT GARONNE LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>8705_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7504</coda>
+			<type>AGENCE</type>
+			<name>REXEL - RICHARD LENOIR</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7504_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>9302</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROSNY SOUS BOIS</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9302_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7104</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONTCEAU LES MINES</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7104_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>8601</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHÂTELLERAULT</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>8601_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6303</coda>
+			<type>AGENCE</type>
+			<name>REXEL - THIERS</name>
+			<lot>A</lot>
+			<pole>POLE - AUVERGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6303_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>2603</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PIERRELATTE</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>2603_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>8</phones>
+		</office>
+		<office>
+			<coda>8106</coda>
+			<type>AGENCE</type>
+			<name>SCT - ALBI</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT GARONNE LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>8106_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>4</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>7700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AVON</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>7700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7110</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AUTUN</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7110_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4001</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST PAUL LES DAX</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>4001_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>2103</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DIJON</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2103_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>0201</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST QUENTIN Centre</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>0201_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>6919</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST PRIEST</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6919_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>5602</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VANNES</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>5602_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>11</phones>
+		</office>
+		<office>
+			<coda>3590</coda>
+			<type>AGENCE</type>
+			<name>unknown</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>3590_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6602</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PERPIGNAN NORD</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>6602_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5800</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NEVERS - ZI TAUPIÉRES</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5800_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>10</phones>
+		</office>
+		<office>
+			<coda>4905</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAUMUR</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4905_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>3303</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PESSAC</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>3303_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>2907</coda>
+			<type>AGENCE</type>
+			<name>REXEL - QUIMPERLE</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2907_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>7905</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PARTHENAY</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>7905_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6914</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DARDILLY</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6914_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>8308</coda>
+			<type>AGENCE</type>
+			<name>REXEL - HYERES</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8308_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1602</coda>
+			<type>AGENCE</type>
+			<name>SCT - COGNAC</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT AQUITAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>1602_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2301</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GUERET</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>2301_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>1100</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CARCASSONNE</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>1100_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>4700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AGEN</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>4700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>7509</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MENILMONTANT</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7509_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2504</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BESANCON OUEST</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2504_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7708</coda>
+			<type>AGENCE</type>
+			<name>REXEL - OZOIR LA FERRIERE</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>7708_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6909</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VILLEFRANCHE</name>
+			<lot>none</lot>
+			<pole>POLE - VAL DE SAÔNE AIN JURA</pole>
+			<dxi>0</dxi>
+			<devicepool>6909_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>4504</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SEMOY</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>4504_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5922</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MAUBEUGE</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5922_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8003</coda>
+			<type>CRCE</type>
+			<name>REXEL - AMIENS</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>8003_8070_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>47</phones>
+		</office>
+		<office>
+			<coda>8070</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - AMIENS</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>8003_8070_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>47</phones>
+		</office>
+		<office>
+			<coda>4413</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NANTES  - SAINT HERBLAIN</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4413_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>9304</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PIERREFITTE</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9304_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>9102</coda>
+			<type>AGENCE</type>
+			<name>REXEL - EVRY</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9102_9170_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>6</dect>
+			<sip>0</sip>
+			<phones>21</phones>
+		</office>
+		<office>
+			<coda>9170</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - EVRY</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9102_9170_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>6</dect>
+			<sip>0</sip>
+			<phones>21</phones>
+		</office>
+		<office>
+			<coda>7623</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GONFREVILLE</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7623_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>8700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FEYTIAT</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>8700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>9410</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHAMPIGNY SUR MARNE</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>9410_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>1901</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BRIVE LA GAILLARDE</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>1901_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>3307</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MERIGNAC</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>1</dxi>
+			<devicepool>3307_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>7501</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NATION</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7501_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>1801</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VIERZON</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>1801_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5101</coda>
+			<type>CRCE</type>
+			<name>REXEL - REIMS - LA NEUVILETTE</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5101_5170_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>34</phones>
+		</office>
+		<office>
+			<coda>5170</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - REIMS</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5101_5170_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>34</phones>
+		</office>
+		<office>
+			<coda>3801</coda>
+			<type>CRCE</type>
+			<name>REXEL - GRENOBLE</name>
+			<lot>A</lot>
+			<pole>POLE - DAUPHINE</pole>
+			<dxi>0</dxi>
+			<devicepool>3801_3870_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>58</phones>
+		</office>
+		<office>
+			<coda>3870</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - DAUPHINE</name>
+			<lot>A</lot>
+			<pole>POLE - DAUPHINE</pole>
+			<dxi>1</dxi>
+			<devicepool>3801_3870_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>58</phones>
+		</office>
+		<office>
+			<coda>8406</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PERTUIS</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>8406_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6705</coda>
+			<type>AGENCE</type>
+			<name>REXEL - HAGUENAU</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6705_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7204</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SABLE SUR SARTHE</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7204_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>1601</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COGNAC</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1601_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>2102</coda>
+			<type>CRCE</type>
+			<name>REXEL - DIJON SUD</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2102_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>51</phones>
+		</office>
+		<office>
+			<coda>6702</coda>
+			<type>AGENCE</type>
+			<name>REXEL - STRASBOURG NORD</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6702_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>18</phones>
+		</office>
+		<office>
+			<coda>6403</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PAU</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>6403_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7900</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NIORT - MENDÈS</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>7900_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>14</phones>
+		</office>
+		<office>
+			<coda>4200</coda>
+			<type>CRCE</type>
+			<name>REXEL - ST ETIENNE</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4200_4270_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>48</phones>
+		</office>
+		<office>
+			<coda>4270</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATIONS CLIENTS - SAINT-ETIENNE</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4200_4270_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>48</phones>
+		</office>
+		<office>
+			<coda>6913</coda>
+			<type>CRCE</type>
+			<name>REXEL - DECINES</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6913_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>2</dect>
+			<sip>0</sip>
+			<phones>70</phones>
+		</office>
+		<office>
+			<coda>9203</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COLOMBES</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9203_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>3200</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AUCH</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>3200_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>5500</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VERDUN - BELLEVILLE SUR MEUSE</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5500_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>1001</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TROYES CHAPELLE ST LUC JEAN JAURÉS</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>1001_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>10</phones>
+		</office>
+		<office>
+			<coda>0102</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BOURG EN BRESSE</name>
+			<lot>none</lot>
+			<pole>POLE - VAL DE SAÔNE AIN JURA</pole>
+			<dxi>0</dxi>
+			<devicepool>0102_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>8</phones>
+		</office>
+		<office>
+			<coda>3133</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOULOUSE BEAUZELLE</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3133_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3113</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LABEGE</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3113_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>5917</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOURCOING</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5917_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3319</coda>
+			<type>AGENCE</type>
+			<name>SCT - LIBOURNE</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT AQUITAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>3319_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4601</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FIGEAC</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>4601_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7629</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ELBEUF</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7629_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1500</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AURILLAC</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>1500_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>7402</coda>
+			<type>CRCE</type>
+			<name>REXEL - ANNECY</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7402_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>3</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>50</phones>
+		</office>
+		<office>
+			<coda>4507</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GIEN</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>4507_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - METZ</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7902</coda>
+			<type>AGENCE</type>
+			<name>REXEL - THOUARS</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>7902_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>3700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TOURS CENTRE</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>3700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>18</phones>
+		</office>
+		<office>
+			<coda>6404</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BAYONNE LE FORUM</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>6404_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>7603</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROUXMESNIL BOUTEILLES</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7603_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>5921</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DOUAI</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>5921_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>1202</coda>
+			<type>AGENCE</type>
+			<name>SCT - RODEZ</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT LANGUEDOC AUBRAC</pole>
+			<dxi>0</dxi>
+			<devicepool>1202_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>7500</coda>
+			<type>CRCE</type>
+			<name>REXEL - PORTE D'AUBERVILLIERS</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7500_7570_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>23</dect>
+			<sip>0</sip>
+			<phones>101</phones>
+		</office>
+		<office>
+			<coda>7570</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - PARIS</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7500_7570_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>23</dect>
+			<sip>0</sip>
+			<phones>101</phones>
+		</office>
+		<office>
+			<coda>4602</coda>
+			<type>AGENCE</type>
+			<name>SCT - CAHORS</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT GARONNE LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>4602_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6214</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BETHUNE</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6214_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>4702</coda>
+			<type>AGENCE</type>
+			<name>SCT - AGEN</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT AQUITAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>4702_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>3802</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GIERES</name>
+			<lot>A</lot>
+			<pole>POLE - DAUPHINE</pole>
+			<dxi>0</dxi>
+			<devicepool>3802_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6100</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ALENCON</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6100_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>6717</coda>
+			<type>CRCE</type>
+			<name>REXEL - STRASBOURG-LA MEINAU</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6717_6770_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>53</phones>
+		</office>
+		<office>
+			<coda>6770</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - ALSACE</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6717_6770_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>53</phones>
+		</office>
+		<office>
+			<coda>0603</coda>
+			<type>CRCE</type>
+			<name>REXEL - SAINT LAURENT DU VAR</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0603_0670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>47</phones>
+		</office>
+		<office>
+			<coda>0670</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - NICE</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0603_0670_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>47</phones>
+		</office>
+		<office>
+			<coda>7810</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COIGNIERES</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>7810_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5603</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AURAY</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>5603_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8400</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AVIGNON FONCOUVERTE</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>8400_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>19</phones>
+		</office>
+		<office>
+			<coda>1401</coda>
+			<type>CRCE</type>
+			<name>REXEL - CAEN</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>1401_1470_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>49</phones>
+		</office>
+		<office>
+			<coda>1470</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - CAEN</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>1401_1470_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>49</phones>
+		</office>
+		<office>
+			<coda>6301</coda>
+			<type>CRCE</type>
+			<name>REXEL - CLERMONT FERRAND</name>
+			<lot>A</lot>
+			<pole>POLE - AUVERGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6301_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>56</phones>
+		</office>
+		<office>
+			<coda>9502</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GONESSE</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9502_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6713</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROSHEIM</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6713_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8701</coda>
+			<type>CRCE</type>
+			<name>REXEL - LIMOGES</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>8701_8770_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>25</phones>
+		</office>
+		<office>
+			<coda>8770</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - LIMOGES</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>8701_8770_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>25</phones>
+		</office>
+		<office>
+			<coda>8100</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ALBI</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>8100_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7112</coda>
+			<type>AGENCE</type>
+			<name>unknown</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>7112_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>2700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST MARCEL SUR VERNON</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>2700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3320</coda>
+			<type>AGENCE</type>
+			<name>SCT - LESPARRE</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT AQUITAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>3320_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2704</coda>
+			<type>AGENCE</type>
+			<name>Coaxel  - Evreux</name>
+			<lot>none</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>2704_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>7401</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SALLANCHES</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7401_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>0606</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NICE</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0606_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>9500</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINT OUEN</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9500_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>4903</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANGERS FELIX FAURE</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4903_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6400</coda>
+			<type>CRCE</type>
+			<name>REXEL - LONS</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>6400_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>46</phones>
+		</office>
+		<office>
+			<coda>4412</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NANTES - CARQUEFOU</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4412_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6104</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DAMIGNY ALENCON</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6104_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7502</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PICPUS</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7502_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>1702</coda>
+			<type>CRCE</type>
+			<name>REXEL - SAINTES</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1702_1770_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>2</dect>
+			<sip>0</sip>
+			<phones>39</phones>
+		</office>
+		<office>
+			<coda>1770</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - SAINTES</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1702_1770_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>2</dect>
+			<sip>0</sip>
+			<phones>39</phones>
+		</office>
+		<office>
+			<coda>5110</coda>
+			<type>AGENCE</type>
+			<name>REXEL - EPERNAY PIERRY</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5110_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3002</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NIMES VILLE ACTIVE</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>3002_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>0700</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AUBENAS</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>0700_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7404</coda>
+			<type>AGENCE</type>
+			<name>REXEL - THONON</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7404_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7610</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LE HAVRE - MAGASINS GÉNÉRAUX</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7610_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>6911</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHAPONOST</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6911_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>5501</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BAR LE DUC</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5501_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>3304</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LA TESTE</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>3304_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7901</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NIORT - BESSINES</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>7901_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>7511</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARTS ET METIERS</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7511_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1308</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PORT-DE-BOUC</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1308_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>9301</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VILLEPINTE</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9301_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7710</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MEAUX COLLECTIF</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>7710_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>6401</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BAYONNE SAINT FREDERIC</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>6401_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>3</dect>
+			<sip>0</sip>
+			<phones>15</phones>
+		</office>
+		<office>
+			<coda>3803</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VOIRON</name>
+			<lot>A</lot>
+			<pole>POLE - DAUPHINE</pole>
+			<dxi>0</dxi>
+			<devicepool>3803_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7107</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MACON SACCARD</name>
+			<lot>none</lot>
+			<pole>POLE - VAL DE SAÔNE AIN JURA</pole>
+			<dxi>0</dxi>
+			<devicepool>7107_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>3702</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHAMBRAY-LES-TOURS</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>3702_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7609</coda>
+			<type>AGENCE</type>
+			<name>REXEL - EU</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7609_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>3818</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ECHIROLLES</name>
+			<lot>A</lot>
+			<pole>POLE - DAUPHINE</pole>
+			<dxi>0</dxi>
+			<devicepool>3818_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1903</coda>
+			<type>AGENCE</type>
+			<name>SCT - BRIVE</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT GARONNE LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>1903_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6603</coda>
+			<type>AGENCE</type>
+			<name>SCT - PERPIGNAN</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT LANGUEDOC AUBRAC</pole>
+			<dxi>0</dxi>
+			<devicepool>6603_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6900</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VAULX EN VELIN</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6900_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6004</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CREIL</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>6004_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARGENTAN</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>7903</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BRESSUIRE</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>7903_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>7605</coda>
+			<type>CRCE</type>
+			<name>REXEL - ROUEN SUD</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7605_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>65</phones>
+		</office>
+		<office>
+			<coda>1900</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TULLE</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>1900_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1320</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VITROLLES LES ESTROUBLANS</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1320_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3313</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST ANDRE-DE-CUBZAC</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>3313_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>8201</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONTAUBAN</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>8201_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>10</phones>
+		</office>
+		<office>
+			<coda>8900</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AUXERRE</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>8900_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>2201</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GUINGAMP</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2201_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>2205</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DINAN</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2205_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5918</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARMENTIERES</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5918_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>8305</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BRIGNOLES</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8305_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>CAMPUS</coda>
+			<type>OFFICE</type>
+			<name>CAMPUS</name>
+			<lot>CAMPUS</lot>
+			<pole>CAMPUS</pole>
+			<dxi>0</dxi>
+			<devicepool>CAMPUS_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>2</isr>
+			<fxs>0</fxs>
+			<dect>1</dect>
+			<sip>0</sip>
+			<phones>613</phones>
+		</office>
+		<office>
+			<coda>3375</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MERIGNAC</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>3375_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>22</phones>
+		</office>
+		<office>
+			<coda>6910</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TARARE</name>
+			<lot>none</lot>
+			<pole>POLE - VAL DE SAÔNE AIN JURA</pole>
+			<dxi>0</dxi>
+			<devicepool>6910_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>8407</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CARPENTRAS</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>8407_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6204</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARQUES</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6204_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>10</phones>
+		</office>
+		<office>
+			<coda>7304</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHAMBERY LA RAVOIRE</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7304_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>1703</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROYAN</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1703_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>4510</coda>
+			<type>CRCE</type>
+			<name>REXEL - ST JEAN DE LA RUELLE</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>4510_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>82</phones>
+		</office>
+		<office>
+			<coda>3804</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BOURGOIN JALLIEU</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>3804_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>2200</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST BRIEUC</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2200_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>15</phones>
+		</office>
+		<office>
+			<coda>6917</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VENISSIEUX</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6917_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>7803</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LES MUREAUX</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>7803_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>3300</coda>
+			<type>CRCE</type>
+			<name>REXEL - BORDEAUX NORD</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>3300_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>69</phones>
+		</office>
+		<office>
+			<coda>5201</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHAUMONT - SUD</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5201_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>9412</coda>
+			<type>AGENCE</type>
+			<name>REXEL - IVRY SUR SEINE</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>9412_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1400</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BAYEUX</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>1400_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6223</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINT-JOSSE</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6223_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>3505</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VITRE</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3505_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>2803</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHARTRES</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2803_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5932</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LILLE</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5932_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>3301</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LIBOURNE</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>3301_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>3005</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NIMES EST</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>3005_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5105</coda>
+			<type>AGENCE</type>
+			<name>REXEL - EPERNAY</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5105_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>4600</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CAHORS</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>4600_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>4901</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHOLET SUD</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4901_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>8506</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FONTENAY-LE-COMTE</name>
+			<lot>A</lot>
+			<pole>POLE - VENDÉE</pole>
+			<dxi>0</dxi>
+			<devicepool>8506_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7520</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE  COMPETENCES NATIONAL DXI</name>
+			<lot>none</lot>
+			<pole>POLE - DIRECTION INDUSTRIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7520_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>2</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4415</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GUÉRANDE</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4415_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5304</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHATEAU-GONTIER</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5304_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8504</coda>
+			<type>AGENCE</type>
+			<name>REXEL - OLONNE-SUR-MER</name>
+			<lot>A</lot>
+			<pole>POLE - VENDÉE</pole>
+			<dxi>0</dxi>
+			<devicepool>8504_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>9101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PALAISEAU</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3103</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST GAUDENS</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3103_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1329</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LA CIOTAT</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1329_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4408</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NANTES REZE</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>3</dxi>
+			<devicepool>4408_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>25</phones>
+		</office>
+		<office>
+			<coda>0400</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DIGNE</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>0400_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>1704</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINT JEAN D ANGELY</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1704_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4506</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MONTARGIS</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>4506_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>10</phones>
+		</office>
+		<office>
+			<coda>9303</coda>
+			<type>CRCN</type>
+			<name>REXEL - BOBIGNY</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>9303_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>21</phones>
+		</office>
+		<office>
+			<coda>4519</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ORLEANS LES MONTEES</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>4519_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>2702</coda>
+			<type>AGENCE</type>
+			<name>REXEL - EVREUX</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>2702_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>11</phones>
+		</office>
+		<office>
+			<coda>2800</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MAINVILLIERS</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2800_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>10</phones>
+		</office>
+		<office>
+			<coda>8902</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AVALLON</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>8902_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6218</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LE PARCQ</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6218_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>1701</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROCHEFORT</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1701_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>1501</coda>
+			<type>AGENCE</type>
+			<name>SCT - AURILLAC</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT LANGUEDOC AUBRAC</pole>
+			<dxi>0</dxi>
+			<devicepool>1501_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>5406</coda>
+			<type>CLR</type>
+			<name>Clr - Champigneulles</name>
+			<lot>none</lot>
+			<pole>CENTRES LOGISTIQUES NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5406_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>28</dect>
+			<sip>0</sip>
+			<phones>36</phones>
+		</office>
+		<office>
+			<coda>2401</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PERIGUEUX</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>2401_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>6805</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MULHOUSE SUD</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6805_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7405</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VOUGY</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7405_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>3904</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DOLE</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3904_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>6402</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINT JEAN DE LUZ</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>6402_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7614</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROUEN EST</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE MARITIME EURE</pole>
+			<dxi>0</dxi>
+			<devicepool>7614_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>5109</coda>
+			<type>AGENCE</type>
+			<name>REXEL - REIMS - CORMONTREUIL</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5109_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>3903</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LONS LE SAUNIER</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3903_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>8901</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SENS</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>8901_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>8104</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LAVAUR</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>8104_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>0204</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SOISSONS</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>0204_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>5707</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST AVOLD</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>5707_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>1200</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ONET LE CHATEAU</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>1200_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>11</phones>
+		</office>
+		<office>
+			<coda>3503</coda>
+			<type>AGENCE</type>
+			<name>REXEL - REDON</name>
+			<lot>A</lot>
+			<pole>POLE - BRETAGNE EST MAYENNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3503_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5003</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHERBOURG</name>
+			<lot>A</lot>
+			<pole>POLE - CALVADOS ET MANCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>5003_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>6804</coda>
+			<type>AGENCE</type>
+			<name>REXEL - HESINGUE - HUNINGUE</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6804_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>0103</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AMBERIEU EN BUGEY</name>
+			<lot>none</lot>
+			<pole>POLE - VAL DE SAÔNE AIN JURA</pole>
+			<dxi>0</dxi>
+			<devicepool>0103_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>9512</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHAMBLY</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9512_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>8101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CASTRES</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>8101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>0608</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MENTON</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0608_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>3813</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SALAISE SUR SANNE</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>3813_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6500</coda>
+			<type>AGENCE</type>
+			<name>REXEL - TARBES</name>
+			<lot>C</lot>
+			<pole>POLE - LANDES PYRENEES</pole>
+			<dxi>0</dxi>
+			<devicepool>6500_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>9999</coda>
+			<type>CRCE</type>
+			<name>CRCE de Test</name>
+			<lot>none</lot>
+			<pole>Test</pole>
+			<dxi>0</dxi>
+			<devicepool>9999_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>14</phones>
+		</office>
+		<office>
+			<coda>7201</coda>
+			<type>CRCE</type>
+			<name>REXEL - LE MANS ROCADE SUD</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>7201_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>44</phones>
+		</office>
+		<office>
+			<coda>8403</coda>
+			<type>AGENCE</type>
+			<name>REXEL - AVIGNON COURTINE</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>8403_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5915</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LA SENTINELLE</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5915_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>8306</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DRAGUIGNAN</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8306_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>5601</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PONTIVY</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>5601_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>1101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - NARBONNE - SUD</name>
+			<lot>A</lot>
+			<pole>POLE - OCCITANIE</pole>
+			<dxi>0</dxi>
+			<devicepool>1101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6925</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LYON BERTHELOT</name>
+			<lot>C</lot>
+			<pole>POLE - LYON</pole>
+			<dxi>0</dxi>
+			<devicepool>6925_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>9405</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FRESNES</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9405_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>6</dect>
+			<sip>0</sip>
+			<phones>14</phones>
+		</office>
+		<office>
+			<coda>2904</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MORLAIX</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2904_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>6001</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BEAUVAIS</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>6001_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>6102</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FLERS</name>
+			<lot>A</lot>
+			<pole>POLE - SARTHE ORNE</pole>
+			<dxi>0</dxi>
+			<devicepool>6102_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>1302</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MARSEILLE SUD</name>
+			<lot>B</lot>
+			<pole>POLE - PROVENCE</pole>
+			<dxi>0</dxi>
+			<devicepool>1302_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>2107</coda>
+			<type>AGENCE</type>
+			<name>REXEL - DIJON NORD</name>
+			<lot>A</lot>
+			<pole>POLE - BOURGOGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>2107_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>6802</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MULHOUSE NORD</name>
+			<lot>C</lot>
+			<pole>POLE - ALSACE</pole>
+			<dxi>0</dxi>
+			<devicepool>6802_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>5107</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHALONS EN CHAMPAGNE ZI ST MARTIN</name>
+			<lot>A</lot>
+			<pole>POLE - CHAMPAGNE</pole>
+			<dxi>0</dxi>
+			<devicepool>5107_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3117</coda>
+			<type>AGENCE</type>
+			<name>SCT - TOULOUSE GRAMONT</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT GARONNE LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>3117_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>7801</coda>
+			<type>AGENCE</type>
+			<name>REXEL - RAMBOUILLET</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>7801_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>9208</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VILLENEUVE LA GARENNE</name>
+			<lot>B</lot>
+			<pole>POLE - NORD OUEST FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9208_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7703</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MELUN</name>
+			<lot>A</lot>
+			<pole>POLE - SEINE ET MARNE-VAL DE MARNE EST</pole>
+			<dxi>0</dxi>
+			<devicepool>7703_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>5906</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SECLIN</name>
+			<lot>Pilote</lot>
+			<pole>POLE - NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>5906_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>17</phones>
+		</office>
+		<office>
+			<coda>3004</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ALES</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>3004_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>2601</coda>
+			<type>AGENCE</type>
+			<name>REXEL - VALENCE JOULE</name>
+			<lot>A</lot>
+			<pole>POLE - DROME ARDÈCHE</pole>
+			<dxi>0</dxi>
+			<devicepool>2601_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>9</phones>
+		</office>
+		<office>
+			<coda>8603</coda>
+			<type>AGENCE</type>
+			<name>REXEL - POITIERS - NORD</name>
+			<lot>C</lot>
+			<pole>POLE - POITOU</pole>
+			<dxi>0</dxi>
+			<devicepool>8603_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>6202</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANNEZIN</name>
+			<lot>B</lot>
+			<pole>POLE - PAS DE CALAIS</pole>
+			<dxi>0</dxi>
+			<devicepool>6202_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>2970</coda>
+			<type>CRCE</type>
+			<name>CENTRE DE RELATION CLIENTS - BREST</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2970_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>57</phones>
+		</office>
+		<office>
+			<coda>2901</coda>
+			<type>AGENCE</type>
+			<name>REXEL - BREST KERGARADEC</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2901_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>3</fxs>
+			<dect>11</dect>
+			<sip>0</sip>
+			<phones>54</phones>
+		</office>
+		<office>
+			<coda>1600</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ANGOULÊME</name>
+			<lot>A</lot>
+			<pole>POLE - CHARENTES</pole>
+			<dxi>0</dxi>
+			<devicepool>1600_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>8</phones>
+		</office>
+		<office>
+			<coda>9402</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ARCUEIL</name>
+			<lot>C</lot>
+			<pole>POLE - SUD FRANCILIEN</pole>
+			<dxi>0</dxi>
+			<devicepool>9402_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>0202</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LAON</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>0202_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>3816</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FONTAINE</name>
+			<lot>A</lot>
+			<pole>POLE - DAUPHINE</pole>
+			<dxi>0</dxi>
+			<devicepool>3816_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>0100</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST GENIS POUILLY</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>0100_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>2905</coda>
+			<type>AGENCE</type>
+			<name>REXEL - QUIMPER GUELEN</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2905_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>20</phones>
+		</office>
+		<office>
+			<coda>2203</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LANNION</name>
+			<lot>B</lot>
+			<pole>POLE - BRETAGNE OUEST</pole>
+			<dxi>0</dxi>
+			<devicepool>2203_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>7522</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PARIS XV</name>
+			<lot>B</lot>
+			<pole>POLE - PARIS - SEINE SAINT-DENIS</pole>
+			<dxi>0</dxi>
+			<devicepool>7522_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>3112</coda>
+			<type>AGENCE</type>
+			<name>REXEL - COLOMIERS</name>
+			<lot>B</lot>
+			<pole>POLE - GARONNE</pole>
+			<dxi>0</dxi>
+			<devicepool>3112_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>0604</coda>
+			<type>AGENCE</type>
+			<name>REXEL - GRASSE</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>0604_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4202</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FIRMINY</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4202_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>8004</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ABBEVILLE</name>
+			<lot>C</lot>
+			<pole>POLE - PICARDIE</pole>
+			<dxi>0</dxi>
+			<devicepool>8004_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>3413</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST GELY-DU-FESC</name>
+			<lot>C</lot>
+			<pole>POLE - LANGUEDOC</pole>
+			<dxi>0</dxi>
+			<devicepool>3413_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>7301</coda>
+			<type>AGENCE</type>
+			<name>REXEL - CHAMBERY NORD</name>
+			<lot>C</lot>
+			<pole>POLE - SAVOIE</pole>
+			<dxi>0</dxi>
+			<devicepool>7301_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>2</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>12</phones>
+		</office>
+		<office>
+			<coda>8304</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FREJUS</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8304_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>6976</coda>
+			<type>PFA</type>
+			<name>Rexel - PFA Villeurbanne</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>6976_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>6</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>139</phones>
+		</office>
+		<office>
+			<coda>6604</coda>
+			<type>AGENCE</type>
+			<name>SCT - ARGELES SUR MER</name>
+			<lot>none</lot>
+			<pole>GRAPPE - SCT LANGUEDOC AUBRAC</pole>
+			<dxi>0</dxi>
+			<devicepool>6604_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>8303</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SAINTE MAXIME</name>
+			<lot>A</lot>
+			<pole>POLE - CÔTE D'AZUR</pole>
+			<dxi>0</dxi>
+			<devicepool>8303_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>4103</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROMORANTIN</name>
+			<lot>A</lot>
+			<pole>POLE - LOIRE BERRY</pole>
+			<dxi>0</dxi>
+			<devicepool>4103_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>8402</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SORGUES</name>
+			<lot>C</lot>
+			<pole>POLE - GARD VAUCLUSE</pole>
+			<dxi>0</dxi>
+			<devicepool>8402_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>1</phones>
+		</office>
+		<office>
+			<coda>0101</coda>
+			<type>AGENCE</type>
+			<name>REXEL - OYONNAX</name>
+			<lot>none</lot>
+			<pole>POLE - VAL DE SAÔNE AIN JURA</pole>
+			<dxi>0</dxi>
+			<devicepool>0101_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>8801</coda>
+			<type>AGENCE</type>
+			<name>REXEL - EPINAL</name>
+			<lot>B</lot>
+			<pole>POLE - LORRAINE</pole>
+			<dxi>0</dxi>
+			<devicepool>8801_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>5</phones>
+		</office>
+		<office>
+			<coda>4421</coda>
+			<type>AGENCE</type>
+			<name>REXEL - PORNIC</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4421_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>9970</coda>
+			<type>SMART</type>
+			<name>SMART</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>9970_DP</devicepool>
+			<cmg>SUB1_SUB4_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>20</phones>
+		</office>
+		<office>
+			<coda>4701</coda>
+			<type>AGENCE</type>
+			<name>REXEL - MARMANDE</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>4701_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>3</phones>
+		</office>
+		<office>
+			<coda>4201</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ROANNE</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4201_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>1322</coda>
+			<type>CLR</type>
+			<name>REXEL - MIRAMAS</name>
+			<lot>none</lot>
+			<pole>CENTRES LOGISTIQUES SUD</pole>
+			<dxi>0</dxi>
+			<devicepool>1322_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>30</dect>
+			<sip>0</sip>
+			<phones>36</phones>
+		</office>
+		<office>
+			<coda>4205</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST ETIENNE BASCH</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE, HAUTE-LOIRE</pole>
+			<dxi>0</dxi>
+			<devicepool>4205_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>4</phones>
+		</office>
+		<office>
+			<coda>8501</coda>
+			<type>AGENCE</type>
+			<name>REXEL - LES HERBIERS</name>
+			<lot>A</lot>
+			<pole>POLE - VENDÉE</pole>
+			<dxi>0</dxi>
+			<devicepool>8501_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>8</phones>
+		</office>
+		<office>
+			<coda>4414</coda>
+			<type>AGENCE</type>
+			<name>REXEL - ST NAZAIRE</name>
+			<lot>B</lot>
+			<pole>POLE - LOIRE OCEAN</pole>
+			<dxi>0</dxi>
+			<devicepool>4414_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>6</phones>
+		</office>
+		<office>
+			<coda>2918</coda>
+			<type>AGENCE</type>
+			<name>Rexel - Quimper Hippodrome</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>2918_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>0</phones>
+		</office>
+		<office>
+			<coda>3302</coda>
+			<type>AGENCE</type>
+			<name>REXEL - FLOIRAC</name>
+			<lot>B</lot>
+			<pole>POLE - GIRONDE PERIGORD</pole>
+			<dxi>0</dxi>
+			<devicepool>3302_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>7</phones>
+		</office>
+		<office>
+			<coda>2402</coda>
+			<type>AGENCE</type>
+			<name>REXEL - SARLAT</name>
+			<lot>A</lot>
+			<pole>POLE - LIMOUSIN</pole>
+			<dxi>0</dxi>
+			<devicepool>2402_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>1</isr>
+			<fxs>1</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>2</phones>
+		</office>
+		<office>
+			<coda>9375</coda>
+			<type>AGENCE</type>
+			<name>Rexel - Neuilly Plaisance</name>
+			<lot>none</lot>
+			<pole></pole>
+			<dxi>0</dxi>
+			<devicepool>9375_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>13</phones>
+		</office>
+		<office>
+			<coda>6220</coda>
+			<type>CLR</type>
+			<name>Clr - Dourges</name>
+			<lot>none</lot>
+			<pole>CENTRES LOGISTIQUES NORD</pole>
+			<dxi>0</dxi>
+			<devicepool>6220_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>17</phones>
+		</office>
+		<office>
+			<coda>4299</coda>
+			<type>AGENCE</type>
+			<name>unknown</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>4299_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>15</phones>
+		</office>
+		<office>
+			<coda>5975</coda>
+			<type>AGENCE</type>
+			<name>REXEL - WASQUEHAL</name>
+			<lot>none</lot>
+			<pole>unknown</pole>
+			<dxi>0</dxi>
+			<devicepool>5975_DP</devicepool>
+			<cmg>SUB2_SUB3_CMG</cmg>
+			<description></description>
+			<isr>0</isr>
+			<fxs>0</fxs>
+			<dect>0</dect>
+			<sip>0</sip>
+			<phones>15</phones>
 		</office>
 	</offices>
 </xml>

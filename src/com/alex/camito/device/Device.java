@@ -8,11 +8,11 @@ import com.alex.camito.cli.CliInjector;
 import com.alex.camito.cli.CliProfile;
 import com.alex.camito.cli.CliProfile.cliProtocol;
 import com.alex.camito.misc.ItemToMigrate;
+import com.alex.camito.misc.ItmType;
 import com.alex.camito.utils.LanguageManagement;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ActionType;
-import com.alex.camito.utils.Variables.ItmType;
 import com.alex.camito.utils.Variables.ReachableStatus;
 
 
@@ -53,12 +53,18 @@ public class Device extends ItemToMigrate
 		this.gateway = (InetAddressValidator.getInstance().isValidInet4Address(gateway))?gateway:"";
 		this.reachable = ReachableStatus.unknown;
 		
+		/*
 		if(ip.isEmpty() || mask.isEmpty() || gateway.isEmpty())
+			{
+			throw new Exception("A mandatory field was empty");
+			}*/
+		
+		if(ip.isEmpty())
 			{
 			throw new Exception("A mandatory field was empty");
 			}
 		
-		shortmask = UsefulMethod.convertlongMaskToShortOne(this.mask);
+		if(!this.mask.isEmpty())shortmask = UsefulMethod.convertlongMaskToShortOne(this.mask);
 		}
 	
 	public Device(BasicDevice bd, ActionType action) throws Exception
@@ -81,7 +87,7 @@ public class Device extends ItemToMigrate
 		{
 		StringBuffer s = new StringBuffer("");
 		
-		s.append(LanguageManagement.getString(type.name())+" ");
+		s.append(LanguageManagement.getString(type.getName())+" ");
 		s.append(ip+" ");
 		s.append(name);
 		

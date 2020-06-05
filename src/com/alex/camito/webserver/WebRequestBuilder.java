@@ -64,25 +64,11 @@ public class WebRequestBuilder
 			for(BasicOffice o : Variables.getOfficeList())
 				{
 				if((o.getName().toLowerCase().contains(search.toLowerCase())) ||
-						(o.getNewName().toLowerCase().contains(search.toLowerCase())) ||
-						(o.getIdcomu().toLowerCase().contains(search.toLowerCase())) ||
-						(o.getVoiceIPRange().getSubnet().contains(search)) ||
-						(o.getDataIPRange().getSubnet().contains(search)))
+						(o.getCoda().toLowerCase().contains(search.toLowerCase())) ||
+						(UsefulMethod.isItInThisLot(search.toLowerCase(),o)) ||
+						(o.getPole().toLowerCase().contains(search.toLowerCase())))
 					{
 					Variables.getLogger().debug("Office found : "+o.getInfo());
-					
-					//Then we look for device associated to this office
-					if(o.getDeviceList().size() == 0)
-						{
-						for(BasicDevice d : Variables.getDeviceList())
-							{
-							if(d.getOfficeid().equals(o.getIdcomu()))
-								{
-								o.getDeviceList().add(d);
-								}
-							}
-						}
-					
 					ol.add(o);
 					}
 				}
@@ -102,22 +88,20 @@ public class WebRequestBuilder
 				
 				if(Pattern.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.*", search.toLowerCase()))
 					{
-					ArrayList<BasicPhone> phoneList = RisportTools.getDeviceByIP(search.toLowerCase());
+					ArrayList<BasicPhone> phoneList = RisportTools.getDeviceByIP(Variables.getSrccucm(), search.toLowerCase());
 					for(BasicPhone bp : phoneList)
 						{
 						boolean officeFound = false;
 						//We ask the CUCM for the phone's device pool
-						String devicePoolName = OfficeTools.getDevicePoolFromPhoneName(bp.getName());
+						String devicePoolName = OfficeTools.getDevicePoolFromPhoneName(bp.getName(), Variables.getSrccucm());
 						if(devicePoolName != null)
 							{
 							Variables.getLogger().debug("Looking for the office corresponding to devicePool "+devicePoolName);
 							
-							String officeID = devicePoolName.replaceAll(UsefulMethod.getTargetOption("devicepoolprefix"), "");//We strip the device pool prefix to get the office ID
-							
 							//We first check if the office is not already in the list
 							for(BasicOffice bo : ol)
 								{
-								if(bo.getIdcomu().equals(officeID))
+								if(bo.getDevicepool().equals(devicePoolName))
 									{
 									officeFound = true;
 									break;
@@ -129,20 +113,9 @@ public class WebRequestBuilder
 								{
 								for(BasicOffice o : Variables.getOfficeList())
 									{
-									if(o.getIdcomu().equals(officeID))
+									if(o.getDevicepool().equals(devicePoolName))
 										{
 										Variables.getLogger().debug("Office found : "+o.getInfo());
-										//Then we look for device associated to this office
-										if(o.getDeviceList().size() == 0)
-											{
-											for(BasicDevice d : Variables.getDeviceList())
-												{
-												if(d.getOfficeid().equals(o.getIdcomu()))
-													{
-													o.getDeviceList().add(d);
-													}
-												}
-											}
 										ol.add(o);
 										officeFound = true;
 										break;
@@ -151,7 +124,7 @@ public class WebRequestBuilder
 								if(!officeFound)
 									{
 									Variables.getLogger().debug("the office was not found in the database so we create a simple office just to allow to reset the phones");
-									BasicOffice unknownOffice = new BasicOffice(officeID);
+									BasicOffice unknownOffice = new BasicOffice(devicePoolName);
 									ol.add(unknownOffice);
 
 									/**
@@ -196,14 +169,6 @@ public class WebRequestBuilder
 						d.getIp().contains(search)) &&
 						(!lookForDuplicate.contains(d.getId())))
 					{
-					for(BasicOffice o : Variables.getOfficeList())
-						{
-						if(d.getOfficeid().equals(o.getIdcomu()))
-							{
-							d.setOfficename(o.getName());
-							break;
-							}
-						}
 					dl.add(d);
 					Variables.getLogger().debug("Device found : "+d.getInfo());
 					}
@@ -228,9 +193,9 @@ public class WebRequestBuilder
 				{
 				content.append("				<office>\r\n");
 				content.append("					<id>"+o.getId()+"</id>\r\n");
-				content.append("					<idcomu>"+o.getIdcomu()+"</idcomu>\r\n");
+				content.append("					<coda>"+o.getCoda()+"</coda>\r\n");
 				content.append("					<name>"+o.getName()+"</name>\r\n");
-				content.append("					<newname>"+o.getNewName()+"</newname>\r\n");
+				content.append("					<pole>"+o.getPole()+"</pole>\r\n");
 				content.append("					<status>"+o.getStatus().name()+"</status>\r\n");
 				content.append("					<devices>\r\n");
 				
@@ -453,18 +418,6 @@ public class WebRequestBuilder
 					temp.append(getOffice("			", o));
 					temp.append("				<devices>\r\n");
 					
-					//Then we look for device associated to this office
-					if(o.getDeviceList().size() == 0)
-						{
-						for(BasicDevice d : Variables.getDeviceList())
-							{
-							if(d.getOfficeid().equals(o.getIdcomu()))
-								{
-								o.getDeviceList().add(d);
-								}
-							}
-						}
-					
 					if(o.getDeviceList().size()!=0)
 						{
 						for(BasicDevice d : o.getDeviceList())
@@ -642,16 +595,14 @@ public class WebRequestBuilder
 		StringBuffer content = new StringBuffer();
 		
 		content.append(tabs+"	<id>"+o.getId()+"</id>\r\n");
-		content.append(tabs+"	<idcomu>"+o.getIdcomu()+"</idcomu>\r\n");
-		content.append(tabs+"	<idcaf>"+o.getIdCAF()+"</idcaf>\r\n");
+		content.append(tabs+"	<coda>"+o.getCoda()+"</coda>\r\n");
 		content.append(tabs+"	<name>"+o.getName()+"</name>\r\n");
-		content.append(tabs+"	<shortname>"+o.getShortname()+"</shortname>\r\n");
-		content.append(tabs+"	<newname>"+o.getNewName()+"</newname>\r\n");
+		content.append(tabs+"	<pole>"+o.getPole()+"</pole>\r\n");
+		content.append(tabs+"	<devicepool>"+o.getDevicepool()+"</devicepool>\r\n");
+		content.append(tabs+"	<lot>"+o.getLot()+"</lot>\r\n");
 		content.append(tabs+"	<officetype>"+o.getOfficeType()+"</officetype>\r\n");
-		content.append(tabs+"	<voiceiprange>"+o.getVoiceIPRange().getCIDRFormat()+"</voiceiprange>\r\n");
-		content.append(tabs+"	<dataiprange>"+o.getDataIPRange().getCIDRFormat()+"</dataiprange>\r\n");
-		content.append(tabs+"	<newvoiceiprange>"+o.getNewVoiceIPRange().getCIDRFormat()+"</newvoiceiprange>\r\n");
-		content.append(tabs+"	<newdataiprange>"+o.getNewDataIPRange().getCIDRFormat()+"</newdataiprange>\r\n");
+		content.append(tabs+"	<cmg>"+o.getCmg().getName()+"</cmg>\r\n");
+		content.append(tabs+"	<officetype>"+o.getOfficeType()+"</officetype>\r\n");
 		
 		return content.toString();
 		}
@@ -670,9 +621,6 @@ public class WebRequestBuilder
 		content.append(tabs+"	<ip>"+d.getIp()+"</ip>\r\n");
 		content.append(tabs+"	<mask>"+d.getMask()+"</mask>\r\n");
 		content.append(tabs+"	<gateway>"+d.getGateway()+"</gateway>\r\n");
-		content.append(tabs+"	<newip>"+d.getNewip()+"</newip>\r\n");
-		content.append(tabs+"	<newmask>"+d.getNewmask()+"</newmask>\r\n");
-		content.append(tabs+"	<newgateway>"+d.getNewgateway()+"</newgateway>\r\n");
 		content.append(tabs+"	<officeid>"+d.getOfficeid()+"</officeid>\r\n");
 		
 		return content.toString();

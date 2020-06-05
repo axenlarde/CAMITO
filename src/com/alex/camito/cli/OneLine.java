@@ -21,7 +21,9 @@ public class OneLine
 		wait,
 		waitfor,
 		get,
-		writeif
+		writeif,
+		save,
+		reboot
 		};
 	
 	private String command;

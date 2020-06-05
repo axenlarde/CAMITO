@@ -26,7 +26,7 @@ public class xMLReader
 	 **************************************************/
 	public static String fileRead(String fileName) throws IOException, FileNotFoundException
 		{
-		String template = new String("");
+		StringBuffer buf = new StringBuffer("");
 		String UTF_BOM = "\uFEFF";
 		Variables.getLogger().info("File name = "+fileName);
 		FileInputStream monFichier = new FileInputStream(fileName);
@@ -43,11 +43,11 @@ public class xMLReader
 				}
 			if(ligne.startsWith(UTF_BOM))
 				{
-				template += ligne.substring(1);
+				buf.append(ligne.substring(1));
 				}
 			else
 				{
-				template += ligne;
+				buf.append(ligne);
 				}
 			}
 		
@@ -59,7 +59,7 @@ public class xMLReader
 		tampon.close();
 		monFichier.close();
 		
-		return template;
+		return buf.toString();
 		}
 	
 	/*2013*//*RATEL Alexandre 8)*/

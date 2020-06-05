@@ -247,40 +247,5 @@ Gateway config file
 				<write></write>
 			</config>
 		</profile>
-		<profile>
-			<misc>
-				<name>Audiocode</name>
-				<type>AUDIOCODE</type>
-				<defaultintercommandtimer>50</defaultintercommandtimer>
-			</misc>
-			<howtoconnect>
-				<waitfor>Username:</waitfor>
-				<write>device.user</write>
-				<write>device.password</write>
-			</howtoconnect>
-			<config>
-				<connect>device.ip</connect>
-				<write></write>
-				<write>conf</write>
-				<write>ConfigFile set</write>
-				<write>'InterfaceTable 0 = 6, 10, '+device.newip+', '+device.newshortmask+', '+device.newgateway+', 200, analog, 0.0.0.0, 0.0.0.0</write>
-				<write>.</write>
-				<write></write>
-				<write>sar</write>
-				<disconnect></disconnect>
-				<wait>40000</wait>
-				<connect>device.ip</connect>
-				<write></write>
-				<write>conf</write>
-				<write>'SCP IP '+device.newip+' '+device.newmask+' '+device.newgateway</write>
-				<disconnect></disconnect>
-				<wait>40000</wait>
-				<connect>device.newip</connect>
-				<write></write>
-				<write>conf</write>
-				<write>sar</write>
-				<write></write>
-			</config>
-		</profile>
 	</profiles>
 </xml>

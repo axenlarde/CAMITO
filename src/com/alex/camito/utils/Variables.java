@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 import com.alex.camito.action.Task;
+import com.alex.camito.cli.CliGetOutput;
 import com.alex.camito.cli.CliProfile;
 import com.alex.camito.device.BasicDevice;
+import com.alex.camito.device.DeviceType;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.Did;
 import com.alex.camito.misc.ValueMatcher;
 import com.alex.camito.misc.storedUUID;
 import com.alex.camito.office.misc.BasicOffice;
-import com.cisco.schemas.ast.soap.RisPortType;
+import com.alex.camito.office.misc.CMG;
 
 
 /**********************************
@@ -152,20 +154,6 @@ public class Variables
 		};
 		
 	/**
-	 * ItemToMigrate type
-	 */
-	public enum ItmType
-		{
-		office,
-		isr,
-		vg,
-		audiocode,
-		ascom,
-		phone,
-		sip
-		};
-		
-	/**
 	 * ascom type
 	 */
 	public enum AscomType
@@ -190,12 +178,6 @@ public class Variables
 		SMART
 		};
 		
-	public enum CMG
-		{
-		SUB1_SUB4_CMG,
-		SUB2_SUB3_CMG
-		}
-	
 	public enum Lot
 		{
 		PILOTE,
@@ -223,6 +205,8 @@ public class Variables
 	private static ArrayList<BasicOffice> OfficeList;
 	private static ArrayList<BasicDevice> DeviceList;
 	private static ArrayList<Did> didList;
+	private static ArrayList<CMG> cmgList;
+	private static ArrayList<DeviceType> deviceTypeList;
 	private static eMailSender eMSender;
 	private static String mainDirectory;
 	private static String configFileName;
@@ -232,6 +216,8 @@ public class Variables
 	private static String cliProfileListFileName;
 	private static String substitutesFileName;
 	private static String didListFileName;
+	private static String cmgListFileName;
+	private static String deviceTypeListFileName;
 	private static ArrayList<String> matcherList;
 	private static ArrayList<ValueMatcher> substituteList;
 	private static ArrayList<storedUUID> uuidList;
@@ -252,6 +238,8 @@ public class Variables
     
     //CLI
     private static ArrayList<CliProfile> cliProfileList;
+    private static String cliGetOutputFileName;
+    private static ArrayList<CliGetOutput> cliGetOutputList;
     
     /**************
      * Constructor
@@ -270,6 +258,9 @@ public class Variables
 		collectionFileName = "database.xlsx";
 		migratedItemFileName = "migratedItemsList.xml";
 		didListFileName = "didList.xml";
+		cmgListFileName = "cmgList.xml";
+		cliGetOutputFileName = "CliGetOutput";
+		deviceTypeListFileName = "deviceTypeList.xml";
 		}
 
 	public static String getSoftwareName()
@@ -624,7 +615,70 @@ public class Variables
 		{
 		Variables.dstcucm = dstcucm;
 		}
+
+	public static ArrayList<CMG> getCmgList()
+		{
+		return cmgList;
+		}
+
+	public static void setCmgList(ArrayList<CMG> cmgList)
+		{
+		Variables.cmgList = cmgList;
+		}
+
+	public static String getCmgListFileName()
+		{
+		return cmgListFileName;
+		}
+
+	public static void setCmgListFileName(String cmgListFileName)
+		{
+		Variables.cmgListFileName = cmgListFileName;
+		}
 	
+	public static ArrayList<CliGetOutput> getCliGetOutputList()
+		{
+		if(cliGetOutputList == null)
+			{
+			cliGetOutputList = new ArrayList<CliGetOutput>();
+			}
+		return cliGetOutputList;
+		}
+
+	public static void setCliGetOutputList(ArrayList<CliGetOutput> cliGetOutputList)
+		{
+		Variables.cliGetOutputList = cliGetOutputList;
+		}
+
+	public static String getCliGetOutputFileName()
+		{
+		return cliGetOutputFileName;
+		}
+
+	public static void setCliGetOutputFileName(String cliGetOutputFileName)
+		{
+		Variables.cliGetOutputFileName = cliGetOutputFileName;
+		}
+
+	public static ArrayList<DeviceType> getDeviceTypeList()
+		{
+		return deviceTypeList;
+		}
+
+	public static void setDeviceTypeList(ArrayList<DeviceType> deviceTypeList)
+		{
+		Variables.deviceTypeList = deviceTypeList;
+		}
+
+	public static String getDeviceTypeListFileName()
+		{
+		return deviceTypeListFileName;
+		}
+
+	public static void setDeviceTypeListFileName(String deviceTypeListFileName)
+		{
+		Variables.deviceTypeListFileName = deviceTypeListFileName;
+		}
 	
 	
 	/*2020*//*RATEL Alexandre 8)*/
