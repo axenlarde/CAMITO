@@ -23,7 +23,7 @@ import org.apache.log4j.Level;
 
 import com.alex.camito.cli.CliGetOutput;
 import com.alex.camito.cli.CliProfile;
-import com.alex.camito.cli.CliProfile.cliProtocol;
+import com.alex.camito.cli.CliProfile.CliProtocol;
 import com.alex.camito.cli.OneLine;
 import com.alex.camito.cli.OneLine.cliType;
 import com.alex.camito.device.BasicDevice;
@@ -34,13 +34,12 @@ import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.Did;
 import com.alex.camito.misc.Did.DidType;
 import com.alex.camito.misc.IPRange;
-import com.alex.camito.misc.ItmType;
-import com.alex.camito.misc.ItmType.TypeName;
 import com.alex.camito.misc.SimpleItem.basicItemStatus;
 import com.alex.camito.misc.SimpleRequest;
 import com.alex.camito.misc.ValueMatcher;
 import com.alex.camito.office.misc.BasicOffice;
 import com.alex.camito.office.misc.CMG;
+import com.alex.camito.office.misc.LinkedOffice;
 import com.alex.camito.office.misc.CMG.CMGName;
 import com.alex.camito.risport.RisportTools;
 import com.alex.camito.utils.Variables.AscomType;
@@ -475,10 +474,7 @@ public class UsefulMethod
 				
 				try
 					{
-					TypeName type = getITMType(UsefulMethod.getItemByName("type", s));
-					
-					BasicDevice	d = new BasicDevice(UsefulMethod.getDeviceType(type.name()),
-								UsefulMethod.getItemByName("name", s),
+					BasicDevice	d = new BasicDevice(UsefulMethod.getItemByName("name", s),
 								ip,
 								UsefulMethod.getItemByName("mask", s),
 								UsefulMethod.getItemByName("gateway", s),
@@ -486,7 +482,9 @@ public class UsefulMethod
 								UsefulMethod.getItemByName("user", s),
 								UsefulMethod.getItemByName("password", s),
 								getCliProfile(UsefulMethod.getItemByName("cliprofile", s)),
-								getProtocolType(UsefulMethod.getItemByName("protocol", s)));
+								getCliProfile(UsefulMethod.getItemByName("rollbackcliprofile", s)),
+								getProtocolType(UsefulMethod.getItemByName("protocol", s)),
+								UsefulMethod.getDeviceType(UsefulMethod.getItemByName("type",s)));
 					
 					Variables.getLogger().debug("New device added to the device list : "+d.getInfo());
 					deviceList.add(d);
@@ -662,6 +660,9 @@ public class UsefulMethod
 				{
 				String coda = UsefulMethod.getItemByName("coda", s);
 				String name = UsefulMethod.getItemByName("name", s);
+				String devicePool = UsefulMethod.getItemByName("devicepool", s).toUpperCase();
+				String pole = UsefulMethod.getItemByName("pole", s);
+				OfficeType type = OfficeType.valueOf(UsefulMethod.getItemByName("type", s).toUpperCase());
 				
 				/**
 				 * We avoid duplicate
@@ -675,11 +676,23 @@ public class UsefulMethod
 						found = true;
 						break;
 						}
+					else if(bo.getDevicepool().equals(devicePool))
+						{
+						/*****
+						 * In this case there is already an office with the same devicePool
+						 * So we create it as a linked office
+						 */
+						LinkedOffice linkedOffice = new LinkedOffice(coda,
+								name,
+								pole,
+								type);
+						
+						bo.addLinkedOffice(linkedOffice);
+						}
 					}
 				
 				if(found)continue;
 				
-				String devicePool = UsefulMethod.getItemByName("devicepool", s).toUpperCase();
 				ArrayList<Did> didList = new ArrayList<Did>();
 				ArrayList<BasicDevice> deviceList = new ArrayList<BasicDevice>();
 				
@@ -701,10 +714,10 @@ public class UsefulMethod
 					{
 					BasicOffice o = new BasicOffice(coda,
 							name,
-							UsefulMethod.getItemByName("pole", s),
+							pole,
 							UsefulMethod.getItemByName("dxi", s),
 							devicePool,
-							OfficeType.valueOf(UsefulMethod.getItemByName("type", s).toUpperCase()),
+							type,
 							UsefulMethod.getCMG((UsefulMethod.getItemByName("cmg", s).toUpperCase())),
 							Lot.valueOf(UsefulMethod.getItemByName("lot",s).toUpperCase()),
 							didList,
@@ -1449,16 +1462,6 @@ public class UsefulMethod
 		return false;
 		}
 	
-	public static TypeName getITMType(String type) throws Exception
-		{
-		for(TypeName tn : ItmType.TypeName.values())
-			{
-			if(type.toLowerCase().replaceAll(" ", "").contains(tn.name()))return tn;
-			}
-		
-		throw new Exception("No itmType found for type : "+type);
-		}
-	
 	public static AscomType getAscomType(String type) throws Exception
 		{
 		for(AscomType at : AscomType.values())
@@ -1469,9 +1472,9 @@ public class UsefulMethod
 		throw new Exception("No ascomType found for type : "+type);
 		}
 	
-	public static cliProtocol getProtocolType(String protocol) throws Exception
+	public static CliProtocol getProtocolType(String protocol) throws Exception
 		{
-		for(cliProtocol p : cliProtocol.values())
+		for(CliProtocol p : CliProtocol.values())
 			{
 			if(protocol.toLowerCase().replaceAll(" ", "").contains(p.name().toLowerCase()))return p;
 			}
@@ -1496,10 +1499,8 @@ public class UsefulMethod
 			if(s.toLowerCase().replaceAll(" ", "").contains(clip.getType().getName().toLowerCase()))return clip;
 			}
 		
-		//throw new Exception("No CliProfile found for value : "+s);
-		return null;
+		return null;//Important;
 		}
-	
 	
 	/**
 	 * used to add a new entry to the migrated item list

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import com.alex.camito.cli.CliConnection.connectedTech;
-import com.alex.camito.cli.CliProfile.cliProtocol;
+import com.alex.camito.cli.CliProfile.CliProtocol;
 import com.alex.camito.device.Device;
 import com.alex.camito.device.DeviceType;
 import com.alex.camito.misc.CollectionTools;
@@ -24,7 +24,7 @@ public class CliLinker
 	 * Variables
 	 */
 	private Device device;
-	private cliProtocol protocol;
+	private CliProtocol protocol;
 	private CliConnection connection;
 	private CliInjector clii;
 	private BufferedWriter out;
@@ -39,7 +39,7 @@ public class CliLinker
 		this.device = clii.getDevice();
 		this.protocol = device.getConnexionProtocol();
 		
-		if(protocol.equals(cliProtocol.ssh))
+		if(protocol.equals(CliProtocol.ssh))
 			{
 			this.carrierReturn = "\n";
 			}

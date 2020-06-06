@@ -14,7 +14,7 @@ import org.apache.sshd.client.SshClient;
 import org.apache.sshd.client.channel.ClientChannel;
 import org.apache.sshd.client.session.ClientSession;
 
-import com.alex.camito.cli.CliProfile.cliProtocol;
+import com.alex.camito.cli.CliProfile.CliProtocol;
 import com.alex.camito.utils.Variables;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelShell;
@@ -42,7 +42,7 @@ public class CliConnection implements TelnetNotificationHandler
 	private BufferedWriter out;
 	private BufferedReader in;
 	private AnswerReceiver receiver;
-	private cliProtocol protocol;
+	private CliProtocol protocol;
 	private TelnetClient telnetConnection;
 	private Channel SSHConnection;
 	private int timeout;
@@ -51,7 +51,7 @@ public class CliConnection implements TelnetNotificationHandler
 	private ClientChannel SSHDConnection;
 	private connectedTech cTech;
 	
-	public CliConnection(String user, String password, String ip, String info, cliProtocol protocol, int timeout)
+	public CliConnection(String user, String password, String ip, String info, CliProtocol protocol, int timeout)
 		{
 		super();
 		this.user = user;
@@ -67,11 +67,11 @@ public class CliConnection implements TelnetNotificationHandler
 	 */
 	public void connect() throws Exception, ConnectionException
 		{
-		if(protocol.equals(cliProtocol.ssh))
+		if(protocol.equals(CliProtocol.ssh))
 			{
 			trySSH();
 			}
-		else if(protocol.equals(cliProtocol.telnet))
+		else if(protocol.equals(CliProtocol.telnet))
 			{
 			initTelnet();
 			cTech = connectedTech.telnet;

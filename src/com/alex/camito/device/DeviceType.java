@@ -3,7 +3,6 @@ package com.alex.camito.device;
 import java.util.ArrayList;
 
 import com.alex.camito.cli.OneLine;
-import com.alex.camito.misc.ItmType;
 
 
 /**
@@ -11,12 +10,12 @@ import com.alex.camito.misc.ItmType;
  *
  * @author Alexandre RATEL
  */
-public class DeviceType extends ItmType
+public class DeviceType
 	{
 	/**
 	 * Variables
 	 */
-	private String vendor;
+	private String name, vendor;
 	private ArrayList<OneLine> howToConnect;
 	private ArrayList<OneLine> howToSave;
 	private ArrayList<OneLine> howToReboot;
@@ -24,11 +23,17 @@ public class DeviceType extends ItmType
 	public DeviceType(String name, String vendor, ArrayList<OneLine> howToConnect, ArrayList<OneLine> howToSave,
 			ArrayList<OneLine> howToReboot) throws Exception
 		{
-		super(TypeName.valueOf(name.toLowerCase()));
+		super();
+		this.name = name;
 		this.vendor = vendor;
 		this.howToConnect = howToConnect;
 		this.howToSave = howToSave;
 		this.howToReboot = howToReboot;
+		}
+
+	public String getName()
+		{
+		return name;
 		}
 
 	public String getVendor()

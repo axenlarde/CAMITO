@@ -17,14 +17,12 @@ public class SimpleItem
 	
 	protected String id;
 	protected basicItemStatus status; 
-	protected ItmType type;
 	
-	public SimpleItem(String patternID, ItmType type)
+	public SimpleItem(String patternID)
 		{
 		this.id = DigestUtils.md5Hex(patternID);
 		if(Variables.getMigratedItemList().contains(id))status = basicItemStatus.migrated;
 		else status = basicItemStatus.tomigrate;
-		this.type = type;
 		}
 	
 	public basicItemStatus getStatus()
@@ -40,13 +38,7 @@ public class SimpleItem
 	public String getId()
 		{
 		return id;
-		}
-
-	public ItmType getType()
-		{
-		return type;
-		}
-	
+		}	
 	
 	/*2020*//*RATEL Alexandre 8)*/
 	}

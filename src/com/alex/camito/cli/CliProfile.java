@@ -16,7 +16,7 @@ public class CliProfile
 	/**
 	 * Variables
 	 */
-	public enum cliProtocol
+	public enum CliProtocol
 		{
 		ssh,
 		telnet,

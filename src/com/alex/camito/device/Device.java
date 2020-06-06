@@ -1,19 +1,19 @@
 package com.alex.camito.device;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
-import org.apache.commons.validator.routines.InetAddressValidator;
+import org.apache.commons.codec.digest.DigestUtils;
 
-import com.alex.camito.cli.CliInjector;
 import com.alex.camito.cli.CliProfile;
-import com.alex.camito.cli.CliProfile.cliProtocol;
-import com.alex.camito.misc.ItemToMigrate;
-import com.alex.camito.misc.ItmType;
+import com.alex.camito.cli.CliProfile.CliProtocol;
+import com.alex.camito.misc.ErrorTemplate;
 import com.alex.camito.utils.LanguageManagement;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ActionType;
 import com.alex.camito.utils.Variables.ReachableStatus;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 
@@ -22,12 +22,17 @@ import com.alex.camito.utils.Variables.ReachableStatus;
  *
  * @author Alexandre RATEL
  */
-public class Device extends ItemToMigrate
+public class Device
 	{
 	/**
 	 * Variables
 	 */
-	protected String ip,
+	private StatusType status;
+	private ActionType action;
+	
+	private String id,
+	name,
+	ip,
 	mask,
 	shortmask,
 	gateway,
@@ -35,59 +40,36 @@ public class Device extends ItemToMigrate
 	user,
 	password;
 	
-	protected ReachableStatus reachable;
-	protected CliInjector cliInjector;
-	protected cliProtocol connexionProtocol;
-
-	public Device(ItmType type, String id, String name, String ip, String mask, String gateway, String officeid, ActionType action, String user, String password,
-			CliProfile cliProfile, cliProtocol connexionProtocol) throws Exception
-		{
-		super(type, name, id, action);
-		this.officeid = officeid;
-		this.user = user;
-		this.password = password;
-		this.connexionProtocol = connexionProtocol;
-		if(cliProfile != null)this.cliInjector = new CliInjector(this, cliProfile);
-		this.ip = (InetAddressValidator.getInstance().isValidInet4Address(ip))?ip:"";
-		this.mask = (InetAddressValidator.getInstance().isValidInet4Address(mask))?mask:"";
-		this.gateway = (InetAddressValidator.getInstance().isValidInet4Address(gateway))?gateway:"";
-		this.reachable = ReachableStatus.unknown;
-		
-		/*
-		if(ip.isEmpty() || mask.isEmpty() || gateway.isEmpty())
-			{
-			throw new Exception("A mandatory field was empty");
-			}*/
-		
-		if(ip.isEmpty())
-			{
-			throw new Exception("A mandatory field was empty");
-			}
-		
-		if(!this.mask.isEmpty())shortmask = UsefulMethod.convertlongMaskToShortOne(this.mask);
-		}
+	private DeviceType deviceType;
+	private ReachableStatus reachable;
+	private CliProfile cliProfile;
+	private CliProfile rollbackCliProfile;
+	private CliProtocol connexionProtocol;
+	private ArrayList<ErrorTemplate> errorList;
 	
 	public Device(BasicDevice bd, ActionType action) throws Exception
 		{
-		super(bd.getType(), bd.getName(), bd.getId(), action);
-		this.officeid = bd.getOfficeid();
-		this.user = bd.getUser();
-		this.password = bd.getPassword();
-		this.connexionProtocol = bd.getConnexionProtocol();
-		if(bd.getCliProfile() != null)this.cliInjector = new CliInjector(this, bd.getCliProfile());
+		super();
+		this.action = action;
+		this.id = bd.getId();
+		this.name = bd.getName();
 		this.ip = bd.getIp();
 		this.mask = bd.getMask();
 		this.gateway = bd.getGateway();
+		this.officeid = bd.getOfficeid();
+		this.user = bd.getUser();
+		this.password = bd.getPassword();
+		this.cliProfile = bd.getCliProfile();
+		this.connexionProtocol = bd.getConnexionProtocol();
 		this.reachable = ReachableStatus.unknown;
 		shortmask = UsefulMethod.convertlongMaskToShortOne(this.mask);
 		}
 	
-	@Override
 	public String getInfo()
 		{
 		StringBuffer s = new StringBuffer("");
 		
-		s.append(LanguageManagement.getString(type.getName())+" ");
+		s.append(LanguageManagement.getString(deviceType.getName())+" ");
 		s.append(ip+" ");
 		s.append(name);
 		
@@ -111,44 +93,28 @@ public class Device extends ItemToMigrate
 		else return s.toString();
 		}
 	
-	@Override
-	public void doInit() throws Exception
+	public void init() throws Exception
 		{
 		//Write something if needed
 		}
 	
-	//To init the item
-	@Override
-	public void doBuild() throws Exception
+
+	public void Build() throws Exception
 		{
-		/**
-		 * We initialize the CLI list
-		 */
-		if(cliInjector != null)cliInjector.build();
+		//Write something if needed
 		}
 
-	@Override
-	public void doStartSurvey() throws Exception
-		{
-		if(reachable.equals(ReachableStatus.reachable))Variables.getLogger().debug(name+" "+type+" : The device is reachable (ping)");
-		else if(reachable.equals(ReachableStatus.unknown))Variables.getLogger().debug(name+" "+type+" : The device reachability is currently unknown (ping)");
-		else Variables.getLogger().debug(name+" "+type+" : The device could not been reach (ping failed)");
-		}
-
-	@Override
-	public void doUpdate() throws Exception
+	public void process() throws Exception
 		{
 		//Write something if needed
 		}
 	
-	@Override
-	public void doResolve() throws Exception
+	public void resolve() throws Exception
 		{
 		//Write something if needed
 		}
 	
-	@Override
-	public void doReset()
+	public void reset()
 		{
 		//Write something if needed
 		}
@@ -192,13 +158,8 @@ public class Device extends ItemToMigrate
 				}
 			}*/
 		
-		if((cliInjector != null) && (cliInjector.getErrorList().size() > 0))
-			{
-			s.append(", Error found");
-			this.status = ItmStatus.error;
-			}
-		else if((errorList != null) && (errorList.size() > 0))s.append(", Error found");
 		
+		if((errorList != null) && (errorList.size() > 0))s.append(", Error found");
 		return s.toString();
 		}
 	
@@ -231,6 +192,20 @@ public class Device extends ItemToMigrate
 		
 		return null;
 		}
+	
+	/**
+	 * Add an error to the error list and check for duplicate
+	 */
+	public void addError(ErrorTemplate error)
+		{
+		boolean duplicate = false;
+		for(ErrorTemplate e : errorList)
+			{
+			if(e.getErrorDesc().equals(error.getErrorDesc()))duplicate = true;break;//Duplicate found
+			}
+		if(!duplicate)errorList.add(error);
+		}
+
 	
 	public String getIp()
 		{
@@ -284,24 +259,14 @@ public class Device extends ItemToMigrate
 		this.reachable = reachable;
 		}
 
-	public cliProtocol getConnexionProtocol()
+	public CliProtocol getConnexionProtocol()
 		{
 		return connexionProtocol;
 		}
 
-	public void setConnexionProtocol(cliProtocol connexionProtocol)
+	public void setConnexionProtocol(CliProtocol connexionProtocol)
 		{
 		this.connexionProtocol = connexionProtocol;
-		}
-	
-	public CliInjector getCliInjector()
-		{
-		return cliInjector;
-		}
-
-	public void setCliInjector(CliInjector cliInjector)
-		{
-		this.cliInjector = cliInjector;
 		}
 
 	public String getUser()
@@ -327,6 +292,51 @@ public class Device extends ItemToMigrate
 	public String getShortmask()
 		{
 		return shortmask;
+		}
+
+	public StatusType getStatus()
+		{
+		return status;
+		}
+
+	public ActionType getAction()
+		{
+		return action;
+		}
+
+	public String getId()
+		{
+		return id;
+		}
+
+	public String getName()
+		{
+		return name;
+		}
+
+	public DeviceType getDeviceType()
+		{
+		return deviceType;
+		}
+
+	public ReachableStatus getReachable()
+		{
+		return reachable;
+		}
+
+	public CliProfile getCliProfile()
+		{
+		return cliProfile;
+		}
+
+	public ArrayList<ErrorTemplate> getErrorList()
+		{
+		return errorList;
+		}
+
+	public CliProfile getRollbackCliProfile()
+		{
+		return rollbackCliProfile;
 		}
 
 		

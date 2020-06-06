@@ -5,8 +5,7 @@ import java.lang.reflect.Field;
 import org.apache.commons.validator.routines.InetAddressValidator;
 
 import com.alex.camito.cli.CliProfile;
-import com.alex.camito.cli.CliProfile.cliProtocol;
-import com.alex.camito.misc.ItmType;
+import com.alex.camito.cli.CliProfile.CliProtocol;
 import com.alex.camito.misc.SimpleItem;
 
 
@@ -21,7 +20,7 @@ public class BasicDevice extends SimpleItem
 	/**
 	 * Variables
 	 */
-	protected String id,
+	private String id,
 	name,
 	ip,
 	mask,
@@ -30,21 +29,25 @@ public class BasicDevice extends SimpleItem
 	officename,
 	user,
 	password;
-	protected CliProfile cliProfile;
-	protected cliProtocol connexionProtocol;
-	protected basicItemStatus status;
+	private CliProfile cliProfile;
+	private CliProfile rollbackCliProfile;
+	private CliProtocol connexionProtocol;
+	private basicItemStatus status;
+	private DeviceType deviceType;
 	
 	
-	public BasicDevice(ItmType type, String name, String ip, String mask, String gateway, String officeid,
-			String user, String password, CliProfile cliProfile, cliProtocol connexionProtocol) throws Exception
+	public BasicDevice(String name, String ip, String mask, String gateway, String officeid,
+			String user, String password, CliProfile cliProfile, CliProfile rollbackCliProfile, CliProtocol connexionProtocol, DeviceType deviceType) throws Exception
 		{
-		super(name+ip+officeid, type);
+		super(name+ip+officeid);
 		this.name = name;
 		this.officeid = officeid;
 		this.user = user;
 		this.password = password;
 		this.cliProfile = cliProfile;
+		this.rollbackCliProfile = rollbackCliProfile;
 		this.connexionProtocol = connexionProtocol;
+		this.deviceType = deviceType;
 		
 		this.ip = (InetAddressValidator.getInstance().isValidInet4Address(ip))?ip:"";
 		this.mask = (InetAddressValidator.getInstance().isValidInet4Address(mask))?mask:"";
@@ -60,11 +63,16 @@ public class BasicDevice extends SimpleItem
 			{
 			throw new Exception(getInfo()+" : A mandatory field was either incorrect or empty");
 			}
+		
+		if(cliProfile != null)
+			{
+			if(rollbackCliProfile == null)throw new Exception(getInfo()+" : If the cliProfile is set, the rollback one must be set too");
+			}
 		}
 
 	public String getInfo()
 		{
-		return type.getName()+" "+
+		return deviceType.getName()+" "+
 		ip+" "+
 		name;
 		}
@@ -151,12 +159,12 @@ public class BasicDevice extends SimpleItem
 		this.cliProfile = cliProfile;
 		}
 
-	public cliProtocol getConnexionProtocol()
+	public CliProtocol getConnexionProtocol()
 		{
 		return connexionProtocol;
 		}
 
-	public void setConnexionProtocol(cliProtocol connexionProtocol)
+	public void setConnexionProtocol(CliProtocol connexionProtocol)
 		{
 		this.connexionProtocol = connexionProtocol;
 		}
@@ -189,6 +197,26 @@ public class BasicDevice extends SimpleItem
 	public void setOfficename(String officename)
 		{
 		this.officename = officename;
+		}
+
+	public String getId()
+		{
+		return id;
+		}
+
+	public CliProfile getRollbackCliProfile()
+		{
+		return rollbackCliProfile;
+		}
+
+	public basicItemStatus getStatus()
+		{
+		return status;
+		}
+
+	public DeviceType getDeviceType()
+		{
+		return deviceType;
 		}
 
 	

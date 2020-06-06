@@ -5,9 +5,7 @@ import java.util.ArrayList;
 
 import com.alex.camito.device.BasicDevice;
 import com.alex.camito.misc.Did;
-import com.alex.camito.misc.ItmType;
 import com.alex.camito.misc.SimpleItem;
-import com.alex.camito.misc.ItmType.TypeName;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.Lot;
 import com.alex.camito.utils.Variables.OfficeType;
@@ -29,12 +27,12 @@ public class BasicOffice extends SimpleItem
 	dxi,
 	devicepool;
 	
-	private boolean unknownOffice;
 	private OfficeType officeType;
 	private CMG cmg;
 	private Lot lot;
 	private ArrayList<BasicDevice> deviceList;
 	private ArrayList<Did> didList;
+	private ArrayList<LinkedOffice> linkedOffice;
 	
 	/**
 	 * Constructor
@@ -42,7 +40,7 @@ public class BasicOffice extends SimpleItem
 	public BasicOffice(String coda, String name, String pole, String dxi, String devicepool,
 			OfficeType officeType, CMG cmg, Lot lot, ArrayList<Did> didList, ArrayList<BasicDevice> deviceList)
 		{
-		super(name+devicepool, new ItmType(TypeName.office));
+		super(name+coda+devicepool);
 		this.coda = coda;
 		this.name = name;
 		this.pole = pole;
@@ -53,27 +51,7 @@ public class BasicOffice extends SimpleItem
 		this.lot = lot;
 		this.deviceList = deviceList;
 		this.didList = didList;
-		unknownOffice = false;
-		}
-	
-	/**
-	 * Used to create an office just for phone reset purpose
-	 * @throws Exception 
-	 */
-	public BasicOffice(String devicepool) throws Exception
-		{
-		super("Unknown"+devicepool, new ItmType(TypeName.office));
-		this.name = "Unknown office "+coda;
-		this.coda = "Unknown";
-		this.pole = "Unknown";
-		this.dxi = "0";
-		this.devicepool = devicepool;
-		this.cmg = Variables.getCmgList().get(0);//We take a random one
-		this.lot = Lot.UNKNOWN;
-		this.officeType = OfficeType.AGENCE;
-		deviceList = new ArrayList<BasicDevice>();
-		didList = new ArrayList<Did>();
-		unknownOffice = true;
+		this.linkedOffice = new ArrayList<LinkedOffice>();
 		}
 	
 
@@ -117,6 +95,11 @@ public class BasicOffice extends SimpleItem
 		
 		throw new Exception("String not found");
 		}
+	
+	public void addLinkedOffice(LinkedOffice linkedOffice)
+		{
+		this.linkedOffice.add(linkedOffice);
+		}
 
 	public String getCoda()
 		{
@@ -141,11 +124,6 @@ public class BasicOffice extends SimpleItem
 	public String getDevicepool()
 		{
 		return devicepool;
-		}
-
-	public boolean isUnknownOffice()
-		{
-		return unknownOffice;
 		}
 
 	public OfficeType getOfficeType()

@@ -3,6 +3,8 @@ package com.alex.camito.office.misc;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.alex.camito.device.BasicDevice;
 import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.Device;
@@ -36,8 +38,7 @@ public class Office
 	name,
 	coda,
 	pole,
-	dxi,
-	devicePoolName;
+	dxi;
 	
 	private OfficeType officeType;
 	private CMG cmg;
@@ -50,26 +51,8 @@ public class Office
 	private ArrayList<Did> didList;
 	private ArrayList<ErrorTemplate> errorList;
 	private ArrayList<Device> deviceList;
-	
-	public Office(String id, String name, String coda, String pole, String dxi, String devicepoolname,
-			OfficeType officeType, CMG cmg, Lot lot, ArrayList<Did> didList, ArrayList<Device> deviceList)
-		{
-		super();
-		this.id = 
-		this.name = name;
-		this.coda = coda;
-		this.pole = pole;
-		this.dxi = dxi;
-		this.devicePoolName = devicepoolname;
-		this.officeType = officeType;
-		this.cmg = cmg;
-		this.lot = lot;
-		this.didList = didList;
-		this.deviceList = deviceList;
-		phoneList = new ArrayList<BasicPhone>();
-		}
 
-	public Office(BasicOffice bo)
+	public Office(BasicOffice bo) throws Exception
 		{
 		super();
 		this.id = bo.getId();
@@ -77,12 +60,12 @@ public class Office
 		this.coda = bo.getCoda();
 		this.pole = bo.getPole();
 		this.dxi = bo.getDxi();
-		this.devicePoolName = bo.getDevicepool();
+		this.devicePool = new DevicePool(bo.getDevicepool());
 		this.officeType = bo.getOfficeType();
 		this.cmg = bo.getCmg();
 		this.lot = bo.getLot();
 		this.didList = bo.getDidList();
-		for(BasicDevice bd : bo.getDeviceList())deviceList.add(new Device(bd));
+		for(BasicDevice bd : bo.getDeviceList())deviceList.add(new Device(bd, action));
 		phoneList = new ArrayList<BasicPhone>();
 		}
 
@@ -123,18 +106,31 @@ public class Office
 		/**
 		 * We build the associated device pool
 		 */
-		devicePool = new DevicePool(devicePoolName);
-		//We check for the office device pool
+		//We check for the office device pool in both cluster
 		try
 			{
 			devicePool.isExisting(Variables.getSrccucm());//Will raise an exception if not
+			exists = true;
+			}
+		catch(Exception e)
+			{
+			addError(new ErrorTemplate(getInfo()+" ERROR : the associated device pool was not found in the source cluster : "+devicePool.getName()));
+			this.status = StatusType.error;
+			exists = false;
+			throw new Exception(getInfo()+" ERROR : The associated device pool was not found in the source cluster : "+devicePool.getName());
+			}
+		
+		try
+			{
 			devicePool.isExisting(Variables.getDstcucm());//Will raise an exception if not
 			exists = true;
 			}
 		catch(Exception e)
 			{
-			Variables.getLogger().error(name+" warning : The associated device pool was not found : "+devicePool.getName());
-			addError(new ErrorTemplate(name+" warning the associated device pool was not found : "+devicePool.getName()));
+			addError(new ErrorTemplate(getInfo()+" ERROR : the associated device pool was not found in the destination cluster : "+devicePool.getName()));
+			this.status = StatusType.error;
+			exists = false;
+			throw new Exception(getInfo()+" ERROR : The associated device pool was not found in the destination cluster : "+devicePool.getName());
 			}
 		
 		/**
@@ -162,7 +158,7 @@ public class Office
 			}
 		}
 
-	public void Migrate() throws Exception
+	public void process() throws Exception
 		{
 		//Write something if needed
 		}
@@ -273,6 +269,86 @@ public class Office
 			if(e.getErrorDesc().equals(error.getErrorDesc()))duplicate = true;break;//Duplicate found
 			}
 		if(!duplicate)errorList.add(error);
+		}
+
+	public StatusType getStatus()
+		{
+		return status;
+		}
+
+	public ActionType getAction()
+		{
+		return action;
+		}
+
+	public String getId()
+		{
+		return id;
+		}
+
+	public String getName()
+		{
+		return name;
+		}
+
+	public String getCoda()
+		{
+		return coda;
+		}
+
+	public String getPole()
+		{
+		return pole;
+		}
+
+	public String getDxi()
+		{
+		return dxi;
+		}
+
+	public OfficeType getOfficeType()
+		{
+		return officeType;
+		}
+
+	public CMG getCmg()
+		{
+		return cmg;
+		}
+
+	public Lot getLot()
+		{
+		return lot;
+		}
+
+	public boolean isExists()
+		{
+		return exists;
+		}
+
+	public DevicePool getDevicePool()
+		{
+		return devicePool;
+		}
+
+	public ArrayList<BasicPhone> getPhoneList()
+		{
+		return phoneList;
+		}
+
+	public ArrayList<Did> getDidList()
+		{
+		return didList;
+		}
+
+	public ArrayList<ErrorTemplate> getErrorList()
+		{
+		return errorList;
+		}
+
+	public ArrayList<Device> getDeviceList()
+		{
+		return deviceList;
 		}
 
 
