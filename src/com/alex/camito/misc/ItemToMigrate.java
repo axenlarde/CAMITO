@@ -66,7 +66,7 @@ public abstract class ItemToMigrate implements ItemToMigrateImpl
 	@Override
 	public void build() throws Exception
 		{
-		Variables.getLogger().debug("Starting build for "+type+" "+name);
+		Variables.getLogger().debug("Starting build for "+type.getName()+" "+name);
 		
 		doBuild();
 		

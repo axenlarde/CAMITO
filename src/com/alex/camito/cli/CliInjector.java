@@ -42,7 +42,7 @@ public class CliInjector extends Thread
 		/**
 		 * First we get our own version of the cliprofile commands and resolve them to match device values
 		 */
-		for(OneLine ol : cliProfile.getHowToAuthenticate())
+		for(OneLine ol : cliProfile.getType().getHowToConnect())
 			{
 			OneLine l = new OneLine(ol.getCommand(), ol.getType());
 			l.resolve(device);

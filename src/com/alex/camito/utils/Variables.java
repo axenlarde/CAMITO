@@ -199,7 +199,6 @@ public class Variables
 	//Misc
 	private static String softwareName;
 	private static String softwareVersion;
-	private static CucmVersion CUCMVersion;
 	private static Logger logger;
 	private static ArrayList<String[][]> tabConfig;
 	private static ArrayList<BasicOffice> OfficeList;
@@ -281,31 +280,6 @@ public class Variables
 	public static void setSoftwareVersion(String softwareVersion)
 		{
 		Variables.softwareVersion = softwareVersion;
-		}
-
-	public static CucmVersion getCUCMVersion()
-		{
-		if(CUCMVersion == null)
-			{
-			//It has to be initiated
-			try
-				{
-				CUCMVersion = UsefulMethod.convertStringToCUCMAXLVersion(UsefulMethod.getTargetOption("axlversion"));
-				Variables.getLogger().info("CUCM version : "+Variables.getCUCMVersion());
-				}
-			catch(Exception e)
-				{
-				getLogger().debug("The AXL version couldn't be parsed. We will use the default version", e);
-				CUCMVersion = CucmVersion.version85;
-				}
-			}
-		
-		return CUCMVersion;
-		}
-
-	public static void setCUCMVersion(CucmVersion cUCMVersion)
-		{
-		CUCMVersion = cUCMVersion;
 		}
 
 	public synchronized static Logger getLogger()

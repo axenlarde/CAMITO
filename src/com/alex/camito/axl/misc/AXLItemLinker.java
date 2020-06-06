@@ -40,11 +40,11 @@ public abstract class AXLItemLinker implements AXLItemLinkerImpl
 	/****
 	 * We initialize here what is needed
 	 */
-	public ArrayList<ErrorTemplate> init() throws Exception
+	public ArrayList<ErrorTemplate> init(CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
-			return doInitVersion105();
+			return doInitVersion105(cucm);
 			}
 		else
 			{
@@ -58,7 +58,7 @@ public abstract class AXLItemLinker implements AXLItemLinkerImpl
 	 */
 	public String inject(CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			return doInjectVersion105(cucm);
 			}
@@ -73,7 +73,7 @@ public abstract class AXLItemLinker implements AXLItemLinkerImpl
 	 */
 	public void delete(CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			doDeleteVersion105(cucm);
 			}
@@ -88,7 +88,7 @@ public abstract class AXLItemLinker implements AXLItemLinkerImpl
 	 */
 	public void update(ArrayList<ToUpdate> tulist, CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			doUpdateVersion105(tulist, cucm);
 			}
@@ -100,7 +100,7 @@ public abstract class AXLItemLinker implements AXLItemLinkerImpl
 	
 	public ItemToInject get(CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			return doGetVersion105(cucm);
 			}

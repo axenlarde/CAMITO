@@ -37,10 +37,10 @@ public interface AXLItemLinkerImpl
 	/***********
 	 * Initialization
 	 */
-	public ArrayList<ErrorTemplate> init() throws Exception; //Initialize the item
+	public ArrayList<ErrorTemplate> init(CUCM cucm) throws Exception; //Initialize the item
 	
 	//Used in addition of the previous one to force the developer to implement a method dedicated to the good version
-	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception;
+	public ArrayList<ErrorTemplate> doInitVersion105(CUCM cucm) throws Exception;
 	/***************/
 	
 	/***********

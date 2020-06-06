@@ -65,7 +65,7 @@ public class WebRequestBuilder
 				{
 				if((o.getName().toLowerCase().contains(search.toLowerCase())) ||
 						(o.getCoda().toLowerCase().contains(search.toLowerCase())) ||
-						(UsefulMethod.isItInThisLot(search.toLowerCase(),o)) ||
+						(o.getLot().name().toLowerCase().equals(UsefulMethod.getLot(search.toLowerCase()).toLowerCase())) ||
 						(o.getPole().toLowerCase().contains(search.toLowerCase())))
 					{
 					Variables.getLogger().debug("Office found : "+o.getInfo());
@@ -194,6 +194,7 @@ public class WebRequestBuilder
 				content.append("				<office>\r\n");
 				content.append("					<id>"+o.getId()+"</id>\r\n");
 				content.append("					<coda>"+o.getCoda()+"</coda>\r\n");
+				content.append("					<type>"+o.getOfficeType()+"</type>\r\n");
 				content.append("					<name>"+o.getName()+"</name>\r\n");
 				content.append("					<pole>"+o.getPole()+"</pole>\r\n");
 				content.append("					<status>"+o.getStatus().name()+"</status>\r\n");
@@ -206,7 +207,7 @@ public class WebRequestBuilder
 						content.append("						<device>\r\n");
 						content.append("							<id>"+d.getId()+"</id>\r\n");
 						content.append("							<name>"+d.getName()+"</name>\r\n");
-						content.append("							<type>"+d.getType()+"</type>\r\n");
+						content.append("							<type>"+d.getType().getName()+"</type>\r\n");
 						content.append("							<ip>"+d.getIp()+"</ip>\r\n");
 						content.append("							<status>"+d.getStatus().name()+"</status>\r\n");
 						content.append("						</device>\r\n");
@@ -228,7 +229,7 @@ public class WebRequestBuilder
 				content.append("				<device>\r\n");
 				content.append("					<id>"+d.getId()+"</id>\r\n");
 				content.append("					<name>"+d.getName()+"</name>\r\n");
-				content.append("					<type>"+d.getType()+"</type>\r\n");
+				content.append("					<type>"+d.getType().getName()+"</type>\r\n");
 				content.append("					<ip>"+d.getIp()+"</ip>\r\n");
 				content.append("					<officeid>"+d.getOfficeid()+"</officeid>\r\n");
 				content.append("					<officename>"+d.getOfficename()+"</officename>\r\n");

@@ -3,12 +3,11 @@ package com.alex.camito.office.misc;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import com.alex.camito.device.BasicDevice;
 import com.alex.camito.device.BasicPhone;
+import com.alex.camito.device.Device;
 import com.alex.camito.misc.Did;
 import com.alex.camito.misc.ErrorTemplate;
-import com.alex.camito.misc.ItemToMigrate;
-import com.alex.camito.misc.ItmType;
-import com.alex.camito.misc.ItmType.TypeName;
 import com.alex.camito.office.items.DevicePool;
 import com.alex.camito.utils.LanguageManagement;
 import com.alex.camito.utils.UsefulMethod;
@@ -16,6 +15,7 @@ import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ActionType;
 import com.alex.camito.utils.Variables.Lot;
 import com.alex.camito.utils.Variables.OfficeType;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 
@@ -24,71 +24,68 @@ import com.alex.camito.utils.Variables.OfficeType;
  *
  * @author Alexandre RATEL
  */
-public class Office extends ItemToMigrate  
+public class Office  
 	{
 	/**
 	 * Variables
 	 */
-	private String coda,
+	private StatusType status;
+	private ActionType action;
+	
+	private String id,
+	name,
+	coda,
 	pole,
 	dxi,
-	devicepool;
+	devicePoolName;
 	
-	private boolean unknownOffice;
 	private OfficeType officeType;
 	private CMG cmg;
 	private Lot lot;
 	
 	private boolean exists;
 	
-	private DevicePool dp;
+	private DevicePool devicePool;
 	private ArrayList<BasicPhone> phoneList;
 	private ArrayList<Did> didList;
+	private ArrayList<ErrorTemplate> errorList;
+	private ArrayList<Device> deviceList;
 	
-	public Office(String name, String id, ActionType action, String coda, String pole, String dxi,
-			OfficeType officeType, CMG cmg, Lot lot, ArrayList<Did> didList)
+	public Office(String id, String name, String coda, String pole, String dxi, String devicepoolname,
+			OfficeType officeType, CMG cmg, Lot lot, ArrayList<Did> didList, ArrayList<Device> deviceList)
 		{
-		super(new ItmType(TypeName.office), name, id, action);
+		super();
+		this.id = 
+		this.name = name;
 		this.coda = coda;
 		this.pole = pole;
 		this.dxi = dxi;
+		this.devicePoolName = devicepoolname;
 		this.officeType = officeType;
 		this.cmg = cmg;
 		this.lot = lot;
-		phoneList = new ArrayList<BasicPhone>();
 		this.didList = didList;
-		unknownOffice = false;
-		exists = false;
-		}
-	
-	public Office(BasicOffice bo, ActionType action)
-		{
-		super(bo.getType(), bo.getName(), bo.getId(), action);
-		this.coda = bo.getCoda();
-		this.unknownOffice = bo.isUnknownOffice();
+		this.deviceList = deviceList;
 		phoneList = new ArrayList<BasicPhone>();
-		exists = false;
-		
-		if(unknownOffice)
-			{
-			Variables.getLogger().debug("Reminder : "+coda+" is an unknown office. Should just reset associated phones");
-			}
-		else
-			{
-			this.name = bo.getName();
-			this.pole = bo.getPole();
-			this.dxi = bo.getDxi();
-			this.devicepool = bo.getDevicepool();
-			this.cmg = bo.getCmg();
-			this.lot = bo.getLot();
-			this.officeType = bo.getOfficeType();
-			this.didList = bo.getDidList();
-			}
 		}
 
-	
+	public Office(BasicOffice bo)
+		{
+		super();
+		this.id = bo.getId();
+		this.name = bo.getName();
+		this.coda = bo.getCoda();
+		this.pole = bo.getPole();
+		this.dxi = bo.getDxi();
+		this.devicePoolName = bo.getDevicepool();
+		this.officeType = bo.getOfficeType();
+		this.cmg = bo.getCmg();
+		this.lot = bo.getLot();
+		this.didList = bo.getDidList();
+		for(BasicDevice bd : bo.getDeviceList())deviceList.add(new Device(bd));
+		phoneList = new ArrayList<BasicPhone>();
+		}
 
-	@Override
 	public String getInfo()
 		{
 		StringBuffer s = new StringBuffer("");
@@ -116,41 +113,39 @@ public class Office extends ItemToMigrate
 		else return s.toString();
 		}
 	
-	@Override
-	public void doInit() throws Exception
+	public void init() throws Exception
 		{
-		//Write something if needed
+		for(Device d : deviceList)d.init();
 		}
 
-	@Override
-	public void doBuild() throws Exception
+	public void build() throws Exception
 		{
 		/**
 		 * We build the associated device pool
 		 */
-		dp = new DevicePool(devicepool);
+		devicePool = new DevicePool(devicePoolName);
 		//We check for the office device pool
 		try
 			{
-			dp.isExisting(Variables.getSrccucm());//Will raise an exception if not
-			dp.isExisting(Variables.getDstcucm());//Will raise an exception if not
+			devicePool.isExisting(Variables.getSrccucm());//Will raise an exception if not
+			devicePool.isExisting(Variables.getDstcucm());//Will raise an exception if not
 			exists = true;
 			}
 		catch(Exception e)
 			{
-			Variables.getLogger().error(name+" warning : The associated device pool was not found : "+dp.getName());
-			addError(new ErrorTemplate(name+" warning the associated device pool was not found : "+dp.getName()));
+			Variables.getLogger().error(name+" warning : The associated device pool was not found : "+devicePool.getName());
+			addError(new ErrorTemplate(name+" warning the associated device pool was not found : "+devicePool.getName()));
 			}
 		
 		/**
 		 * We now build the associated phone list
 		 */
-		phoneList = OfficeTools.getDevicePoolPhoneList(dp.getName(), action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm());
+		phoneList = OfficeTools.getDevicePoolPhoneList(devicePool.getName(), action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm());
 		
 		/**
 		 * We check that no phone are missing in the destination cluster
 		 */
-		ArrayList<BasicPhone> dstPhoneList = OfficeTools.getDevicePoolPhoneList(dp.getName(), action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
+		ArrayList<BasicPhone> dstPhoneList = OfficeTools.getDevicePoolPhoneList(devicePool.getName(), action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
 		
 		for(BasicPhone bp : phoneList)
 			{
@@ -166,43 +161,31 @@ public class Office extends ItemToMigrate
 			if(missing)Variables.getLogger().debug("Warning : the following phone is missing in the destination cluster : "+bp.getName());
 			}
 		}
-	
-	/**
-	 * Will check items and return the error list
-	 */
-	@Override
-	public void doStartSurvey() throws Exception
-		{
-		//Write something if needed
-		}
 
-	@Override
-	public void doUpdate() throws Exception
+	public void Migrate() throws Exception
 		{
 		//Write something if needed
 		}
 	
-	@Override
-	public void doResolve() throws Exception
+	public void Resolve() throws Exception
 		{
-		//Write something if needed
+		for(Device d : deviceList)d.resolve();
 		}
 	
-	@Override
-	public void doReset()
+	public void Reset()
 		{
 		try
 			{
 			if(exists)
 				{
-				dp.reset(Variables.getSrccucm());
+				devicePool.reset(Variables.getSrccucm());
 				}
-			else Variables.getLogger().debug(getIndex()+" Reset could not be performed because the device pool was not found");
+			else Variables.getLogger().debug(getInfo()+" : Reset could not be performed because the device pool was not found");
 			}
 		catch (Exception e)
 			{
-			Variables.getLogger().error("ERROR while reseting devices for "+type+" "+name+" "+e.getMessage(), e);
-			addError(new ErrorTemplate("Failed to reset the device pool for "+type+" "+name));
+			Variables.getLogger().error(getInfo()+" : ERROR while reseting devices "+e.getMessage(), e);
+			addError(new ErrorTemplate(getInfo()+" : Failed to reset the device pool"));
 			}
 		}
 	
@@ -278,61 +261,22 @@ public class Office extends ItemToMigrate
 		
 		return null;
 		}
-
-	public String getCoda()
+	
+	/**
+	 * Add an error to the error list and check for duplicate
+	 */
+	public void addError(ErrorTemplate error)
 		{
-		return coda;
+		boolean duplicate = false;
+		for(ErrorTemplate e : errorList)
+			{
+			if(e.getErrorDesc().equals(error.getErrorDesc()))duplicate = true;break;//Duplicate found
+			}
+		if(!duplicate)errorList.add(error);
 		}
 
-	public String getPole()
-		{
-		return pole;
-		}
 
-	public String getDxi()
-		{
-		return dxi;
-		}
-
-	public String getDevicepool()
-		{
-		return devicepool;
-		}
-
-	public boolean isUnknownOffice()
-		{
-		return unknownOffice;
-		}
-
-	public OfficeType getOfficeType()
-		{
-		return officeType;
-		}
-
-	public CMG getCmg()
-		{
-		return cmg;
-		}
-
-	public Lot getLot()
-		{
-		return lot;
-		}
-
-	public boolean isExists()
-		{
-		return exists;
-		}
-
-	public DevicePool getDp()
-		{
-		return dp;
-		}
-
-	public ArrayList<BasicPhone> getPhoneList()
-		{
-		return phoneList;
-		}
+	
 	
 	/*2020*//*RATEL Alexandre 8)*/
 	}

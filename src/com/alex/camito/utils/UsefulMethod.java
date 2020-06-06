@@ -737,70 +737,72 @@ public class UsefulMethod
 			{
 			Variables.getLogger().info("Initializing the CliProfile list from collection file");
 			ArrayList<CliProfile> cliProfileList = new ArrayList<CliProfile>();
-			ArrayList<String> params = new ArrayList<String>();
-			params.add("profiles");
-			params.add("profile");
-			ArrayList<ArrayList<String[][]>> content = xMLGear.getResultListTabExt(UsefulMethod.getFlatFileContent(Variables.getCliProfileListFileName()), params);
+			ArrayList<String> listParams = new ArrayList<String>();
+			listParams.add("profiles");
+			listParams.add("profile");
+			ArrayList<String[][]> result = xMLGear.getResultListTab(UsefulMethod.getFlatFileContent(Variables.getCliProfileListFileName()), listParams);
+			ArrayList<ArrayList<String[][]>> extendedList = xMLGear.getResultListTabExt(UsefulMethod.getFlatFileContent(Variables.getCliProfileListFileName()), listParams);
 			
-			for(ArrayList<String[][]> ast : content)
+			for(int i=0; i<result.size(); i++)
 				{
 				try
 					{
-					CliProfile cp = new CliProfile("", null, null, null, 50);
+					String[][] tab = result.get(i);
+					ArrayList<String[][]> tabE = extendedList.get(i);
+					ArrayList<OneLine> cliList = new ArrayList<OneLine>();
+					DeviceType deviceType = null;
 					
-					for(int i=0; i<ast.size(); i++)
-						{
-						String[][] s = ast.get(i);
-						if(i==0)//Misc
-							{
-							cp.setName(UsefulMethod.getItemByName("name", s));
-							cp.setType(UsefulMethod.getDeviceType(getITMType(UsefulMethod.getItemByName("type", s)).name()));
-							cp.setDefaultInterCommandTimer(Integer.parseInt(UsefulMethod.getItemByName("defaultintercommandtimer", s)));
-							}
-						else if(i==1)//How to authenticate
-							{
-							ArrayList<OneLine> l = new ArrayList<OneLine>();
-							for(String[] t : s)
-								{
-								l.add(new OneLine(t[1], cliType.valueOf(t[0])));
-								}
-							cp.setHowToAuthenticate(l);
-							}
-						else if(i==2)//Config
-							{
-							ArrayList<OneLine> l = new ArrayList<OneLine>();
-							for(String[] t : s)
-								{
-								l.add(new OneLine(t[1], cliType.valueOf(t[0])));
-								}
-							cp.setCliList(l);
-							}
-						}
-					
+					/**
+					 * First we check for duplicates
+					 */
+					String cpName = UsefulMethod.getItemByName("name", tab);
 					boolean found = false;
-					for(CliProfile clip : cliProfileList)
+					for(CliProfile cp : cliProfileList)
 						{
-						if(clip.getName().equals(cp.getName()))
+						if(cp.getName().equals(cpName))
 							{
-							Variables.getLogger().debug(clip.getName()+ " : CliProfile duplicate found so we do not add the following new CliProfile : "+cp.getName());
+							Variables.getLogger().debug("Duplicate found, do not adding the CliProfile : "+cpName);
 							found = true;
 							break;
 							}
 						}
+					if(found)continue;
 					
-					if(!found)
+					for(DeviceType dt : Variables.getDeviceTypeList())
 						{
-						Variables.getLogger().debug("New CliProfile added to the CliProfile list : "+cp.getName());
-						cliProfileList.add(cp);
+						if(dt.getName().equals(UsefulMethod.getItemByName("type", tab)))
+							{
+							deviceType = dt;
+							break;
+							}
 						}
+					
+					for(int j=0; j<tab.length; j++)
+						{
+						if(tab[j][0].equals("config"))
+							{
+							for(String[] s : tabE.get(j))
+								{
+								cliList.add(new OneLine(s[1],cliType.valueOf(s[0])));
+								}
+							}
+						}
+					
+					cliProfileList.add(new CliProfile(UsefulMethod.getItemByName("name", tab),
+							deviceType,
+							cliList,
+							Integer.parseInt(UsefulMethod.getItemByName("defaultintercommandtimer", tab))));
+					
+					
 					}
 				catch (Exception e)
 					{
-					Variables.getLogger().error("Could not add the following CliProfile : "+UsefulMethod.getItemByName("name", ast.get(0))+" : "+e.getMessage(), e);
+					Variables.getLogger().error("ERROR while initializing a new cliProfile : "+e.getMessage(), e);
 					}
 				}
 			
 			Variables.getLogger().debug(cliProfileList.size()+ " cliProfiles found in the database");
+			Variables.getLogger().debug("CliProfiles list initialization done");
 			return cliProfileList;
 			}
 		catch(Exception exc)
@@ -893,11 +895,11 @@ public class UsefulMethod
 			{
 			UsefulMethod.disableSecurity();//We first turned off security
 			
-			if(Variables.getCUCMVersion().equals(CucmVersion.version85))
+			if(cucm.getVersion().equals(CucmVersion.version85))
 				{
 				throw new Exception("RIS unsupported version");
 				}
-			else if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+			else if(cucm.getVersion().equals(CucmVersion.version105))
 				{
 				RISService70 ris = new RISService70();
 				RisPortType risPort = ris.getRisPort70();
@@ -1760,25 +1762,16 @@ public class UsefulMethod
 		Variables.setDstcucm(dstcucm);
 		}
 	
-	public static boolean isItInThisLot(String name, BasicOffice office)
-		{
-		Lot lot = getLot(name);
-		
-		if((lot != null) && (office.getLot().equals(lot)))return true;
-		
-		return false;
-		}
-	
-	public static Lot getLot(String name)
+	public static String getLot(String name)
 		{
 		if(name.toLowerCase().contains("lot"))
 			{
-			if(name.contains("1"))return Lot.A;
-			else if(name.contains("2"))return Lot.B;
-			else if(name.contains("3"))return Lot.C;
+			if(name.contains("1"))return Lot.A.name();
+			else if(name.contains("2"))return Lot.B.name();
+			else if(name.contains("3"))return Lot.C.name();
 			}
 		
-		return null;
+		return name;
 		}
 	
 	

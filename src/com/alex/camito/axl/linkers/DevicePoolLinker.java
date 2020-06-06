@@ -89,7 +89,7 @@ public class DevicePoolLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105(CUCM cucm) throws Exception
 		{
 		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
 		//To be written
@@ -241,7 +241,7 @@ public class DevicePoolLinker extends AXLItemLinker
 	 */
 	public void reset(CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			doResetVersion105(cucm);
 			}

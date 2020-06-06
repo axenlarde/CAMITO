@@ -2,8 +2,7 @@ package com.alex.camito.cli;
 
 import java.util.ArrayList;
 
-import com.alex.camito.misc.ItmType;
-
+import com.alex.camito.device.DeviceType;
 
 
 
@@ -26,37 +25,16 @@ public class CliProfile
 	
 	private String name;
 	private int defaultInterCommandTimer;
-	private ItmType type;
-	private ArrayList<OneLine> howToAuthenticate, cliList;
+	private DeviceType type;
+	private ArrayList<OneLine> cliList;
 	
-	public CliProfile(String name, ItmType type, ArrayList<OneLine> howToAuthenticate, ArrayList<OneLine> cliList, int defaultInterCommandTimer)
+	public CliProfile(String name, DeviceType type, ArrayList<OneLine> cliList, int defaultInterCommandTimer)
 		{
 		super();
 		this.name = name;
 		this.type = type;
-		this.howToAuthenticate = howToAuthenticate;
 		this.cliList = cliList;
 		this.defaultInterCommandTimer = defaultInterCommandTimer;
-		}
-
-	public ItmType getType()
-		{
-		return type;
-		}
-
-	public void setType(ItmType type)
-		{
-		this.type = type;
-		}
-
-	public ArrayList<OneLine> getHowToAuthenticate()
-		{
-		return howToAuthenticate;
-		}
-
-	public void setHowToAuthenticate(ArrayList<OneLine> howToAuthenticate)
-		{
-		this.howToAuthenticate = howToAuthenticate;
 		}
 
 	public ArrayList<OneLine> getCliList()
@@ -88,6 +66,17 @@ public class CliProfile
 		{
 		this.defaultInterCommandTimer = defaultInterCommandTimer;
 		}
+
+	public DeviceType getType()
+		{
+		return type;
+		}
+
+	public void setType(DeviceType type)
+		{
+		this.type = type;
+		}
 	
-	/*2019*//*RATEL Alexandre 8)*/
+	
+	/*2020*//*RATEL Alexandre 8)*/
 	}

@@ -42,7 +42,7 @@ public class SimpleRequest
 	 */
 	public static String getUUID(ItemType type, String itemName, CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			return getUUIDV105(type, itemName, cucm).getUuid();
 			}
@@ -453,7 +453,7 @@ public class SimpleRequest
 	 */
 	public static List<Object> doSQLQuery(String request, CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			return doSQLQueryV105(request, cucm);
 			}
@@ -466,7 +466,7 @@ public class SimpleRequest
 	 */
 	public static void doSQLUpdate(String request, CUCM cucm) throws Exception
 		{
-		if(Variables.getCUCMVersion().equals(CucmVersion.version105))
+		if(cucm.getVersion().equals(CucmVersion.version105))
 			{
 			doSQLUpdateV105(request, cucm);
 			}

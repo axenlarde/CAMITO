@@ -69,8 +69,18 @@ public class Task extends Thread
 	 */
 	private void startBuildProcess() throws Exception
 		{
-		//Build
 		Variables.getLogger().info("Beginning of the build process");
+		
+		/**
+		 * We first check for device pool duplicate
+		 * Indeed, we can have 2 office with the same device pool but different CODA
+		 * In this case we want to display the duplicate office as processed but actually not process it
+		 * Indeed doing it would mean reseting the phones or sending the cli twice
+		 * 
+		 * ######To improved (messy)######
+		 */
+		disableDPDuplicate(todoList);
+		
 		for(ItemToMigrate todo : todoList)
 			{
 			if(stop)break;
@@ -469,6 +479,27 @@ public class Task extends Thread
 			case start:setPause(false);break;
 			case stop:setStop(true);break;
 			default:break;
+			}
+		}
+	
+	public void disableDPDuplicate(ArrayList<ItemToMigrate> todoList)
+		{
+		for(int i=0; i<todoList.size(); i++)
+			{
+			if(todoList.get(i) instanceof Office)
+				{
+				for(int j = i+1; j<todoList.size(); j++)
+					{
+					if(todoList.get(j) instanceof Office)
+						{
+						if(((Office) todoList.get(i)).getDevicepool().equals(((Office) todoList.get(j)).getDevicepool()))
+							{
+							todoList.get(j).setStatus(ItmStatus.disabled);
+							break;
+							}
+						}
+					}
+				}
 			}
 		}
 
