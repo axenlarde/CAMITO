@@ -3,11 +3,10 @@ package com.alex.camito.office.misc;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import com.alex.camito.device.BasicDevice;
 import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.Device;
+import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.Did;
 import com.alex.camito.misc.ErrorTemplate;
 import com.alex.camito.office.items.DevicePool;
@@ -52,9 +51,10 @@ public class Office
 	private ArrayList<ErrorTemplate> errorList;
 	private ArrayList<Device> deviceList;
 
-	public Office(BasicOffice bo) throws Exception
+	public Office(BasicOffice bo, ActionType action) throws Exception
 		{
 		super();
+		this.action = action;
 		this.id = bo.getId();
 		this.name = bo.getName();
 		this.coda = bo.getCoda();
@@ -95,11 +95,6 @@ public class Office
 			}
 		else return s.toString();
 		}
-	
-	public void init() throws Exception
-		{
-		for(Device d : deviceList)d.init();
-		}
 
 	public void build() throws Exception
 		{
@@ -117,7 +112,7 @@ public class Office
 			addError(new ErrorTemplate(getInfo()+" ERROR : the associated device pool was not found in the source cluster : "+devicePool.getName()));
 			this.status = StatusType.error;
 			exists = false;
-			throw new Exception(getInfo()+" ERROR : The associated device pool was not found in the source cluster : "+devicePool.getName());
+			return;
 			}
 		
 		try
@@ -130,7 +125,7 @@ public class Office
 			addError(new ErrorTemplate(getInfo()+" ERROR : the associated device pool was not found in the destination cluster : "+devicePool.getName()));
 			this.status = StatusType.error;
 			exists = false;
-			throw new Exception(getInfo()+" ERROR : The associated device pool was not found in the destination cluster : "+devicePool.getName());
+			return;
 			}
 		
 		/**
@@ -157,24 +152,15 @@ public class Office
 			if(missing)Variables.getLogger().debug("Warning : the following phone is missing in the destination cluster : "+bp.getName());
 			}
 		}
-
-	public void process() throws Exception
-		{
-		//Write something if needed
-		}
 	
-	public void Resolve() throws Exception
-		{
-		for(Device d : deviceList)d.resolve();
-		}
-	
-	public void Reset()
+	public void reset(CUCM cucm)
 		{
 		try
 			{
 			if(exists)
 				{
-				devicePool.reset(Variables.getSrccucm());
+				devicePool.reset(cucm);
+				Variables.getLogger().debug(getInfo()+" Reset done");
 				}
 			else Variables.getLogger().debug(getInfo()+" : Reset could not be performed because the device pool was not found");
 			}
@@ -189,7 +175,7 @@ public class Office
 	 * Will return a detailed status of the item
 	 * For instance will return phone status
 	 */
-	public String doGetDetailedStatus()
+	public String getDetailedStatus()
 		{
 		StringBuffer result = new StringBuffer("");
 		
@@ -349,6 +335,11 @@ public class Office
 	public ArrayList<Device> getDeviceList()
 		{
 		return deviceList;
+		}
+
+	public void setStatus(StatusType status)
+		{
+		this.status = status;
 		}
 
 

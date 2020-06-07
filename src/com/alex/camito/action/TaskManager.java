@@ -43,42 +43,31 @@ public class TaskManager
 			
 			if(sum < Integer.parseInt(UsefulMethod.getTargetOption("maxtaskthread")))
 				{
-				ArrayList<ItemToMigrate> todoList = new ArrayList<ItemToMigrate>();
+				ArrayList<Office> officeList = new ArrayList<Office>();
 				
 				for(String s : itemList)
 					{
 					boolean found = false;
-					//Devices
-					for(BasicDevice d : Variables.getDeviceList())
+					/**
+					 * We look for offices to add in the items received
+					 */
+					for(BasicOffice o : Variables.getOfficeList())
 						{
-						if(d.getId().equals(s))
+						if(o.getId().equals(s))
 							{
-							todoList.add(new Device(d, action));
+							officeList.add(new Office(o, action));
 							found = true;
 							break;
-							}
-						}
-					if(!found)
-						{
-						//Offices
-						for(BasicOffice o : Variables.getOfficeList())
-							{
-							if(o.getId().equals(s))
-								{
-								todoList.add(new Office(o, action));
-								found = true;
-								break;
-								}
 							}
 						}
 					if(!found)Variables.getLogger().debug("Warning : The following item was not found in the database which is not normal : "+s);
 					}
 				
 				//We generate a new unique ID
-				if(todoList.size() != 0)
+				if(officeList.size() != 0)
 					{
 					String id = DigestUtils.md5Hex(System.currentTimeMillis()+Math.random()+"8)");
-					Task t = new Task(todoList, id, ownerID, action);
+					Task t = new Task(officeList, id, ownerID, action);
 					Variables.getTaskList().add(t);
 					t.start();
 					return id;

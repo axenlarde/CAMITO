@@ -3,6 +3,7 @@ package com.alex.camito.misc;
 import java.util.ArrayList;
 
 import com.alex.camito.device.Device;
+import com.alex.camito.office.misc.Office;
 import com.alex.camito.utils.LanguageManagement;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
@@ -18,12 +19,12 @@ public class EmailManager extends Thread
 	/**
 	 * Variables
 	 */
-	ArrayList<ItemToMigrate> itmList;
+	ArrayList<Office> officeList;
 	
-	public EmailManager(ArrayList<ItemToMigrate> itmList)
+	public EmailManager(ArrayList<Office> officeList)
 		{
 		super();
-		this.itmList = itmList;
+		this.officeList = officeList;
 		start();
 		}
 	
@@ -40,22 +41,21 @@ public class EmailManager extends Thread
 			
 			StringBuffer content = new StringBuffer("");
 			content.append(LanguageManagement.getString("emailreportcontent").replaceAll("\\\\r\\\\n", "\t\r\n"));
-			for(ItemToMigrate itm : itmList)
+			for(Office o : officeList)
 				{
-				content.append(itm.getInfo()+" : "+itm.getStatus()+" : "+itm.getDetailedStatus()+"\t\r\n");
-				if(itm.getErrorList().size() > 0)
+				content.append(o.getInfo()+" : "+o.getStatus()+" : "+o.getDetailedStatus()+"\t\r\n");
+				if(o.getErrorList().size() > 0)
 					{
-					for(ErrorTemplate err : itm.getErrorList())
+					for(ErrorTemplate err : o.getErrorList())
 						{
 						content.append("\t- "+err.getErrorDesc()+"\t\r\n");
 						}
 					}
-				if(itm instanceof Device)
+				for(Device d : o.getDeviceList())
 					{
-					Device d = (Device)itm;
-					if(d.getCliInjector().getErrorList().size() > 0)
+					if(d.getErrorList().size() > 0)
 						{
-						for(ErrorTemplate err : d.getCliInjector().getErrorList())
+						for(ErrorTemplate err : d.getErrorList())
 							{
 							content.append("\t- "+err.getErrorDesc()+"\t\r\n");
 							}
@@ -78,5 +78,5 @@ public class EmailManager extends Thread
 			}
 		}
 	
-	/*2019*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}

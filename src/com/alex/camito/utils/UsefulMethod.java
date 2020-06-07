@@ -40,6 +40,7 @@ import com.alex.camito.misc.ValueMatcher;
 import com.alex.camito.office.misc.BasicOffice;
 import com.alex.camito.office.misc.CMG;
 import com.alex.camito.office.misc.LinkedOffice;
+import com.alex.camito.office.misc.Office;
 import com.alex.camito.office.misc.CMG.CMGName;
 import com.alex.camito.risport.RisportTools;
 import com.alex.camito.utils.Variables.AscomType;
@@ -1553,6 +1554,46 @@ public class UsefulMethod
 	/**
 	 * used to add a new entry to the migrated item list
 	 */
+	public static void addEntryToTheMigratedList(ArrayList<String> idList)
+		{
+		try
+			{
+			//We avoid duplicate
+			for(String id : idList)
+				{
+				if(!Variables.getMigratedItemList().contains(id))
+					{
+					Variables.getLogger().debug("Migrated item file : adding "+id);
+					Variables.getMigratedItemList().add(id);
+					}
+				}
+			
+			updateMigratedList();//We then rewrite the file
+			
+			/**
+			 * We also update real time status of simple items
+			 */
+			for(String id : idList)
+				{
+				for(BasicOffice o : Variables.getOfficeList())
+					{
+					if(o.getId().equals(id))
+						{
+						o.setStatus(basicItemStatus.migrated);
+						break;
+						}
+					}
+				}
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().error("Failed to add the entrys to the migrated list : "+e.getMessage());
+			}
+		}
+	
+	/**
+	 * used to add a new entry to the migrated item list
+	 */
 	public static void removeEntryToTheMigratedList(String id)
 		{
 		Variables.getLogger().debug("Migrated item file : removing "+id);
@@ -1593,6 +1634,45 @@ public class UsefulMethod
 		catch (Exception e)
 			{
 			Variables.getLogger().error("Failed to remove the entry "+id+" of the migrated list : "+e.getMessage());
+			}
+		}
+	
+	/**
+	 * used to remove a bulk of entry of the migrated item list
+	 */
+	public static void removeEntryToTheMigratedList(ArrayList<String> idList)
+		{
+		try
+			{
+			for(String id : idList)
+				{
+				if(Variables.getMigratedItemList().contains(id))
+					{
+					Variables.getLogger().debug("Migrated item file : removing "+id);
+					Variables.getMigratedItemList().remove(id);
+					}
+				}
+			
+			updateMigratedList();//We then rewrite the file
+			
+			/**
+			 * We also update real time status of simple items
+			 */
+			for(String id : idList)
+				{
+				for(BasicOffice o : Variables.getOfficeList())
+					{
+					if(o.getId().equals(id))
+						{
+						o.setStatus(basicItemStatus.tomigrate);
+						break;
+						}
+					}
+				}
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().error("Failed to remove the entrys of the migrated list : "+e.getMessage());
 			}
 		}
 	

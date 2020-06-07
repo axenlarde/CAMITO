@@ -3,8 +3,10 @@ package com.alex.camito.action;
 import java.net.InetAddress;
 
 import com.alex.camito.device.Device;
+import com.alex.camito.misc.ErrorTemplate;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ReachableStatus;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 /**
@@ -29,7 +31,16 @@ public class PingProcess extends Thread
 	
 	public void run()
 		{
-		device.setReachable(ping(device.getIp())?ReachableStatus.reachable:ReachableStatus.unreachable);
+		if(ping(device.getIp()))
+			{
+			device.setReachable(ReachableStatus.reachable);
+			}
+		else
+			{
+			device.setReachable(ReachableStatus.unreachable);
+			device.setStatus(StatusType.error);
+			device.addError(new ErrorTemplate("Ping failed"));
+			}
 		}
 	
 	private boolean ping(String ip)

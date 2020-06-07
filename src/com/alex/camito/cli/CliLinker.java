@@ -277,7 +277,7 @@ public class CliLinker
 			 * Write instruction used to authenticate to gateway using telnet protocol 
 			 */
 			Variables.getLogger().debug(device.getInfo()+" : CLI : Authentication process begin");
-			for(OneLine l : ((DeviceType)device.getType()).getHowToConnect())
+			for(OneLine l : device.getDeviceType().getHowToConnect())
 				{
 				execute(l);
 				}
@@ -332,7 +332,7 @@ public class CliLinker
 				}
 			case save:
 				{
-				for(OneLine ol : ((DeviceType)device.getType()).getHowToSave())
+				for(OneLine ol : device.getDeviceType().getHowToSave())
 					{
 					execute(ol);
 					}
@@ -340,7 +340,7 @@ public class CliLinker
 				}
 			case reboot:
 				{
-				for(OneLine ol : ((DeviceType)device.getType()).getHowToReboot())
+				for(OneLine ol : device.getDeviceType().getHowToReboot())
 					{
 					execute(ol);
 					}

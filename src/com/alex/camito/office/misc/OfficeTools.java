@@ -7,9 +7,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.alex.camito.device.BasicPhone;
+import com.alex.camito.device.BasicPhone.PhoneStatus;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.SimpleRequest;
+import com.alex.camito.risport.RisportTools;
 import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ActionType;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 /**
@@ -103,6 +107,64 @@ public class OfficeTools
 			Variables.getLogger().error("ERROR while trying to get the phone's devicePool for phone "+phoneName+" : "+e.getMessage(),e);
 			}
 		return null;
+		}
+	
+	/**
+	 * Will execute a streamlined office phone survey
+	 * We concatenate all the phone in one big request
+	 * to lower the total RIS request per minute and the avoid 
+	 * to reach the system limit (15 request per minute max)
+	 */
+	public static void phoneSurvey(ArrayList<Office> officeList, CUCM srccucm, CUCM dstcucm)
+		{
+		int officeCount = 0;
+		ArrayList<BasicPhone> srcPL = new ArrayList<BasicPhone>();
+		ArrayList<BasicPhone> dstPL = new ArrayList<BasicPhone>();
+		ArrayList<Office> selectedO = new ArrayList<Office>();
+		
+		for(Office o : officeList)
+			{
+			srcPL.addAll(o.getPhoneList());
+			dstPL.addAll(o.getPhoneList());
+			selectedO.add(o);
+			officeCount++;
+			}
+		
+		Variables.getLogger().debug(srccucm.getInfo()+" : Phone survey starts, sending RISRequest for "+officeCount+" offices and "+srcPL.size()+" phones");
+		srcPL = RisportTools.doPhoneSurvey(srccucm, srcPL);
+		
+		Variables.getLogger().debug(dstcucm.getInfo()+" : Phone survey starts, sending RISRequest for "+officeCount+" offices and "+dstPL.size()+" phones");
+		dstPL = RisportTools.doPhoneSurvey(dstcucm, dstPL);
+		
+		//We now put the result back to each office
+		for(Office o : selectedO)
+			{
+			for(BasicPhone bp : o.getPhoneList())
+				{
+				boolean srcFound = false;
+				boolean dstFound = false;
+				for(BasicPhone risBP : srcPL)
+					{
+					if(bp.getName().equals(risBP.getName()))
+						{
+						srcFound = true;
+						break;
+						}
+					}
+				bp.setSrcStatus(srcFound?PhoneStatus.registered:PhoneStatus.unregistered);
+				
+				for(BasicPhone risBP : dstPL)
+					{
+					if(bp.getName().equals(risBP.getName()))
+						{
+						dstFound = true;
+						break;
+						}
+					}
+				bp.setDstStatus(dstFound?PhoneStatus.registered:PhoneStatus.unregistered);
+				}
+			}
+		Variables.getLogger().debug("Phone survey ends");
 		}
 	
 	/*2020*//*RATEL Alexandre 8)*/

@@ -1,7 +1,6 @@
 package com.alex.camito.device;
 
 
-
 /**
  * Device toolbox
  *
@@ -9,6 +8,7 @@ package com.alex.camito.device;
  */
 public class DeviceTools
 	{
+	
 	
 	
 	/*2020*//*RATEL Alexandre 8)*/

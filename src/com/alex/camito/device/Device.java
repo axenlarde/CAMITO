@@ -93,37 +93,11 @@ public class Device
 		else return s.toString();
 		}
 	
-	public void init() throws Exception
-		{
-		//Write something if needed
-		}
-	
-
-	public void Build() throws Exception
-		{
-		//Write something if needed
-		}
-
-	public void process() throws Exception
-		{
-		//Write something if needed
-		}
-	
-	public void resolve() throws Exception
-		{
-		//Write something if needed
-		}
-	
-	public void reset()
-		{
-		//Write something if needed
-		}
-	
 	/**
 	 * Will return a detailed status of the item
 	 * For instance will return phone status
 	 */
-	public String doGetDetailedStatus()
+	public String getDetailedStatus()
 		{
 		StringBuffer s = new StringBuffer("");
 		
@@ -326,7 +300,8 @@ public class Device
 
 	public CliProfile getCliProfile()
 		{
-		return cliProfile;
+		if(action.equals(ActionType.rollback))return rollbackCliProfile;
+		else return cliProfile;
 		}
 
 	public ArrayList<ErrorTemplate> getErrorList()
@@ -334,9 +309,9 @@ public class Device
 		return errorList;
 		}
 
-	public CliProfile getRollbackCliProfile()
+	public void setStatus(StatusType status)
 		{
-		return rollbackCliProfile;
+		this.status = status;
 		}
 
 		

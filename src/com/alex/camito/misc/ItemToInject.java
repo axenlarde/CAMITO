@@ -103,7 +103,7 @@ public abstract class ItemToInject implements ItemToInjectImpl
 					}
 				}
 			
-			this.errorList.addAll(linker.init());
+			this.errorList.addAll(linker.init(cucm));
 			
 			doBuild(cucm);
 			}

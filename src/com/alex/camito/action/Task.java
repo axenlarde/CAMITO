@@ -4,19 +4,16 @@ import java.util.ArrayList;
 
 import com.alex.camito.cli.CliInjector;
 import com.alex.camito.cli.CliTools;
-import com.alex.camito.device.BasicPhone;
-import com.alex.camito.device.BasicPhone.PhoneStatus;
 import com.alex.camito.device.Device;
 import com.alex.camito.misc.EmailManager;
 import com.alex.camito.misc.ErrorTemplate;
-import com.alex.camito.misc.ItemToMigrate;
-import com.alex.camito.misc.ItemToMigrate.ItmStatus;
 import com.alex.camito.misc.storedUUID;
 import com.alex.camito.office.misc.Office;
-import com.alex.camito.risport.RisportTools;
+import com.alex.camito.office.misc.OfficeTools;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ActionType;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 
@@ -38,10 +35,20 @@ public class Task extends Thread
 		stop,
 		pause
 		};
+		
+	public enum TaskStatus
+		{
+		init,
+		preaudit,
+		processing,
+		postaudit,
+		error,
+		done
+		};
 	
-	private ArrayList<ItemToMigrate> todoList;
-	private ItmStatus status;
-	private boolean pause, stop, started, end;
+	private ArrayList<Office> officeList;
+	private TaskStatus status;
+	private boolean pause, stop;
 	private String taskID, ownerID;
 	private ActionType action;
 	private ThreadManager cliManager;
@@ -50,216 +57,314 @@ public class Task extends Thread
 	/***************
 	 * Constructor
 	 ***************/
-	public Task(ArrayList<ItemToMigrate> todoList, String id, String ownerID, ActionType action)
+	public Task(ArrayList<Office> officeList, String id, String ownerID, ActionType action)
 		{
-		this.todoList = todoList;
-		this.status = ItmStatus.init;
+		this.officeList = officeList;		
+		this.status = TaskStatus.init;
 		stop = false;
 		pause = true;
-		started = false;
-		end = false;
 		this.taskID = id;
 		this.ownerID = ownerID;
 		this.action = action;
+		}
+	
+	public void run()
+		{
+		try
+			{
+			Variables.getLogger().info(action+" task "+taskID+" begins");
+			
+			if(!stop)build();
+			
+			if(action.equals(ActionType.reset))
+				{
+				/**
+				 * Here we reset only the phones by reseting the device pool
+				 * There is no action on devices
+				 */
+				pause = false;
+				status = TaskStatus.preaudit;
+				if(!stop)officeSurvey();
+				status = TaskStatus.processing;
+				if(!stop)reset();
+				status = TaskStatus.postaudit;
+				if(!stop)officeSurvey();
+				}
+			else if((action.equals(ActionType.migrate)) ||
+					(action.equals(ActionType.rollback)))
+				{
+				/**
+				 * Migration process will execute the following task to complete :
+				 * - Search and correct the configuration differences between source and destination CUCM cluster
+				 * - Ping the selected devices
+				 * - Send cli command to the selected devices
+				 * - Clear the bad phone configuration on the source cluster
+				 * - Execute a first phone survey
+				 * - Reset the selected offices's phones
+				 * - Connect the device profile on the destination cluster
+				 * - Configure line forward from source cluster to destination cluster
+				 * - Configure specific user service profile for PCCE agents
+				 * - Try to fix phone with migration issue
+				 * - Test the selected office's did line
+				 */
+				status = TaskStatus.preaudit;
+				if(!stop)officeSurvey();
+				if(!stop)deviceSurvey();
+				
+				//We then wait for the user to accept the migration
+				int counter = 0;
+				while(pause && (!stop))
+					{
+					this.sleep(500);
+					counter++;
+					if(counter > 240)//240 = 2 minutes
+						{
+						Variables.getLogger().debug("Max time reached, we end the task");
+						stop = true;
+						}
+					}
+				
+				if((pause == false) && (stop == false))Variables.getLogger().info(action+" task "+taskID+" starts");
+				
+				if(!stop)status = TaskStatus.processing;
+				if(!stop)sendDeviceCli();
+				if(!stop)reset();
+				setOfficeMigrationStatus();
+				if(!stop)status = TaskStatus.postaudit;
+				officeSurvey();
+				deviceSurvey();
+				
+				counter = 0;
+				while((!stop) && (counter<12))
+					{
+					/**
+					 * We proceed with the survey as long as the user want or max 2 minutes
+					 * 
+					 * This is necessary to allow phone or device to register after a reset
+					 * Indeed, there is no point at raising a warning about a phone which is just taking a little time to register
+					 * Instead it is better to try several times to reach it
+					 */
+					officeSurvey();
+					deviceSurvey();
+					counter++;
+					this.sleep(10000);
+					}
+				}
+			else
+				{
+				throw new Exception("Unsupported action : "+action);
+				}
+			
+			if(status.equals(TaskStatus.postaudit) && (UsefulMethod.getTargetOption("smtpemailenable").equals("true")))new EmailManager(officeList);
+			
+			status = TaskStatus.done;
+			Variables.getLogger().info(action+" task "+taskID+" ends");
+			
+			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
+			Variables.getLogger().info("UUID list cleared");
+			
+			if(Variables.getCliGetOutputList().size() > 0)
+				{
+				CliTools.writeCliGetOutputToCSV();
+				}
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().debug("ERROR : "+e.getMessage(),e);
+			status = TaskStatus.error;
+			}
+		}
+	
+	private void setOfficeStatus(StatusType status)
+		{
+		for(Office o : officeList)
+			{
+			if(o.getStatus().equals(StatusType.error))
+				{
+				//Nothing
+				}
+			else o.setStatus(status);
+			}
 		}
 	
 	/******
 	 * Used to start the build process
 	 * @throws Exception 
 	 */
-	private void startBuildProcess() throws Exception
+	private void build() throws Exception
 		{
-		Variables.getLogger().info("Beginning of the build process");
+		Variables.getLogger().info("Starting build process");
 		
-		/**
-		 * We first check for device pool duplicate
-		 * Indeed, we can have 2 office with the same device pool but different CODA
-		 * In this case we want to display the duplicate office as processed but actually not process it
-		 * Indeed doing it would mean reseting the phones or sending the cli twice
-		 * 
-		 * ######To improved (messy)######
-		 */
-		disableDPDuplicate(todoList);
-		
-		for(ItemToMigrate todo : todoList)
+		for(Office o : officeList)
 			{
 			if(stop)break;
-			todo.build();
+			o.build();
 			}
-		Variables.getLogger().info("End of the build process");
+		
+		Variables.getLogger().info("Build process ends");
 		}
+	
+	private void setOfficeMigrationStatus()
+		{
+		ArrayList<String> idList = new ArrayList<String>();
+		for(Office o : officeList)
+			{
+			if(!o.getStatus().equals(StatusType.error))
+				{
+				idList.add(o.getId());
+				}
+			}
+		
+		if(action.equals(ActionType.rollback))UsefulMethod.removeEntryToTheMigratedList(idList);
+		else UsefulMethod.addEntryToTheMigratedList(idList);
+		}
+	
+	private void officeSurvey()
+		{
+		Variables.getLogger().info("Starting office survey");
+		ArrayList<Office> ol = new ArrayList<Office>();
+		
+		for(Office o : officeList)
+			{
+			if(o.getStatus().equals(StatusType.error))
+				{
+				Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not start the survey");
+				}
+			else
+				{
+				if(o.isExists())
+					{
+					ol.add(o);
+					}
+				}
+			}
+		
+		OfficeTools.phoneSurvey(ol, action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm(),
+				action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
+		
+		Variables.getLogger().info("Office survey ends");
+		}
+	
 	
 	/**
 	 * Start survey process
 	 */
-	private void startSurvey() throws Exception
+	private void deviceSurvey() throws Exception
 		{
-		Variables.getLogger().info("Beginning of the survey process");
-		/**
-		 * First we take all the devices and start the ping manager process
-		 * Because each ping process is a different thread we can start them all
-		 * simultaneously to save time
-		 */
-		Variables.getLogger().info("Pinging devices");
-		ArrayList<Thread> threadList = new ArrayList<Thread>();
-		int pingTimeout = Integer.parseInt(UsefulMethod.getTargetOption("pingtimeout"));
+		Variables.getLogger().info("Starting device survey");
 		
-		for(ItemToMigrate myToDo : todoList)
+		/**
+		 * First we ping the devices and disable the not reachable ones
+		 */
+		
+		int pingTimeout = Integer.parseInt(UsefulMethod.getTargetOption("pingtimeout"));
+		int maxThread = Integer.parseInt(UsefulMethod.getTargetOption("maxpingthread"));
+		ArrayList<Device> deviceList = new ArrayList<Device>();
+		
+		for(Office o : officeList)
 			{
-			if(!myToDo.getStatus().equals(ItmStatus.disabled))
+			if(o.getStatus().equals(StatusType.error))
 				{
-				if(myToDo instanceof Device)
-					{
-					threadList.add(new PingProcess((Device)myToDo, pingTimeout));
-					}
+				Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not start the survey");
 				}
-			else Variables.getLogger().debug("The following item has been disabled so we do not process it : "+myToDo.getInfo());
+			else
+				{
+				deviceList.addAll(o.getDeviceList());
+				}
 			}
 		
-		pingManager = new ThreadManager(Integer.parseInt(UsefulMethod.getTargetOption("maxpingthread")),
+		Variables.getLogger().info("Pinging devices");
+		
+		if((deviceList == null) || (deviceList.size() == 0))
+			{
+			Variables.getLogger().debug("No device to ping");
+			return;
+			}
+		
+		ArrayList<Thread> threadList = new ArrayList<Thread>();
+		
+		for(Device d : deviceList)
+			{
+			if(d.getStatus() == StatusType.error)
+				{
+				Variables.getLogger().debug(d.getInfo()+" : Raised an error so we do not start the survey");
+				}
+			else
+				{
+				threadList.add(new PingProcess(d, pingTimeout));
+				}
+			}
+		
+		pingManager = new ThreadManager(maxThread,
 				100,
 				threadList);
 		
-		if(pingManager.getThreadList().size() == 0)
-			{
-			Variables.getLogger().debug("No device to ping");
-			}
-		else if(!stop)
-			{
-			pingManager.start();
-			
-			/**
-			 * It is better to wait for the ping manager to end before continue
-			 */
-			Variables.getLogger().debug("We wait for the ping manager to end");
-			while(pingManager.isAlive() && (!stop))
-				{
-				this.sleep(500);
-				}
-			Variables.getLogger().debug("Ping manager ends");
-			}
+		pingManager.start();
 		
 		/**
-		 * In the case of offices we need to streamline RISRequest
-		 * Indeed, we are allowed maximum 15 request per minute
-		 * We actually send 6 request per minute per office
-		 * In case of multiple office processing at the same time we will reach the limit quite quickly
-		 * 
-		 * To avoid that we will send all the offices' phones in one big request
+		 * It is better to wait for the ping manager to end before continue
 		 */
-		int officeCount = 0;
-		ArrayList<BasicPhone> srcPL = new ArrayList<BasicPhone>();
-		ArrayList<BasicPhone> dstPL = new ArrayList<BasicPhone>();
-		ArrayList<Office> selectedO = new ArrayList<Office>();
-		
-		for(ItemToMigrate myToDo : todoList)
+		Variables.getLogger().debug("We wait for the ping manager to end");
+		while(pingManager.isAlive() && (!stop))
 			{
-			if(!myToDo.getStatus().equals(ItmStatus.disabled))
-				{
-				if(myToDo instanceof Office)
-					{
-					Office o = (Office)myToDo;
-					if(o.isExists())
-						{
-						srcPL.addAll(o.getPhoneList());
-						dstPL.addAll(o.getPhoneList());
-						selectedO.add(o);
-						officeCount++;
-						}
-					}
-				}
+			this.sleep(200);
 			}
+		Variables.getLogger().debug("Ping manager ends");
 		
-		Variables.getLogger().debug(Variables.getSrccucm().getInfo()+" : Phone survey starts, sending RISRequest for "+officeCount+" offices and "+srcPL.size()+" phones");
-		srcPL = action.equals(ActionType.rollback)?RisportTools.doPhoneSurvey(Variables.getDstcucm(), dstPL):RisportTools.doPhoneSurvey(Variables.getSrccucm(), srcPL);
-		
-		Variables.getLogger().debug(Variables.getDstcucm().getInfo()+" : Phone survey starts, sending RISRequest for "+officeCount+" offices and "+dstPL.size()+" phones");
-		dstPL = action.equals(ActionType.rollback)?RisportTools.doPhoneSurvey(Variables.getSrccucm(), srcPL):RisportTools.doPhoneSurvey(Variables.getDstcucm(), dstPL);
-		
-		//We now put the result back to each office
-		for(Office o : selectedO)
-			{
-			for(BasicPhone bp : o.getPhoneList())
-				{
-				boolean srcFound = false;
-				boolean dstFound = false;
-				for(BasicPhone risBP : srcPL)
-					{
-					if(bp.getName().equals(risBP.getName()))
-						{
-						srcFound = true;
-						break;
-						}
-					}
-				bp.setSrcStatus(srcFound?PhoneStatus.registered:PhoneStatus.unregistered);
-				
-				for(BasicPhone risBP : dstPL)
-					{
-					if(bp.getName().equals(risBP.getName()))
-						{
-						dstFound = true;
-						break;
-						}
-					}
-				bp.setDstStatus(dstFound?PhoneStatus.registered:PhoneStatus.unregistered);
-				}
-			}
-		Variables.getLogger().debug("Phone survey ends");
-		
-		/**
-		 * Device survey
-		 */
-		Variables.getLogger().info("Device survey starts");
-		for(ItemToMigrate myToDo : todoList)
-			{
-			if(stop)break;
-			if(!myToDo.getStatus().equals(ItmStatus.disabled))
-				{
-				if(myToDo instanceof Device)
-					{
-					myToDo.startSurvey();
-					}
-				}
-			else Variables.getLogger().debug("The following item has been disabled so we do not process it : "+myToDo.getInfo());
-			}
 		Variables.getLogger().info("Device survey ends");
-		
-		Variables.getLogger().info("End of the survey process");
 		}
 	
 	/**
-	 * Start the real process
+	 * Send Device cli
 	 * @throws Exception 
 	 */
-	private void startUpdate() throws Exception
+	private void sendDeviceCli() throws Exception
 		{
-		Variables.getLogger().info("Beginning of the update process");
+		Variables.getLogger().info("Starting sending device cli");
 		
 		/**
-		 * First we take all the devices and start the cli update process
+		 * We take all the devices and start the cli update process
 		 * Because each cliInjector is a different thread we can start them all
 		 * simultaneously to save time
 		 */
-		ArrayList<Thread> threadList = new ArrayList<Thread>();
 		
-		for(ItemToMigrate myToDo : todoList)
+		ArrayList<Device> deviceList = new ArrayList<Device>();
+		ArrayList<Thread> cliList = new ArrayList<Thread>();
+		
+		for(Office o : officeList)
 			{
-			if(!myToDo.getStatus().equals(ItmStatus.disabled))
+			if(o.getStatus().equals(StatusType.error))
 				{
-				if(myToDo instanceof Device)
+				Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not process its devices");
+				}
+			else
+				{
+				deviceList.addAll(o.getDeviceList());
+				}
+			}
+		
+		for(Device d : deviceList)
+			{
+			if(d.getStatus() == StatusType.error)
+				{
+				Variables.getLogger().debug(d.getInfo()+" : Raised an error so we do not start to send cli for it");
+				}
+			else
+				{
+				if(d.getCliProfile() != null)
 					{
-					CliInjector clii = ((Device)myToDo).getCliInjector();
-					if(clii != null)threadList.add(clii);
+					CliInjector clii = new CliInjector(d);
+					clii.resolve();
+					cliList.add(clii);
 					}
 				}
-			else Variables.getLogger().debug("The following item has been disabled so we do not process it : "+myToDo.getInfo());
 			}
 		
 		cliManager = new ThreadManager(Integer.parseInt(UsefulMethod.getTargetOption("maxclithread")),
 				100,
-				threadList);
+				cliList);
 		
-		if(threadList.size() == 0)
+		if(cliList.size() == 0)
 			{
 			Variables.getLogger().debug("No device to update");
 			}
@@ -271,12 +376,12 @@ public class Task extends Thread
 			 * It is better to wait for the cli task to end before starting the AXL ones
 			 * For instance, it is pointless to reset a sip trunk before changing the ISR ip
 			 */
-			Variables.getLogger().debug("We wait for the cli tasks to end");
+			Variables.getLogger().debug("We wait for the cli manager to end");
 			while(cliManager.isAlive() && (!stop))
 				{
 				this.sleep(500);
 				}
-			Variables.getLogger().debug("Cli tasks end");
+			Variables.getLogger().debug("Cli manager ends");
 			
 			if(UsefulMethod.getTargetOption("smtperroremailenable").equals("true"))
 				{
@@ -287,7 +392,7 @@ public class Task extends Thread
 					{
 					CliInjector clii = (CliInjector)t;
 					Device d = clii.getDevice();
-					if(d.getStatus().equals(ItmStatus.error))
+					if(d.getStatus().equals(StatusType.error))
 						{
 						Variables.getLogger().debug("Error occurred with device "+d.getInfo()+" : sending email to the main admin");
 						String adminEmail = UsefulMethod.getTargetOption("smtperroremail");
@@ -315,44 +420,16 @@ public class Task extends Thread
 				}
 			}
 		
-		/**
-		 * Then we start the axl item updates which is not multithreaded
-		 * so it has to be item by item
-		 */
-		Variables.getLogger().debug("Updating AXL items");
-		
-		for(ItemToMigrate myToDo : todoList)
-			{
-			try
-				{
-				if(stop)break;
-				while(pause)
-					{
-					this.sleep(500);
-					}
-				
-				if(!myToDo.getStatus().equals(ItmStatus.disabled))
-					{
-					myToDo.update();
-					}
-				else Variables.getLogger().debug("The following item has been disabled so we do not process it : "+myToDo.getInfo());
-				}
-			catch (Exception e)
-				{
-				Variables.getLogger().error("An error occured with the item \""+myToDo.getName()+"\" : "+e.getMessage(), e);
-				myToDo.setStatus(ItmStatus.error);
-				}
-			}
-		Variables.getLogger().info("End of the update process");
+		Variables.getLogger().info("Sending device cli ends");
 		}
 	
 	/**
 	 * Start reset process
 	 */
-	private void startReset()
+	private void reset()
 		{
-		Variables.getLogger().info("Beginning of the reset process");
-		for(ItemToMigrate myToDo : todoList)
+		Variables.getLogger().info("Beginning the reset process");
+		for(Office o : officeList)
 			{
 			try
 				{
@@ -361,114 +438,27 @@ public class Task extends Thread
 					{
 					this.sleep(500);
 					}
-				if(!myToDo.getStatus().equals(ItmStatus.disabled))myToDo.reset();
-				else Variables.getLogger().debug("The following item has been disabled so we do not process it : "+myToDo.getInfo());
+				if(o.getStatus().equals(StatusType.error))
+					{
+					Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not reset it");
+					}
+				else
+					{
+					/**
+					 * The cluster to reset depends of the office status
+					 * If migrated we reset the destination cluster
+					 * If not we reset the source cluster
+					 */
+					o.reset(Variables.getMigratedItemList().contains(o.getId())?Variables.getDstcucm():Variables.getSrccucm());
+					}
 				}
 			catch (InterruptedException e)
 				{
-				Variables.getLogger().error("An error occured with the item \""+myToDo.getName()+"\" : "+e.getMessage(), e);
-				myToDo.setStatus(ItmStatus.error);
+				Variables.getLogger().error(o.getInfo()+" : ERROR while reseting : "+e.getMessage(), e);
+				o.setStatus(StatusType.error);
 				}
 			}
 		Variables.getLogger().info("End of the reset process");
-		}
-	
-	private void setItemStatus(ItmStatus status)
-		{
-		for(ItemToMigrate myToDo : todoList)
-			{
-			if((myToDo.getStatus().equals(ItmStatus.error)) ||
-					(myToDo.getStatus().equals(ItmStatus.disabled)))
-				{
-				Variables.getLogger().debug(myToDo.getInfo()+" : In this status '"+myToDo.getStatus()+"' we do not modify the item status");
-				}
-			else
-				{
-				myToDo.setStatus(status);
-				}
-					
-			}
-		}
-	
-	public void run()
-		{
-		try
-			{
-			Variables.getLogger().info(action+" task "+taskID+" begins");
-			started = true;
-			
-			if(action.equals(ActionType.reset))
-				{
-				pause = false;
-				status = ItmStatus.reset;
-				setItemStatus(ItmStatus.reset);
-				if(!stop)startReset();
-				}
-			else
-				{
-				status = ItmStatus.preaudit;
-				setItemStatus(ItmStatus.preaudit);
-				if(!stop)startBuildProcess();
-				if(!stop)startSurvey();
-				
-				//We then wait for the user to accept the migration
-				int counter = 0;
-				while(pause && (!stop))
-					{
-					this.sleep(500);
-					counter++;
-					if(counter > 240)//240 = 2 minutes
-						{
-						Variables.getLogger().debug("Max time reached, we end the task");
-						stop = true;
-						}
-					}
-				if((pause == false) && (stop == false))Variables.getLogger().info(action+" task "+taskID+" starts");
-				
-				if(!stop)status = ItmStatus.update;
-				if(!stop)setItemStatus(ItmStatus.update);
-				if(!stop)startUpdate();
-				if(!stop)startReset();
-				
-				if(!stop)status = ItmStatus.postaudit;
-				if(!stop)setItemStatus(ItmStatus.postaudit);
-				
-				counter = 0;
-				while((!stop) && (counter<12))
-					{
-					/**
-					 * We proceed with the survey as long as the user want or max 2 minutes
-					 * 
-					 * This is necessary to allow phone or device to register after a reset
-					 * Indeed, there is no point at raising a warning about a phone which is just taking a little time to register
-					 * Instead it is better to try several times to reach it
-					 */
-					startSurvey();
-					counter++;
-					this.sleep(10000);
-					}
-				}
-			
-			if(status.equals(ItmStatus.postaudit) && (UsefulMethod.getTargetOption("smtpemailenable").equals("true")))new EmailManager(todoList);
-			
-			setItemStatus(ItmStatus.done);
-			status = ItmStatus.done;
-			end = true;
-			Variables.getLogger().info(action+" task "+taskID+" ends");
-			
-			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
-			Variables.getLogger().info("UUID list cleared");
-			
-			if(Variables.getCliGetOutputList().size() > 0)
-				{
-				CliTools.writeCliGetOutputToCSV();
-				}
-			}
-		catch (Exception e)
-			{
-			Variables.getLogger().debug("ERROR : "+e.getMessage(),e);
-			status = ItmStatus.error;
-			}
 		}
 	
 	public void act(taskActionType action) throws Exception
@@ -480,42 +470,6 @@ public class Task extends Thread
 			case stop:setStop(true);break;
 			default:break;
 			}
-		}
-	
-	public void disableDPDuplicate(ArrayList<ItemToMigrate> todoList)
-		{
-		for(int i=0; i<todoList.size(); i++)
-			{
-			if(todoList.get(i) instanceof Office)
-				{
-				for(int j = i+1; j<todoList.size(); j++)
-					{
-					if(todoList.get(j) instanceof Office)
-						{
-						if(((Office) todoList.get(i)).getDevicepool().equals(((Office) todoList.get(j)).getDevicepool()))
-							{
-							todoList.get(j).setStatus(ItmStatus.disabled);
-							break;
-							}
-						}
-					}
-				}
-			}
-		}
-
-	public ArrayList<ItemToMigrate> getTodoList()
-		{
-		return todoList;
-		}
-
-	public void setTodoList(ArrayList<ItemToMigrate> todoList)
-		{
-		this.todoList = todoList;
-		}
-
-	public ItmStatus getStatus()
-		{
-		return status;
 		}
 
 	public void Stop()
@@ -571,21 +525,6 @@ public class Task extends Thread
 			{
 			throw new Exception("The task is finished and therefore cannot be stopped again");
 			}
-		}
-
-	public boolean isStarted()
-		{
-		return started;
-		}
-
-	public boolean isEnd()
-		{
-		return end;
-		}
-
-	public void setEnd(boolean end)
-		{
-		this.end = end;
 		}
 
 	public String getTaskId()

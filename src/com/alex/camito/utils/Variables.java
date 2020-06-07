@@ -101,9 +101,12 @@ public class Variables
 		{
 		injected,
 		error,
+		preaudit,
 		processing,
+		postaudit,
 		waiting,
 		disabled,
+		reseted,
 		init,
 		deleted,
 		updated
@@ -136,6 +139,7 @@ public class Variables
 		inject,
 		delete,
 		update,
+		migrate,
 		rollback,
 		reset
 		};

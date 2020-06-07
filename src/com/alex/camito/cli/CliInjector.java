@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.alex.camito.device.Device;
 import com.alex.camito.misc.ErrorTemplate;
-import com.alex.camito.misc.ItemToMigrate.ItmStatus;
 import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 
@@ -20,35 +20,25 @@ public class CliInjector extends Thread
 	 * Variables
 	 */
 	private Device device;
-	private CliProfile cliProfile;
 	private ArrayList<String> responses;
 	private ArrayList<OneLine> todo;
-	private ArrayList<OneLine> howToAuthenticate;
 	private ArrayList<ErrorTemplate> errorList;
 	
-	public CliInjector(Device device, CliProfile cliProfile)
+	public CliInjector(Device device)
 		{
 		super();
 		this.device = device;
-		this.cliProfile = cliProfile;
 		responses = new ArrayList<String>();
 		todo = new ArrayList<OneLine>();
-		howToAuthenticate = new ArrayList<OneLine>();
 		errorList = new ArrayList<ErrorTemplate>();
 		}
 	
-	public void build() throws Exception
+	public void resolve() throws Exception
 		{
 		/**
-		 * First we get our own version of the cliprofile commands and resolve them to match device values
+		 * We get our own version of the cliprofile commands and resolve them to match device values
 		 */
-		for(OneLine ol : cliProfile.getType().getHowToConnect())
-			{
-			OneLine l = new OneLine(ol.getCommand(), ol.getType());
-			l.resolve(device);
-			howToAuthenticate.add(l);
-			}
-		for(OneLine ol : cliProfile.getCliList())
+		for(OneLine ol : device.getCliProfile().getCliList())
 			{
 			OneLine l = new OneLine(ol.getCommand(), ol.getType());
 			l.resolve(device);
@@ -71,7 +61,7 @@ public class CliInjector extends Thread
 				try
 					{
 					clil.execute(l);
-					this.sleep(cliProfile.getDefaultInterCommandTimer());
+					this.sleep(device.getCliProfile().getDefaultInterCommandTimer());
 					}
 				catch (ConnectionException ce)
 					{
@@ -81,7 +71,7 @@ public class CliInjector extends Thread
 					{
 					Variables.getLogger().error(device.getInfo()+" : CLI : ERROR whith the command : "+l.getInfo());
 					device.addError(new ErrorTemplate("CLI : ERROR whith the command : "+l.getInfo()));
-					device.setStatus(ItmStatus.error);
+					device.setStatus(StatusType.error);
 					}
 				}
 			clil.disconnect();
@@ -91,7 +81,7 @@ public class CliInjector extends Thread
 			{
 			Variables.getLogger().error(device.getInfo()+" : CLI : Critical ERROR : "+e.getMessage());
 			device.addError(new ErrorTemplate("CLI : Critical ERROR : "+e.getMessage()));
-			device.setStatus(ItmStatus.error);
+			device.setStatus(StatusType.error);
 			}
 		}
 
@@ -99,11 +89,6 @@ public class CliInjector extends Thread
 	public Device getDevice()
 		{
 		return device;
-		}
-
-	public CliProfile getCliProfile()
-		{
-		return cliProfile;
 		}
 
 	public ArrayList<String> getResponses()
@@ -125,12 +110,6 @@ public class CliInjector extends Thread
 		{
 		return todo;
 		}
-
-	public ArrayList<OneLine> getHowToAuthenticate()
-		{
-		return howToAuthenticate;
-		}
 	
-	
-	/*2019*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
