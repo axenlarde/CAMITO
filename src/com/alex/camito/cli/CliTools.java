@@ -90,7 +90,7 @@ public class CliTools
 				xmlBuffer.close();
 				}
 			
-			Variables.getLogger().debug("Writing Cli get output files : Done !");
+			Variables.getLogger().debug("Writing Cli get output : Done !");
 			}
 		catch (Exception e)
 			{

@@ -6,7 +6,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.alex.camito.device.BasicDevice;
 import com.alex.camito.device.Device;
-import com.alex.camito.misc.ItemToMigrate;
 import com.alex.camito.office.misc.BasicOffice;
 import com.alex.camito.office.misc.Office;
 import com.alex.camito.utils.UsefulMethod;

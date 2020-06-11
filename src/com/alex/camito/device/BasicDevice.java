@@ -20,8 +20,7 @@ public class BasicDevice extends SimpleItem
 	/**
 	 * Variables
 	 */
-	private String id,
-	name,
+	private String name,
 	ip,
 	mask,
 	gateway,
@@ -32,7 +31,6 @@ public class BasicDevice extends SimpleItem
 	private CliProfile cliProfile;
 	private CliProfile rollbackCliProfile;
 	private CliProtocol connexionProtocol;
-	private basicItemStatus status;
 	private DeviceType deviceType;
 	
 	
@@ -199,19 +197,9 @@ public class BasicDevice extends SimpleItem
 		this.officename = officename;
 		}
 
-	public String getId()
-		{
-		return id;
-		}
-
 	public CliProfile getRollbackCliProfile()
 		{
 		return rollbackCliProfile;
-		}
-
-	public basicItemStatus getStatus()
-		{
-		return status;
 		}
 
 	public DeviceType getDeviceType()

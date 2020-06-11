@@ -1,6 +1,11 @@
 package com.alex.camito.office.misc;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -8,12 +13,12 @@ import org.w3c.dom.NodeList;
 
 import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.BasicPhone.PhoneStatus;
+import com.alex.camito.device.Device;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.SimpleRequest;
 import com.alex.camito.risport.RisportTools;
+import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
-import com.alex.camito.utils.Variables.ActionType;
-import com.alex.camito.utils.Variables.StatusType;
 
 
 /**
@@ -165,6 +170,76 @@ public class OfficeTools
 				}
 			}
 		Variables.getLogger().debug("Phone survey ends");
+		}
+	
+	/**
+	 * Used to write down the phone survey
+	 * Useful to compare the phone status before and after the migration
+	 */
+	public static void writePhoneSurveyToCSV(ArrayList<Office> officeList)
+		{
+		try
+			{
+			Variables.getLogger().debug("Writing phone survey to a file");
+			String splitter = UsefulMethod.getTargetOption("csvsplitter");
+			String cr = "\r\n";
+			SimpleDateFormat time = new SimpleDateFormat("HHmmss");
+			Date date = new Date();
+			String fileName = Variables.getPhoneSurveyFileName()+"_"+time.format(date);
+			BufferedWriter csvBuffer = new BufferedWriter(new FileWriter(new File(Variables.getMainDirectory()+"/"+fileName+".csv"), false));
+			
+			//FirstLine
+			csvBuffer.write("Coda"+splitter+"Device Pool"+splitter+"Device Name"+splitter+"Device Type"+splitter+"Status Before"+splitter+"Status After"+splitter+"Is OK"+cr);
+			
+			for(Office o : officeList)
+				{
+				for(BasicPhone bp : o.getPhoneList())
+					{
+					csvBuffer.write(o.getCoda()+splitter+o.getDevicePool().getName()+splitter+bp.getName()+splitter+bp.getModel()+splitter+bp.getFirstStatus()+splitter+bp.getDstStatus()+splitter+bp.isOK()+cr);
+					}
+				}
+			
+			csvBuffer.flush();
+			csvBuffer.close();
+			Variables.getLogger().debug("Writing phone survey : Done !");
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().error("ERROR while writing phone survey to CSV : "+e.getMessage(),e);
+			}
+		}
+	
+	/**
+	 * Write the overall result to a csv file
+	 */
+	public static void writeOverallResultToCSV(ArrayList<Office> officeList)
+		{
+		try
+			{
+			Variables.getLogger().debug("Writing the overall result to a file");
+			String splitter = UsefulMethod.getTargetOption("csvsplitter");
+			String cr = "\r\n";
+			SimpleDateFormat time = new SimpleDateFormat("HHmmss");
+			Date date = new Date();
+			String fileName = Variables.getOverallResultFileName()+"_"+time.format(date);
+			BufferedWriter csvBuffer = new BufferedWriter(new FileWriter(new File(Variables.getMainDirectory()+"/"+fileName+".csv"), false));
+			
+			//FirstLine
+			csvBuffer.write("Coda"+splitter+"Device Pool"+splitter+"Office Name"+splitter+"Status"+splitter+"Detailed Status"+cr);
+			
+			for(Office o : officeList)
+				{
+				csvBuffer.write(o.getCoda()+splitter+o.getDevicePool()+splitter+o.getName()+splitter+o.getStatus()+splitter+o.getDetailedStatus()+cr);
+				}
+			
+			csvBuffer.flush();
+			csvBuffer.close();
+			Variables.getLogger().debug("Writing overall result : Done !");
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().error("ERROR while writing overall result to CSV : "+e.getMessage(),e);
+			}
 		}
 	
 	/*2020*//*RATEL Alexandre 8)*/

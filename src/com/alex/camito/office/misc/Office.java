@@ -65,8 +65,11 @@ public class Office
 		this.cmg = bo.getCmg();
 		this.lot = bo.getLot();
 		this.didList = bo.getDidList();
+		deviceList = new ArrayList<Device>();
 		for(BasicDevice bd : bo.getDeviceList())deviceList.add(new Device(bd, action));
 		phoneList = new ArrayList<BasicPhone>();
+		errorList = new ArrayList<ErrorTemplate>();
+		this.status = StatusType.init;
 		}
 
 	public String getInfo()

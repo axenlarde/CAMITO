@@ -221,6 +221,8 @@ public class Variables
 	private static String didListFileName;
 	private static String cmgListFileName;
 	private static String deviceTypeListFileName;
+	private static String phoneSurveyFileName;
+	private static String overallResultFileName;
 	private static ArrayList<String> matcherList;
 	private static ArrayList<ValueMatcher> substituteList;
 	private static ArrayList<storedUUID> uuidList;
@@ -264,6 +266,8 @@ public class Variables
 		cmgListFileName = "cmgList.xml";
 		cliGetOutputFileName = "CliGetOutput";
 		deviceTypeListFileName = "deviceTypeList.xml";
+		phoneSurveyFileName = "phoneSurvey";
+		overallResultFileName = "overallResult";
 		}
 
 	public static String getSoftwareName()
@@ -656,6 +660,26 @@ public class Variables
 	public static void setDeviceTypeListFileName(String deviceTypeListFileName)
 		{
 		Variables.deviceTypeListFileName = deviceTypeListFileName;
+		}
+
+	public static String getPhoneSurveyFileName()
+		{
+		return phoneSurveyFileName;
+		}
+
+	public static void setPhoneSurveyFileName(String phoneSurveyFileName)
+		{
+		Variables.phoneSurveyFileName = phoneSurveyFileName;
+		}
+
+	public static String getOverallResultFileName()
+		{
+		return overallResultFileName;
+		}
+
+	public static void setOverallResultFileName(String overallResultFileName)
+		{
+		Variables.overallResultFileName = overallResultFileName;
 		}
 	
 	

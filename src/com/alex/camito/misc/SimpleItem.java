@@ -16,7 +16,7 @@ public class SimpleItem
 		};	
 	
 	protected String id;
-	protected basicItemStatus status; 
+	protected basicItemStatus status;
 	
 	public SimpleItem(String patternID)
 		{

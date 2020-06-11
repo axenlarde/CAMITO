@@ -330,21 +330,62 @@ public class ManageWebRequest
 		{
 		try
 			{
-			File srcFile = new File(Variables.getMainDirectory()+"/"+Variables.getLogFileName());
-			if(srcFile.exists())
+			/**
+			 * First we copy all the log files
+			 */
+			File srcDirectory = new File(Variables.getMainDirectory());
+			
+			Variables.getLogger().debug("##Copying logs##");
+			for(File f : srcDirectory.listFiles())
 				{
-				Variables.getLogger().debug("Copying the first log file");
-				File dstFile = new File(UsefulMethod.getTargetOption("targetdirectory")+"/"+Variables.getLogFileName());
-				FileUtils.copyFile(srcFile, dstFile);
+				if(f.getName().toLowerCase().contains(Variables.getLogFileName().toLowerCase()))
+					{
+					Variables.getLogger().debug("Copying log file : "+f.getName());
+					File dstFile = new File(UsefulMethod.getTargetOption("targetdirectory")+"/"+f.getName());
+					FileUtils.copyFile(f, dstFile);
+					}
 				}
 			
-			//We also copy the second log file
-			srcFile = new File(Variables.getMainDirectory()+"/"+Variables.getLogFileName()+".1");
-			if(srcFile.exists())
+			/**
+			 * Then we copy the phone survey file
+			 */
+			Variables.getLogger().debug("##Copying phone survey##");
+			for(File f : srcDirectory.listFiles())
 				{
-				Variables.getLogger().debug("Copying the second log file");
-				File dstFile = new File(UsefulMethod.getTargetOption("targetdirectory")+"/"+Variables.getLogFileName()+".1");
-				FileUtils.copyFile(srcFile, dstFile);
+				if(f.getName().toLowerCase().contains(Variables.getPhoneSurveyFileName().toLowerCase()))
+					{
+					Variables.getLogger().debug("Copying phone survey file : "+f.getName());
+					File dstFile = new File(UsefulMethod.getTargetOption("targetdirectory")+"/"+f.getName());
+					FileUtils.copyFile(f, dstFile);
+					}
+				}
+			
+			/**
+			 * Then we copy the Get cli output file
+			 */
+			Variables.getLogger().debug("##Copying cli get output##");
+			for(File f : srcDirectory.listFiles())
+				{
+				if(f.getName().toLowerCase().contains(Variables.getCliGetOutputFileName().toLowerCase()))
+					{
+					Variables.getLogger().debug("Copying cli get output file : "+f.getName());
+					File dstFile = new File(UsefulMethod.getTargetOption("targetdirectory")+"/"+f.getName());
+					FileUtils.copyFile(f, dstFile);
+					}
+				}
+			
+			/**
+			 * Finally we copy the overall result file
+			 */
+			Variables.getLogger().debug("##Copying the overall result##");
+			for(File f : srcDirectory.listFiles())
+				{
+				if(f.getName().toLowerCase().contains(Variables.getOverallResultFileName().toLowerCase()))
+					{
+					Variables.getLogger().debug("Copying overall result file : "+f.getName());
+					File dstFile = new File(UsefulMethod.getTargetOption("targetdirectory")+"/"+f.getName());
+					FileUtils.copyFile(f, dstFile);
+					}
 				}
 			
 			return WebRequestBuilder.buildWebRequest(webRequestType.success, null);

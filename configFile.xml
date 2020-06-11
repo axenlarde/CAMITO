@@ -13,6 +13,7 @@ Overal configuration file
 		<maxpingthread>50</maxpingthread>
 		<maxtaskthread>1</maxtaskthread>
 		<maxinfochar>60</maxinfochar>
+		<allowdeviceipduplicate>false</allowdeviceipduplicate><!--Allow device ip duplicate-->
 		<!--Cli parameters-->
 		<maxclithread>10</maxclithread>
 		<cliconnectiontimeout>10000</cliconnectiontimeout>

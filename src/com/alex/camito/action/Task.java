@@ -163,10 +163,28 @@ public class Task extends Thread
 			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
 			Variables.getLogger().info("UUID list cleared");
 			
+			/**
+			 * We write the phone status
+			 */
+			ArrayList<Office> ol = new ArrayList<Office>();
+			for(Office o : officeList)
+				{
+				if(!o.getStatus().equals(StatusType.error))ol.add(o);
+				}
+			if(ol.size() > 0)OfficeTools.writePhoneSurveyToCSV(ol);
+			
+			/**
+			 * We write the Cli get outputs
+			 */
 			if(Variables.getCliGetOutputList().size() > 0)
 				{
 				CliTools.writeCliGetOutputToCSV();
 				}
+			
+			/**
+			 * We write the overall result file
+			 */
+			OfficeTools.writeOverallResultToCSV(officeList);
 			}
 		catch (Exception e)
 			{
@@ -239,8 +257,11 @@ public class Task extends Thread
 				}
 			}
 		
-		OfficeTools.phoneSurvey(ol, action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm(),
-				action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
+		if(ol.size() > 0)
+			{
+			OfficeTools.phoneSurvey(ol, action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm(),
+					action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
+			}
 		
 		Variables.getLogger().info("Office survey ends");
 		}
@@ -546,8 +567,16 @@ public class Task extends Thread
 		{
 		return action;
 		}
-	
-	
+
+	public ArrayList<Office> getOfficeList()
+		{
+		return officeList;
+		}
+
+	public TaskStatus getStatus()
+		{
+		return status;
+		}
 	
 	
 	/*2020*//*RATEL Alexandre 8)*/

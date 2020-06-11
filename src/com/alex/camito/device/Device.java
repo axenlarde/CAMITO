@@ -63,6 +63,7 @@ public class Device
 		this.connexionProtocol = bd.getConnexionProtocol();
 		this.reachable = ReachableStatus.unknown;
 		shortmask = UsefulMethod.convertlongMaskToShortOne(this.mask);
+		this.status = StatusType.init;
 		}
 	
 	public String getInfo()

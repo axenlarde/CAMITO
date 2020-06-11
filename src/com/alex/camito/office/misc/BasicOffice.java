@@ -151,6 +151,12 @@ public class BasicOffice extends SimpleItem
 		return didList;
 		}
 
+
+	public ArrayList<LinkedOffice> getLinkedOffice()
+		{
+		return linkedOffice;
+		}
+
 	
 
 	/*2020*//*RATEL Alexandre 8)*/

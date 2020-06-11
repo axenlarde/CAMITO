@@ -42,9 +42,9 @@ public class CMG
 		return null;
 		}
 
-	public CMGName getName()
+	public String getName()
 		{
-		return name;
+		return name.name();
 		}
 
 	public String getCucm1()

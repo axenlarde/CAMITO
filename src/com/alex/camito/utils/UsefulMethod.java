@@ -376,7 +376,7 @@ public class UsefulMethod
 				/**
 				 * First we check for duplicates
 				 */
-				String DeviceTypeName = UsefulMethod.getItemByName("name", tab);
+				String DeviceTypeName = UsefulMethod.getItemByName("name", tab).toUpperCase();
 				boolean found = false;
 				for(DeviceType dt : deviceTypeList)
 					{
@@ -420,7 +420,7 @@ public class UsefulMethod
 						}
 					}
 				
-				deviceTypeList.add(new DeviceType((UsefulMethod.getItemByName("name", tab).toLowerCase()),
+				deviceTypeList.add(new DeviceType(DeviceTypeName,
 						UsefulMethod.getItemByName("vendor", tab),
 						howToConnect,
 						howToSave,
@@ -452,30 +452,39 @@ public class UsefulMethod
 			params.add("device");
 			
 			ArrayList<String[][]> content = xMLGear.getResultListTab(UsefulMethod.getFlatFileContent(Variables.getDeviceListFileName()), params);
+			boolean allowDuplicate = Boolean.parseBoolean(UsefulMethod.getTargetOption("allowdeviceipduplicate"));
 			
 			for(String[][] s : content)
 				{
 				String ip = UsefulMethod.getItemByName("ip", s);
+				String name = UsefulMethod.getItemByName("name", s);
 				
 				/**
 				 * We avoid duplicate
 				 */
-				boolean found = false;
-				for(BasicDevice bd : deviceList)
+				if(allowDuplicate)
 					{
-					if(bd.getIp().equals(ip))
-						{
-						Variables.getLogger().debug(bd.getInfo()+ " : Device ip duplicate found so we do not add the following new device : "+ip);
-						found = true;
-						break;
-						}
+					Variables.getLogger().debug("We allow device ip duplicate so we do not look for duplicates");
 					}
-				
-				if(found)continue;
+				else
+					{
+					boolean found = false;
+					for(BasicDevice bd : deviceList)
+						{
+						if(bd.getIp().equals(ip))
+							{
+							Variables.getLogger().debug(bd.getInfo()+ " : Device ip duplicate found so we do not add the following new device : "+name);
+							found = true;
+							break;
+							}
+						}
+					
+					if(found)continue;
+					}
 				
 				try
 					{
-					BasicDevice	d = new BasicDevice(UsefulMethod.getItemByName("name", s),
+					BasicDevice	d = new BasicDevice(name,
 								ip,
 								UsefulMethod.getItemByName("mask", s),
 								UsefulMethod.getItemByName("gateway", s),
@@ -566,7 +575,7 @@ public class UsefulMethod
 							(UsefulMethod.getItemByName("totest", s).isEmpty()?false:true),
 							didType);
 					
-					Variables.getLogger().debug("New DID added to the DID list : "+did.getDid());
+					//Variables.getLogger().debug("New DID added to the DID list : "+did.getDid());
 					didList.add(did);
 					}
 				catch (Exception e)
@@ -689,6 +698,8 @@ public class UsefulMethod
 								type);
 						
 						bo.addLinkedOffice(linkedOffice);
+						found = true;
+						break;
 						}
 					}
 				
@@ -1843,7 +1854,7 @@ public class UsefulMethod
 		Variables.setDstcucm(dstcucm);
 		}
 	
-	public static String getLot(String name)
+	public static String searchForLot(String name)
 		{
 		if(name.toLowerCase().contains("lot"))
 			{
@@ -1853,6 +1864,16 @@ public class UsefulMethod
 			}
 		
 		return name;
+		}
+	
+	public static String convertLot(Lot lot)
+		{
+		if(lot.equals(Lot.A))return "Lot 1";
+		else if(lot.equals(Lot.B))return "Lot 2";
+		else if(lot.equals(Lot.C))return "Lot 3";
+		else if(lot.equals(Lot.CAMPUS))return "Lot CAMPUS";
+		else if(lot.equals(Lot.PILOTE))return "Lot Pilote";
+		else return lot.name();
 		}
 	
 	
