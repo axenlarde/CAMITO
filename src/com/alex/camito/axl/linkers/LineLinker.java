@@ -1,23 +1,20 @@
-package com.alex.woot.axlitems.linkers;
+package com.alex.camito.axl.linkers;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import com.alex.woot.axlitems.linkers.UserLinker.toUpdate;
-import com.alex.woot.axlitems.misc.AXLItemLinker;
-import com.alex.woot.axlitems.misc.ToUpdate;
-import com.alex.woot.misc.ErrorTemplate;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.SimpleRequest;
-import com.alex.woot.misc.ErrorTemplate.errorType;
-import com.alex.woot.user.items.Line;
-import com.alex.woot.user.misc.UserError;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
-import com.cisco.axl.api._10.XCallForwardAll;
-import com.cisco.axl.api._8.XFkType;
+import com.alex.camito.axl.misc.AXLItemLinker;
+import com.alex.camito.axl.misc.ToUpdate;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ErrorTemplate;
+import com.alex.camito.misc.ErrorTemplate.errorType;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.misc.SimpleRequest;
+import com.alex.camito.user.items.Line;
+import com.alex.camito.user.misc.UserError;
+import com.alex.camito.utils.Variables.ItemType;
 
 
 /**********************************
@@ -82,7 +79,7 @@ public class LineLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion85(CUCM cucm) throws Exception
 		{
 		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
 		//To be written
@@ -90,12 +87,12 @@ public class LineLinker extends AXLItemLinker
 		return errorList;
 		}
 	
-	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105(CUCM cucm) throws Exception
 		{
 		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName);
+			SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -104,7 +101,7 @@ public class LineLinker extends AXLItemLinker
 		
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.shareLineAppearanceCssName);
+			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.shareLineAppearanceCssName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -113,7 +110,7 @@ public class LineLinker extends AXLItemLinker
 		
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName);
+			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -122,7 +119,7 @@ public class LineLinker extends AXLItemLinker
 		
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.voicemail, this.voiceMailProfileName);
+			SimpleRequest.getUUIDV105(ItemType.voicemail, this.voiceMailProfileName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -136,39 +133,26 @@ public class LineLinker extends AXLItemLinker
 	/***************
 	 * Delete
 	 */
-	public void doDeleteVersion105() throws Exception
+	public void doDeleteVersion105(CUCM cucm) throws Exception
 		{
 		//First we get the UUID of the line
 		com.cisco.axl.api._10.GetLineReq req = new com.cisco.axl.api._10.GetLineReq();
 		req.setPattern(this.name);
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName)));
-		com.cisco.axl.api._10.GetLineRes resp = Variables.getAXLConnectionToCUCMV105().getLine(req);//We send the request to the CUCM
+		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm)));
+		com.cisco.axl.api._10.GetLineRes resp = cucm.getAXLConnectionV105().getLine(req);//We send the request to the CUCM
 		
 		//Then we delete the line
 		com.cisco.axl.api._10.RemoveLineReq deleteReq = new com.cisco.axl.api._10.RemoveLineReq();
 		deleteReq.setUuid(resp.getReturn().getLine().getUuid());//We add the parameters to the request
-		com.cisco.axl.api._10.StandardResponse response = Variables.getAXLConnectionToCUCMV105().removeLine(deleteReq);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse response = cucm.getAXLConnectionV105().removeLine(deleteReq);//We send the request to the CUCM
 		}
 
-	public void doDeleteVersion85() throws Exception
-		{
-		//First we get the UUID of the line
-		com.cisco.axl.api._8.GetLineReq req = new com.cisco.axl.api._8.GetLineReq();
-		req.setPattern(this.name);
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(ItemType.partition, this.routePartitionName)));
-		com.cisco.axl.api._8.GetLineRes resp = Variables.getAXLConnectionToCUCM85().getLine(req);//We send the request to the CUCM
-		
-		//Then we delete the line
-		com.cisco.axl.api._8.RemoveLineReq deleteReq = new com.cisco.axl.api._8.RemoveLineReq();
-		deleteReq.setUuid(resp.getReturn().getLine().getUuid());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse response = Variables.getAXLConnectionToCUCM85().removeLine(deleteReq);//We send the request to the CUCM
-		}
 	/**************/
 
 	/***************
 	 * Injection
 	 */
-	public String doInjectVersion105() throws Exception
+	public String doInjectVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.AddLineReq req = new com.cisco.axl.api._10.AddLineReq();
 		com.cisco.axl.api._10.XLine params = new com.cisco.axl.api._10.XLine();
@@ -178,85 +162,63 @@ public class LineLinker extends AXLItemLinker
 		 * 
 		 */
 		params.setPattern(this.name);
-		params.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName)));
+		params.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm)));
 		params.setDescription(this.description);
 		params.setAlertingName(this.alertingName);
 		params.setAsciiAlertingName(this.asciiAlertingName);
-		params.setShareLineAppearanceCssName(new JAXBElement(new QName("shareLineAppearanceCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.shareLineAppearanceCssName)));
-		params.setCallPickupGroupName(SimpleRequest.getUUIDV105(ItemType.callpickupgroup, this.callPickupGroupName));
-		params.setVoiceMailProfileName(new JAXBElement(new QName("voiceMailProfileName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.voicemail, this.voiceMailProfileName)));
+		params.setShareLineAppearanceCssName(new JAXBElement(new QName("shareLineAppearanceCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.shareLineAppearanceCssName, cucm)));
+		params.setCallPickupGroupName(SimpleRequest.getUUIDV105(ItemType.callpickupgroup, this.callPickupGroupName, cucm));
+		params.setVoiceMailProfileName(new JAXBElement(new QName("voiceMailProfileName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.voicemail, this.voiceMailProfileName, cucm)));
 		
 		/****
 		 * Forward
 		 */
 		//All
 		com.cisco.axl.api._10.XCallForwardAll myFwAll = new com.cisco.axl.api._10.XCallForwardAll();
-		myFwAll.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName)));
+		myFwAll.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 		myFwAll.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwAllDestination));
 		myFwAll.setForwardToVoiceMail((this.fwAllVoicemailEnable)?"true":"false");
 		params.setCallForwardAll(myFwAll);
 		
 		//Noan
 		com.cisco.axl.api._10.XCallForwardNoAnswer myFwNoan = new com.cisco.axl.api._10.XCallForwardNoAnswer();
-		myFwNoan.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName)));
+		myFwNoan.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 		myFwNoan.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwNoanDestination));
 		myFwNoan.setForwardToVoiceMail((this.fwNoanVoicemailEnable)?"true":"false");
 		params.setCallForwardNoAnswer(myFwNoan);
 		com.cisco.axl.api._10.XCallForwardNoAnswerInt myFwNoanInt = new com.cisco.axl.api._10.XCallForwardNoAnswerInt();
-		myFwNoanInt.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName)));
+		myFwNoanInt.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 		myFwNoanInt.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwNoanDestination));
 		myFwNoanInt.setForwardToVoiceMail((this.fwNoanVoicemailEnable)?"true":"false");
 		params.setCallForwardNoAnswerInt(myFwNoanInt);
 		
 		//Busy
 		com.cisco.axl.api._10.XCallForwardBusy myFwBusy = new com.cisco.axl.api._10.XCallForwardBusy();
-		myFwBusy.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName)));
+		myFwBusy.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 		myFwBusy.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwBusyDestination));
 		myFwBusy.setForwardToVoiceMail((this.fwBusyVoicemailEnable)?"true":"false");
 		params.setCallForwardBusy(myFwBusy);
 		com.cisco.axl.api._10.XCallForwardBusyInt myFwBusyInt = new com.cisco.axl.api._10.XCallForwardBusyInt();
-		myFwBusyInt.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName)));
+		myFwBusyInt.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 		myFwBusyInt.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwBusyDestination));
 		myFwBusyInt.setForwardToVoiceMail((this.fwBusyVoicemailEnable)?"true":"false");
 		params.setCallForwardBusyInt(myFwBusyInt);
 		
 		//Unregistered
 		com.cisco.axl.api._10.XCallForwardNotRegistered myFwUnr = new com.cisco.axl.api._10.XCallForwardNotRegistered();
-		myFwUnr.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName)));
+		myFwUnr.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 		myFwUnr.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwUnrDestination));
 		myFwUnr.setForwardToVoiceMail((this.fwUnrVoicemailEnable)?"true":"false");
 		params.setCallForwardNotRegistered(myFwUnr);
 		com.cisco.axl.api._10.XCallForwardNotRegisteredInt myFwUnrInt = new com.cisco.axl.api._10.XCallForwardNotRegisteredInt();
-		myFwUnrInt.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName)));
+		myFwUnrInt.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 		myFwUnrInt.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwUnrDestination));
 		myFwUnrInt.setForwardToVoiceMail((this.fwUnrVoicemailEnable)?"true":"false");
 		params.setCallForwardNotRegisteredInt(myFwUnrInt);
 		/************/
 		
 		req.setLine(params);//We add the parameters to the request
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().addLine(req);//We send the request to the CUCM
-		
-		return resp.getReturn();//Return UUID
-		}
-
-	public String doInjectVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.AddLineReq req = new com.cisco.axl.api._8.AddLineReq();
-		com.cisco.axl.api._8.XLine params = new com.cisco.axl.api._8.XLine();
-		
-		/**
-		 * We set the item parameters
-		 */
-		params.setPattern(this.name);
-		params.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(ItemType.partition, this.routePartitionName)));
-		params.setDescription(this.description);
-		params.setAlertingName(this.alertingName);
-		params.setAsciiAlertingName(this.asciiAlertingName);
-		params.setShareLineAppearanceCssName(new JAXBElement(new QName("shareLineAppearanceCssName"), com.cisco.axl.api._8.XFkType.class,SimpleRequest.getUUIDV85(ItemType.callingsearchspace, this.shareLineAppearanceCssName)));
-		/************/
-		
-		req.setLine(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addLine(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().addLine(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -265,25 +227,33 @@ public class LineLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList, CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateLineReq req = new com.cisco.axl.api._10.UpdateLineReq();
+		com.cisco.axl.api._10.XCallForwardAll CallFA = new com.cisco.axl.api._10.XCallForwardAll();
 		
 		/***********
 		 * We set the item parameters
 		 */
 		req.setPattern(this.name);
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName)));
+		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm)));
 		
 		if(tuList.contains(toUpdate.description))req.setDescription(this.description);
 		if(tuList.contains(toUpdate.alertingName))req.setAlertingName(this.alertingName);
 		if(tuList.contains(toUpdate.asciiAlertingName))req.setAsciiAlertingName(this.asciiAlertingName);
-		if(tuList.contains(toUpdate.shareLineAppearanceCssName))req.setShareLineAppearanceCssName(new JAXBElement(new QName("shareLineAppearanceCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.shareLineAppearanceCssName)));
-		if(tuList.contains(toUpdate.callPickupGroupName))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(ItemType.callpickupgroup, this.callPickupGroupName));
-		
+		if(tuList.contains(toUpdate.shareLineAppearanceCssName))req.setShareLineAppearanceCssName(new JAXBElement(new QName("shareLineAppearanceCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.shareLineAppearanceCssName, cucm)));
+		if(tuList.contains(toUpdate.callPickupGroupName))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(ItemType.callpickupgroup, this.callPickupGroupName, cucm));
+		if(tuList.contains(toUpdate.fwCallingSearchSpaceName))
+			{
+			CallFA.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
+			req.setCallForwardAll(CallFA);
+			}
+		if(tuList.contains(toUpdate.fwAllDestination))
+			{
+			CallFA.setDestination(new JAXBElement(new QName("destination"), String.class, this.fwAllDestination));
+			req.setCallForwardAll(CallFA);
+			}
 		/*To do
-		if(tuList.contains(toUpdate.fwCallingSearchSpaceName))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(itemType.callpickupgroup, this.callPickupGroupName));
-		if(tuList.contains(toUpdate.fwAllDestination))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(itemType.callpickupgroup, this.callPickupGroupName));
 		if(tuList.contains(toUpdate.fwNoanDestination))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(itemType.callpickupgroup, this.callPickupGroupName));
 		if(tuList.contains(toUpdate.fwBusyDestination))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(itemType.callpickupgroup, this.callPickupGroupName));
 		if(tuList.contains(toUpdate.fwUnrDestination))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(itemType.callpickupgroup, this.callPickupGroupName));
@@ -296,22 +266,7 @@ public class LineLinker extends AXLItemLinker
 		
 		/************/
 		
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateLine(req);//We send the request to the CUCM
-		}
-
-	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
-		{
-		com.cisco.axl.api._8.UpdateLineReq req = new com.cisco.axl.api._8.UpdateLineReq();
-		
-		/***********
-		 * We set the item parameters
-		 */
-		req.setPattern(this.name);
-		
-		//Has to be written
-		/************/
-		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateLine(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().updateLine(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -319,7 +274,7 @@ public class LineLinker extends AXLItemLinker
 	/*************
 	 * Get
 	 */
-	public ItemToInject doGetVersion105() throws Exception
+	public ItemToInject doGetVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.GetLineReq req = new com.cisco.axl.api._10.GetLineReq();
 		
@@ -327,31 +282,10 @@ public class LineLinker extends AXLItemLinker
 		 * We set the item parameters
 		 */
 		req.setPattern(this.getName());
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName)));
+		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm)));
 		/************/
 		
-		com.cisco.axl.api._10.GetLineRes resp = Variables.getAXLConnectionToCUCMV105().getLine(req);//We send the request to the CUCM
-		
-		Line myLine = new Line(this.getName(),this.getRoutePartitionName());
-		myLine.setUUID(resp.getReturn().getLine().getUuid());
-		//etc..
-		//Has to be written
-		
-		return myLine;//Return a location
-		}
-
-	public ItemToInject doGetVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.GetLineReq req = new com.cisco.axl.api._8.GetLineReq();
-		
-		/**
-		 * We set the item parameters
-		 */
-		req.setPattern(this.getName());
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(ItemType.partition, this.routePartitionName)));
-		/************/
-		
-		com.cisco.axl.api._8.GetLineRes resp = Variables.getAXLConnectionToCUCM85().getLine(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.GetLineRes resp = cucm.getAXLConnectionV105().getLine(req);//We send the request to the CUCM
 		
 		Line myLine = new Line(this.getName(),this.getRoutePartitionName());
 		myLine.setUUID(resp.getReturn().getLine().getUuid());
@@ -533,15 +467,6 @@ public class LineLinker extends AXLItemLinker
 		}
 
 	
-
-	
-
-	
-	
-
-	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

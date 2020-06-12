@@ -1,13 +1,11 @@
-package com.alex.woot.user.items;
+package com.alex.camito.user.items;
 
-import com.alex.woot.axlitems.linkers.LineLinker;
-import com.alex.woot.axlitems.linkers.PhoneLinker;
-import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.utils.UsefulMethod;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
-
+import com.alex.camito.axl.linkers.LineLinker;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.utils.UsefulMethod;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
 
 /**********************************
  * Class used to define an item of type "Line"
@@ -58,7 +56,7 @@ public class Line extends ItemToInject
 			String fwNoanVoicemailEnable, String fwBusyVoicemailEnable,
 			String fwUnrVoicemailEnable, int index) throws Exception
 		{
-		super(ItemType.line, name);
+		super(ItemType.line, name, new LineLinker(name, routePartitionName));
 		myLine = new LineLinker(name, routePartitionName);
 		this.description = description;
 		this.routePartitionName = routePartitionName;
@@ -81,7 +79,7 @@ public class Line extends ItemToInject
 
 	public Line(String name, String routePartitionName) throws Exception
 		{
-		super(ItemType.line, name);
+		super(ItemType.line, name, new LineLinker(name, routePartitionName));
 		this.routePartitionName = routePartitionName;
 		myLine = new LineLinker(name,routePartitionName);
 		}
@@ -90,9 +88,9 @@ public class Line extends ItemToInject
 	 * Method used to prepare the item for the injection
 	 * by gathering the needed UUID from the CUCM 
 	 */
-	public void doBuild() throws Exception
+	public void doBuild(CUCM cucm) throws Exception
 		{
-		errorList.addAll(myLine.init());
+		errorList.addAll(myLine.init(cucm));
 		}
 	
 	
@@ -102,35 +100,35 @@ public class Line extends ItemToInject
 	 * 
 	 * It also return the item's UUID once injected
 	 */
-	public String doInject() throws Exception
+	public String doInject(CUCM cucm) throws Exception
 		{	
-		return myLine.inject();//Return UUID
+		return myLine.inject(cucm);//Return UUID
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doDelete() throws Exception
+	public void doDelete(CUCM cucm) throws Exception
 		{
-		myLine.delete();
+		myLine.delete(cucm);
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doUpdate() throws Exception
+	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myLine.update(tuList);
+		myLine.update(tuList, cucm);
 		}
 	
 	/**
 	 * Method used to check if the element exist in the CUCM
 	 */
-	public boolean isExisting() throws Exception
+	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		Line myL = (Line) myLine.get();
+		Line myL = (Line) myLine.get(cucm);
 		this.UUID = myL.getUUID();
 		//Etc...
 		//Has to be written
@@ -151,6 +149,7 @@ public class Line extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
 		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
 		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this, true);
@@ -168,7 +167,7 @@ public class Line extends ItemToInject
 		fwBusyVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwBusyVoicemailEnable, this, false);
 		fwUnrVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwUnrVoicemailEnable, this, false);
 		callPickupGroupName = CollectionTools.getValueFromCollectionFile(index, callPickupGroupName, this, false);
-		
+		*/
 		/**
 		 * We set the item parameters
 		 */

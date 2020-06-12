@@ -90,7 +90,7 @@ public class DevicePool extends ItemToInject
 	 */
 	public void doBuild(CUCM cucm) throws Exception
 		{
-		this.errorList = linker.init();
+		this.errorList = linker.init(cucm);
 		}
 	
 	

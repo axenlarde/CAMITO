@@ -53,6 +53,7 @@ public class Task extends Thread
 	private ActionType action;
 	private ThreadManager cliManager;
 	private ThreadManager pingManager;
+	private String statusDescription;
 	
 	/***************
 	 * Constructor
@@ -576,6 +577,16 @@ public class Task extends Thread
 	public TaskStatus getStatus()
 		{
 		return status;
+		}
+
+	public String getStatusDescription()
+		{
+		return statusDescription;
+		}
+
+	public void setStatusDescription(String statusDescription)
+		{
+		this.statusDescription = statusDescription;
 		}
 	
 	

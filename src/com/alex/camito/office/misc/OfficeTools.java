@@ -13,12 +13,14 @@ import org.w3c.dom.NodeList;
 
 import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.BasicPhone.PhoneStatus;
-import com.alex.camito.device.Device;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.SimpleRequest;
 import com.alex.camito.risport.RisportTools;
+import com.alex.camito.user.items.Line;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
+import com.alex.woot.office.items.TranslationPattern;
+import com.alex.woot.user.items.HuntPilot;
 
 
 /**
@@ -241,6 +243,93 @@ public class OfficeTools
 			Variables.getLogger().error("ERROR while writing overall result to CSV : "+e.getMessage(),e);
 			}
 		}
+	
+	/**
+	 * Will scan for lines using the office prefix in the source CUCM
+	 * and forward them to the destination CUCM
+	 * 
+	 * Will scan for the following line type :
+	 * - Phone line
+	 * - Hunt pilot
+	 * 
+	 * For hunt pilots we will modify the related Calling Party Transformation Pattern
+	 * Because there is no forward all option, just noan which is not enough
+	 * 
+	 * While forwarding phone lines we also copy the current forward destination of the line
+	 * to the destination cluster. So if a user forwarded his line the his mobile, it will still works
+	 * 
+	 * We will also have to find the related cti route point to forward them too
+	 */
+	public static void forwardOfficeLines(Office office, String prefix, String forwardCSSName, CUCM cucm)
+		{
+		try
+			{
+			/**
+			 * 1. We get the line list and forward them
+			 */
+			String request = "select nm.dnorpattern as pattern,nm.tkpatternusage as usage,rp.name as partition from numplan nm, routepartition rp where nm.fkroutepartition=rp.pkid and nm.dnorpattern like '"+office.getCoda()+"%'";
+			
+			//The item lists
+			ArrayList<Line> lineList = new ArrayList<Line>();
+			ArrayList<HuntPilot> hpList = new ArrayList<HuntPilot>();
+			ArrayList<TranslationPattern> tList = new ArrayList<TranslationPattern>();
+			//ArrayList<RoutePattern> tList = new ArrayList<RoutePattern>();
+			
+			
+			List<Object> reply = SimpleRequest.doSQLQuery(request, cucm);
+			for(Object o : reply)
+				{
+				Element rowElement = (Element) o;
+				NodeList list = rowElement.getChildNodes();
+				
+				String pattern = null,usage = null,partition = null;
+				for(int i = 0; i< list.getLength(); i++)
+					{
+					if(list.item(i).getNodeName().equals("pattern"))
+						{
+						pattern = list.item(i).getTextContent();
+						}
+					else if(list.item(i).getNodeName().equals("usage"))
+						{
+						usage = list.item(i).getTextContent();
+						}
+					else if(list.item(i).getNodeName().equals("partition"))
+						{
+						partition = list.item(i).getTextContent();
+						}
+					}
+				
+				if(usage.equals("2"))lineList.add(new Line(pattern, partition));//2 is for device
+				else if(usage.equals("7"))hpList.add(new HuntPilot);//7 is for hunt pilot
+				else if(usage.equals("3"))tList.add(new TranslationPattern);//3 is for translation pattern
+				}
+			
+			for(Line l : lineList)
+				{
+				if(l.getUsage().equals("2"))//2 is for device
+					{
+					//We now forward the lines
+					
+					}
+				}
+			
+			/**
+			 * 2. We get the hunt pilot list and forward their Called Party Transformation Pattern
+			 */
+			
+			
+			/**
+			 * 3. We get the cti route point list and forward them
+			 */
+			}
+		catch(Exception e)
+			{
+			Variables.getLogger().error(office.getInfo()+" : ERROR while forwardinglines : "+e.getMessage(),e);
+			}
+		}
+	
+	
+	
 	
 	/*2020*//*RATEL Alexandre 8)*/
 	}

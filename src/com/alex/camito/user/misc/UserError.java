@@ -1,8 +1,8 @@
-package com.alex.woot.user.misc;
+package com.alex.camito.user.misc;
 
-import com.alex.woot.misc.ErrorTemplate;
-import com.alex.woot.misc.ErrorTemplate.errorType;
-import com.alex.woot.utils.Variables.itemType;
+import com.alex.camito.misc.ErrorTemplate;
+import com.alex.camito.misc.ErrorTemplate.errorType;
+import com.alex.camito.utils.Variables.ItemType;
 
 /**********************************
  * 
