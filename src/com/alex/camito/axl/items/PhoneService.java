@@ -37,7 +37,7 @@ public class PhoneService extends BasicItem
 	 */
 	public void resolve() throws Exception
 		{
-		template = CollectionTools.getValueFromCollectionFile(index, template, this, true);
+		//template = CollectionTools.getValueFromCollectionFile(index, template, this, true);
 		
 		if(template.contains(":"))
 			{

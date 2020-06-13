@@ -1,14 +1,12 @@
-package com.alex.woot.user.items;
+package com.alex.camito.user.items;
 
-import com.alex.woot.axlitems.linkers.LineLinker;
-import com.alex.woot.axlitems.linkers.UdpLoginLinker;
-import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.utils.UsefulMethod;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.actionType;
-import com.alex.woot.utils.Variables.itemType;
-
+import com.alex.camito.axl.linkers.UdpLoginLinker;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.CollectionTools;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.utils.UsefulMethod;
+import com.alex.camito.utils.Variables.ActionType;
+import com.alex.camito.utils.Variables.ItemType;
 
 /**********************************
  * Class used to define an item of type "UDP Login"
@@ -21,12 +19,9 @@ public class UdpLogin extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private UdpLoginLinker myUDPLogin;
 	private String deviceName,
 	deviceProfile;//UserID is the name
 	
-	private int index;
-
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -34,8 +29,7 @@ public class UdpLogin extends ItemToInject
 	public UdpLogin(String name,
 			String deviceName, String deviceProfile) throws Exception
 		{
-		super(ItemType.udplogin, name);
-		this.myUDPLogin = new UdpLoginLinker();
+		super(ItemType.udplogin, name, new UdpLoginLinker());
 		this.deviceName = deviceName;
 		this.deviceProfile = deviceProfile;
 		this.action = ActionType.inject;
@@ -45,9 +39,9 @@ public class UdpLogin extends ItemToInject
 	 * Method used to prepare the item for the injection
 	 * by gathering the needed UUID from the CUCM 
 	 */
-	public void doBuild() throws Exception
+	public void doBuild(CUCM cucm) throws Exception
 		{
-		errorList.addAll(myUDPLogin.init());
+		errorList.addAll(linker.init(cucm));
 		}
 	
 	
@@ -57,35 +51,35 @@ public class UdpLogin extends ItemToInject
 	 * 
 	 * It also return the item's UUID once injected
 	 */
-	public String doInject() throws Exception
+	public String doInject(CUCM cucm) throws Exception
 		{	
-		return myUDPLogin.inject();//Return UUID
+		return linker.inject(cucm);//Return UUID
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doDelete() throws Exception
+	public void doDelete(CUCM cucm) throws Exception
 		{
-		myUDPLogin.delete();
+		linker.delete(cucm);
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doUpdate() throws Exception
+	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myUDPLogin.update(tuList);
+		linker.update(tuList, cucm);
 		}
 	
 	/**
 	 * Method used to check if the element exist in the CUCM
 	 */
-	public boolean isExisting() throws Exception
+	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		UdpLogin myUDP = (UdpLogin) myUDPLogin.get();
+		UdpLogin myUDP = (UdpLogin) linker.get(cucm);
 		return false;
 		}
 	
@@ -101,16 +95,17 @@ public class UdpLogin extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
 		deviceName = CollectionTools.getValueFromCollectionFile(index, deviceName, this, true);
 		deviceProfile = CollectionTools.getValueFromCollectionFile(index, deviceProfile, this, true);
-		
+		*/
 		/**
 		 * We set the item parameters
 		 */
-		myUDPLogin.setName(name);//It is the userID
-		myUDPLogin.setDeviceName(deviceName);
-		myUDPLogin.setDeviceProfile(deviceProfile);
+		((UdpLoginLinker)linker).setName(name);//It is the userID
+		((UdpLoginLinker)linker).setDeviceName(deviceName);
+		((UdpLoginLinker)linker).setDeviceProfile(deviceProfile);
 		/*********/
 		}
 	
@@ -122,16 +117,6 @@ public class UdpLogin extends ItemToInject
 		if(UsefulMethod.isNotEmpty(name))tuList.add(UdpLoginLinker.toUpdate.userID);
 		if(UsefulMethod.isNotEmpty(deviceName))tuList.add(UdpLoginLinker.toUpdate.deviceName);
 		if(UsefulMethod.isNotEmpty(deviceProfile))tuList.add(UdpLoginLinker.toUpdate.deviceProfile);
-		}
-
-	public UdpLoginLinker getMyUDPLogin()
-		{
-		return myUDPLogin;
-		}
-
-	public void setMyUDPLogin(UdpLoginLinker myUDPLogin)
-		{
-		this.myUDPLogin = myUDPLogin;
 		}
 
 	public String getDeviceName()
@@ -153,20 +138,8 @@ public class UdpLogin extends ItemToInject
 		{
 		this.deviceProfile = deviceProfile;
 		}
-
-	public int getIndex()
-		{
-		return index;
-		}
-
-	public void setIndex(int index)
-		{
-		this.index = index;
-		}
-
 	
 	
-	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

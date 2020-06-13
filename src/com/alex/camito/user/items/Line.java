@@ -18,7 +18,6 @@ public class Line extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private LineLinker myLine;
 	private String description,
 	routePartitionName,
 	usage,
@@ -37,9 +36,6 @@ public class Line extends ItemToInject
 	fwBusyVoicemailEnable,
 	fwUnrVoicemailEnable;
 	
-	private int index;
-	
-
 	
 
 	/***************
@@ -57,7 +53,6 @@ public class Line extends ItemToInject
 			String fwUnrVoicemailEnable, int index) throws Exception
 		{
 		super(ItemType.line, name, new LineLinker(name, routePartitionName));
-		myLine = new LineLinker(name, routePartitionName);
 		this.description = description;
 		this.routePartitionName = routePartitionName;
 		this.usage = "Device";
@@ -74,14 +69,12 @@ public class Line extends ItemToInject
 		this.fwNoanVoicemailEnable = fwNoanVoicemailEnable;
 		this.fwBusyVoicemailEnable = fwBusyVoicemailEnable;
 		this.fwUnrVoicemailEnable = fwUnrVoicemailEnable;
-		this.index = index;
 		}
 
 	public Line(String name, String routePartitionName) throws Exception
 		{
 		super(ItemType.line, name, new LineLinker(name, routePartitionName));
 		this.routePartitionName = routePartitionName;
-		myLine = new LineLinker(name,routePartitionName);
 		}
 
 	/***********
@@ -90,7 +83,7 @@ public class Line extends ItemToInject
 	 */
 	public void doBuild(CUCM cucm) throws Exception
 		{
-		errorList.addAll(myLine.init(cucm));
+		errorList.addAll(linker.init(cucm));
 		}
 	
 	
@@ -102,7 +95,7 @@ public class Line extends ItemToInject
 	 */
 	public String doInject(CUCM cucm) throws Exception
 		{	
-		return myLine.inject(cucm);//Return UUID
+		return linker.inject(cucm);//Return UUID
 		}
 
 	/**
@@ -111,7 +104,7 @@ public class Line extends ItemToInject
 	 */
 	public void doDelete(CUCM cucm) throws Exception
 		{
-		myLine.delete(cucm);
+		linker.delete(cucm);
 		}
 
 	/**
@@ -120,7 +113,7 @@ public class Line extends ItemToInject
 	 */
 	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myLine.update(tuList, cucm);
+		linker.update(tuList, cucm);
 		}
 	
 	/**
@@ -128,7 +121,7 @@ public class Line extends ItemToInject
 	 */
 	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		Line myL = (Line) myLine.get(cucm);
+		Line myL = (Line) linker.get(cucm);
 		this.UUID = myL.getUUID();
 		//Etc...
 		//Has to be written
@@ -171,6 +164,7 @@ public class Line extends ItemToInject
 		/**
 		 * We set the item parameters
 		 */
+		LineLinker myLine = (LineLinker) linker;
 		myLine.setName(name);//It is the line number
 		myLine.setDescription(description);
 		myLine.setRoutePartitionName(routePartitionName);
@@ -212,16 +206,6 @@ public class Line extends ItemToInject
 		if(UsefulMethod.isNotEmpty(fwNoanVoicemailEnable))tuList.add(LineLinker.toUpdate.fwNoanVoicemailEnable);
 		if(UsefulMethod.isNotEmpty(fwBusyVoicemailEnable))tuList.add(LineLinker.toUpdate.fwBusyVoicemailEnable);
 		if(UsefulMethod.isNotEmpty(fwUnrVoicemailEnable))tuList.add(LineLinker.toUpdate.fwUnrVoicemailEnable);
-		}
-
-	public LineLinker getMyLine()
-		{
-		return myLine;
-		}
-
-	public void setMyLine(LineLinker myLine)
-		{
-		this.myLine = myLine;
 		}
 
 	public String getDescription()
@@ -282,16 +266,6 @@ public class Line extends ItemToInject
 	public void setShareLineAppearanceCssName(String shareLineAppearanceCssName)
 		{
 		this.shareLineAppearanceCssName = shareLineAppearanceCssName;
-		}
-
-	public int getIndex()
-		{
-		return index;
-		}
-
-	public void setIndex(int index)
-		{
-		this.index = index;
 		}
 
 	public String getCallPickupGroupName()

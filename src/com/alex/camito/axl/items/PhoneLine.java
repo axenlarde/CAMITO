@@ -89,6 +89,7 @@ public class PhoneLine extends BasicItem
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		lineLabel = CollectionTools.getValueFromCollectionFile(index, lineLabel, this, false);
 		asciiLineLabel = CollectionTools.getValueFromCollectionFile(index, asciiLineLabel, this, false);
 		lineDisplay = CollectionTools.getValueFromCollectionFile(index, lineDisplay, this, false);
@@ -110,6 +111,7 @@ public class PhoneLine extends BasicItem
 		fwNoanVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwNoanVoicemailEnable, this, false);
 		fwBusyVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwBusyVoicemailEnable, this, false);
 		fwUnrVoicemailEnable = CollectionTools.getValueFromCollectionFile(index, fwUnrVoicemailEnable, this, false);
+		*/
 		}
 
 	public String getLineLabel()

@@ -1,24 +1,25 @@
-package com.alex.woot.axlitems.linkers;
+package com.alex.camito.axl.linkers;
+
+import java.util.ArrayList;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import com.alex.woot.axlitems.misc.AXLItemLinker;
-import com.alex.woot.axlitems.misc.ToUpdate;
-import com.alex.woot.misc.ErrorTemplate;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.SimpleRequest;
-import com.alex.woot.misc.ErrorTemplate.errorType;
-import com.alex.woot.soap.items.PhoneLine;
-import com.alex.woot.soap.items.PhoneService;
-import com.alex.woot.soap.items.SpeedDial;
-import com.alex.woot.user.items.Phone;
-import com.alex.woot.user.misc.UserError;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
-import com.alex.woot.utils.Variables.sdType;
-
-import java.util.ArrayList;
+import com.alex.camito.axl.items.PhoneLine;
+import com.alex.camito.axl.items.PhoneService;
+import com.alex.camito.axl.items.SpeedDial;
+import com.alex.camito.axl.items.SpeedDial.SDType;
+import com.alex.camito.axl.misc.AXLItemLinker;
+import com.alex.camito.axl.misc.ToUpdate;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ErrorTemplate;
+import com.alex.camito.misc.ErrorTemplate.errorType;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.misc.SimpleRequest;
+import com.alex.camito.user.items.Phone;
+import com.alex.camito.user.misc.UserError;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
 
 
 
@@ -92,22 +93,14 @@ public class PhoneLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
-		{
-		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
-		//To be written
-		
-		return errorList;
-		}
-	
-	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105(CUCM cucm) throws Exception
 		{
 		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
 		
 		//Here we want to log every error, so we have to use a try/catch for each
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.phonetemplatename, this.phoneButtonTemplate);
+			SimpleRequest.getUUIDV105(ItemType.phonetemplatename, this.phoneButtonTemplate, cucm);
 			}
 		catch (Exception e)
 			{
@@ -117,10 +110,10 @@ public class PhoneLinker extends AXLItemLinker
 		//CSS
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.phoneCss);
-			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.automatedAlternateRoutingCssName);
-			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.subscribeCallingSearchSpaceName);
-			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.rerouteCallingSearchSpaceName);
+			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.phoneCss, cucm);
+			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.automatedAlternateRoutingCssName, cucm);
+			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.subscribeCallingSearchSpaceName, cucm);
+			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.rerouteCallingSearchSpaceName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -129,7 +122,7 @@ public class PhoneLinker extends AXLItemLinker
 		
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.devicepool, this.devicePool);
+			SimpleRequest.getUUIDV105(ItemType.devicepool, this.devicePool, cucm);
 			}
 		catch (Exception e)
 			{
@@ -138,7 +131,7 @@ public class PhoneLinker extends AXLItemLinker
 		
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.location, this.location);
+			SimpleRequest.getUUIDV105(ItemType.location, this.location, cucm);
 			}
 		catch (Exception e)
 			{
@@ -150,7 +143,7 @@ public class PhoneLinker extends AXLItemLinker
 			{
 			for(PhoneService s : this.serviceList)
 				{
-				SimpleRequest.getUUIDV105(ItemType.telecasterservice, s.getServicename());
+				SimpleRequest.getUUIDV105(ItemType.telecasterservice, s.getServicename(), cucm);
 				}
 			}
 		catch (Exception e)
@@ -163,7 +156,7 @@ public class PhoneLinker extends AXLItemLinker
 			{
 			for(PhoneLine line : this.lineList)
 				{
-				SimpleRequest.getUUIDV105(ItemType.partition, line.getRoutePartition());
+				SimpleRequest.getUUIDV105(ItemType.partition, line.getRoutePartition(), cucm);
 				}
 			}
 		catch (Exception e)
@@ -174,7 +167,7 @@ public class PhoneLinker extends AXLItemLinker
 		//CDC
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.commondeviceconfig, this.commonDeviceConfigName);
+			SimpleRequest.getUUIDV105(ItemType.commondeviceconfig, this.commonDeviceConfigName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -184,7 +177,7 @@ public class PhoneLinker extends AXLItemLinker
 		//AAR group
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.aargroup, this.aarNeighborhoodName);
+			SimpleRequest.getUUIDV105(ItemType.aargroup, this.aarNeighborhoodName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -198,27 +191,19 @@ public class PhoneLinker extends AXLItemLinker
 	/***************
 	 * Delete
 	 */
-	public void doDeleteVersion105() throws Exception
+	public void doDeleteVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._10.NameAndGUIDRequest();
 		
-		deleteReq.setUuid((SimpleRequest.getUUIDV105(ItemType.phone, this.getName())).getUuid());//We add the parameters to the request
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().removePhone(deleteReq);//We send the request to the CUCM
-		}
-
-	public void doDeleteVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.NameAndGUIDRequest deleteReq = new com.cisco.axl.api._8.NameAndGUIDRequest();
-		
-		deleteReq.setUuid((SimpleRequest.getUUIDV85(ItemType.phone, this.getName())).getUuid());//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removePhone(deleteReq);//We send the request to the CUCM
+		deleteReq.setUuid((SimpleRequest.getUUIDV105(ItemType.phone, this.getName(), cucm)).getUuid());//We add the parameters to the request
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().removePhone(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
 	/***************
 	 * Injection
 	 */
-	public String doInjectVersion105() throws Exception
+	public String doInjectVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.AddPhoneReq req = new com.cisco.axl.api._10.AddPhoneReq();
 		com.cisco.axl.api._10.XPhone params = new com.cisco.axl.api._10.XPhone();
@@ -235,14 +220,14 @@ public class PhoneLinker extends AXLItemLinker
 		params.setPhoneTemplateName(new JAXBElement(new QName("phoneTemplateName"), com.cisco.axl.api._10.XFkType.class, this.phoneButtonTemplate));
 		params.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class, this.phoneCss));
 		params.setDevicePoolName(new JAXBElement(new QName("devicePoolName"), com.cisco.axl.api._10.XFkType.class, this.devicePool));
-		params.setLocationName(SimpleRequest.getUUIDV105(ItemType.location, this.location));
+		params.setLocationName(SimpleRequest.getUUIDV105(ItemType.location, this.location, cucm));
 		params.setCommonDeviceConfigName(new JAXBElement(new QName("commonDeviceConfigName"), com.cisco.axl.api._10.XFkType.class, this.commonDeviceConfigName));
 		params.setAarNeighborhoodName(new JAXBElement(new QName("aarNeighborhoodName"), com.cisco.axl.api._10.XFkType.class, this.aarNeighborhoodName));
 		params.setAutomatedAlternateRoutingCssName(new JAXBElement(new QName("automatedAlternateRoutingCssName"), com.cisco.axl.api._10.XFkType.class, this.automatedAlternateRoutingCssName));
 		params.setRerouteCallingSearchSpaceName(new JAXBElement(new QName("rerouteCallingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class, this.rerouteCallingSearchSpaceName));
 		params.setSubscribeCallingSearchSpaceName(new JAXBElement(new QName("subscribeCallingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class, this.subscribeCallingSearchSpaceName));
 		params.setEnableExtensionMobility(enableExtensionMobility);
-		params.setCommonPhoneConfigName(SimpleRequest.getUUIDV105(ItemType.commonPhoneConfig, this.commonPhoneConfigName));
+		params.setCommonPhoneConfigName(SimpleRequest.getUUIDV105(ItemType.commonPhoneConfig, this.commonPhoneConfigName, cucm));
 		params.setSecurityProfileName(new JAXBElement(new QName("securityProfileName"), com.cisco.axl.api._10.XFkType.class, this.securityProfileName));
 		params.setDeviceMobilityMode(this.deviceMobilityMode);
 		
@@ -252,7 +237,7 @@ public class PhoneLinker extends AXLItemLinker
 		for(PhoneService s : this.serviceList)
 			{
 			com.cisco.axl.api._10.XSubscribedService myService = new com.cisco.axl.api._10.XSubscribedService();
-			myService.setTelecasterServiceName(SimpleRequest.getUUIDV105(ItemType.telecasterservice, s.getServicename()));
+			myService.setTelecasterServiceName(SimpleRequest.getUUIDV105(ItemType.telecasterservice, s.getServicename(), cucm));
 			myService.setName(s.getServicename());
 			myService.setServiceNameAscii(s.getServicename());
 			myService.setUrlButtonIndex(Integer.toString(i));
@@ -266,7 +251,7 @@ public class PhoneLinker extends AXLItemLinker
 		com.cisco.axl.api._10.XPhone.Speeddials mySDList = new com.cisco.axl.api._10.XPhone.Speeddials();
 		for(SpeedDial sd : sdList)
 			{
-			if(sd.getType().equals(sdType.sd))
+			if(sd.getType().equals(SDType.sd))
 				{
 				com.cisco.axl.api._10.XSpeeddial mySD = new com.cisco.axl.api._10.XSpeeddial();
 				mySD.setIndex(Integer.toString(sd.getPosition()));
@@ -281,7 +266,7 @@ public class PhoneLinker extends AXLItemLinker
 		com.cisco.axl.api._10.XPhone.BusyLampFields myBLFList = new com.cisco.axl.api._10.XPhone.BusyLampFields();
 		for(SpeedDial sd : sdList)
 			{
-			if(sd.getType().equals(sdType.blf))
+			if(sd.getType().equals(SDType.blf))
 				{
 				com.cisco.axl.api._10.XBusyLampField myBLF = new com.cisco.axl.api._10.XBusyLampField();
 				myBLF.setIndex(Integer.toString(sd.getPosition()));
@@ -299,8 +284,8 @@ public class PhoneLinker extends AXLItemLinker
 					{
 					com.cisco.axl.api._10.GetLineReq lineReq = new com.cisco.axl.api._10.GetLineReq();
 					lineReq.setPattern(sd.getNumber());
-					lineReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, sd.getPartition())));
-					com.cisco.axl.api._10.GetLineRes resp = Variables.getAXLConnectionToCUCMV105().getLine(lineReq);
+					lineReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, sd.getPartition(), cucm)));
+					com.cisco.axl.api._10.GetLineRes resp = cucm.getAXLConnectionV105().getLine(lineReq);
 					
 					//If we reach this point, it means that the line is an internal number
 					Variables.getLogger().debug("The following destination is internal, so we create the BLF using supervised destination: "+sd.getNumber());
@@ -350,138 +335,7 @@ public class PhoneLinker extends AXLItemLinker
 		/************/
 		
 		req.setPhone(params);//We add the parameters to the request
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().addPhone(req);//We send the request to the CUCM
-		
-		return resp.getReturn();//Return UUID
-		}
-
-	public String doInjectVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.AddPhoneReq req = new com.cisco.axl.api._8.AddPhoneReq();
-		com.cisco.axl.api._8.XPhone params = new com.cisco.axl.api._8.XPhone();
-		
-		/**
-		 * We set the item parameters
-		 */
-		params.setName(this.getName());//Name
-		params.setDescription(this.description);
-		params.setProduct(this.productType);
-		params.setClazz(this.phoneClass);
-		params.setProtocol(this.protocol);
-		params.setProtocolSide(this.protocolSide);
-		params.setPhoneTemplateName(new JAXBElement(new QName("phoneTemplateName"), com.cisco.axl.api._8.XFkType.class, this.phoneButtonTemplate));
-		params.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._8.XFkType.class, this.phoneCss));
-		params.setDevicePoolName(new JAXBElement(new QName("devicePoolName"), com.cisco.axl.api._8.XFkType.class, this.devicePool));
-		params.setLocationName(SimpleRequest.getUUIDV85(ItemType.location, this.location));
-		params.setEnableExtensionMobility(enableExtensionMobility);
-		
-		//Services
-		com.cisco.axl.api._8.XPhone.Services myServs = new com.cisco.axl.api._8.XPhone.Services();
-		int i = 1;
-		for(PhoneService s : this.serviceList)
-			{
-			com.cisco.axl.api._8.XSubscribedService myService = new com.cisco.axl.api._8.XSubscribedService();
-			myService.setTelecasterServiceName(SimpleRequest.getUUIDV85(ItemType.telecasterservice, s.getServicename()));
-			myService.setName(s.getServicename());
-			myService.setServiceNameAscii(s.getServicename());
-			myService.setUrlButtonIndex(Integer.toString(i));
-			myService.setUrlLabel(s.getSurl());
-			myService.setUrlLabelAscii(s.getSurl());
-			myServs.getService().add(myService);
-			i++;
-			}
-		params.setServices(myServs);
-		
-		//SD
-		com.cisco.axl.api._8.XPhone.Speeddials mySDList = new com.cisco.axl.api._8.XPhone.Speeddials();
-		for(SpeedDial sd : sdList)
-			{
-			if(sd.getType().equals(sdType.sd))
-				{
-				com.cisco.axl.api._8.XSpeeddial mySD = new com.cisco.axl.api._8.XSpeeddial();
-				mySD.setIndex(Integer.toString(sd.getPosition()));
-				mySD.setLabel(sd.getDescription());
-				mySD.setDirn(sd.getNumber());
-				mySDList.getSpeeddial().add(mySD);
-				}
-			}
-		params.setSpeeddials(mySDList);
-		
-		//BLF
-		com.cisco.axl.api._8.XPhone.BusyLampFields myBLFList = new com.cisco.axl.api._8.XPhone.BusyLampFields();
-		for(SpeedDial sd : sdList)
-			{
-			if(sd.getType().equals(sdType.blf))
-				{
-				com.cisco.axl.api._8.XBusyLampField myBLF = new com.cisco.axl.api._8.XBusyLampField();
-				myBLF.setIndex(Integer.toString(sd.getPosition()));
-				myBLF.setLabel(sd.getDescription());
-				
-				/****
-				 * Here we have to be smart. Indeed, if the destination is a common one
-				 * we setup the "BLF destination". But if the destination is an internal one
-				 * which need to be supervised, we setup "BLF directory and partition"
-				 * 
-				 * To know if the destination is internal or not, we have to ask the CUCM first
-				 */
-				//First we contact the CUCM
-				try
-					{
-					com.cisco.axl.api._8.GetLineReq lineReq = new com.cisco.axl.api._8.GetLineReq();
-					lineReq.setPattern(sd.getNumber());
-					lineReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(ItemType.partition, sd.getPartition())));
-					com.cisco.axl.api._8.GetLineRes resp = Variables.getAXLConnectionToCUCM85().getLine(lineReq);
-					
-					//If we reach this point, it means that the line is an internal number
-					Variables.getLogger().debug("The following destination is internal, so we create the BLF using supervised destination: "+sd.getNumber());
-					myBLF.setBlfDirn(sd.getNumber());
-					myBLF.setRoutePartition(sd.getPartition());
-					
-					//Pickup
-					if(sd.isPickup())
-						{
-						com.cisco.axl.api._8.XBusyLampField.AssociatedBlfSdFeatures myFeatures = new com.cisco.axl.api._8.XBusyLampField.AssociatedBlfSdFeatures();
-						myFeatures.getFeature().add("Pickup");
-						myBLF.setAssociatedBlfSdFeatures(myFeatures);
-						}
-					}
-				catch (Exception e)
-					{
-					//If we reach this point, it means that the line is not an internal number
-					Variables.getLogger().debug("The following destination is not internal, so we create the BLF using normal destination: "+sd.getNumber());
-					myBLF.setBlfDest(sd.getNumber());
-					}
-				
-				myBLFList.getBusyLampField().add(myBLF);
-				}
-			}
-		params.setBusyLampFields(myBLFList);
-		
-		//Line
-		com.cisco.axl.api._8.XPhone.Lines myLines = new com.cisco.axl.api._8.XPhone.Lines();
-		for(PhoneLine line : this.lineList)
-			{
-			com.cisco.axl.api._8.XPhoneLine myLine = new com.cisco.axl.api._8.XPhoneLine();
-			myLine.setLabel(line.getLineLabel());
-			myLine.setAsciiLabel(line.getLineLabel());
-			myLine.setIndex(Integer.toString(line.getLineIndex()));
-			myLine.setDisplay(line.getLineDisplay());
-			myLine.setDisplayAscii(line.getLineDisplayAscii());
-			myLine.setE164Mask(new JAXBElement(new QName("e164Mask"), String.class, line.getExternalPhoneNumberMask()));
-			
-			com.cisco.axl.api._8.XDirn myDirn = new com.cisco.axl.api._8.XDirn();
-			myDirn.setPattern(line.getLineNumber());
-			myDirn.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, line.getRoutePartition()));
-			
-			myLine.setDirn(myDirn);
-			
-			myLines.getLine().add(myLine);
-			}
-		params.setLines(myLines);
-		/************/
-		
-		req.setPhone(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addPhone(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().addPhone(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -490,7 +344,7 @@ public class PhoneLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList, CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.UpdatePhoneReq req = new com.cisco.axl.api._10.UpdatePhoneReq();
 		
@@ -502,7 +356,7 @@ public class PhoneLinker extends AXLItemLinker
 		if(tuList.contains(toUpdate.description))req.setDescription(this.description);
 		if(tuList.contains(toUpdate.devicePool))req.setDevicePoolName(new JAXBElement(new QName("devicePoolName"), com.cisco.axl.api._10.XFkType.class, this.devicePool));
 		if(tuList.contains(toUpdate.enableExtensionMobility))req.setEnableExtensionMobility(this.enableExtensionMobility);
-		if(tuList.contains(toUpdate.location))req.setLocationName(SimpleRequest.getUUIDV105(ItemType.location, this.location));
+		if(tuList.contains(toUpdate.location))req.setLocationName(SimpleRequest.getUUIDV105(ItemType.location, this.location, cucm));
 		if(tuList.contains(toUpdate.phoneCss))req.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class, this.phoneCss));
 		if(tuList.contains(toUpdate.phoneButtonTemplate))req.setPhoneTemplateName(new JAXBElement(new QName("phoneTemplateName"), com.cisco.axl.api._10.XFkType.class, this.phoneButtonTemplate));
 		if(tuList.contains(toUpdate.commonDeviceConfigName))req.setCommonDeviceConfigName(new JAXBElement(new QName("commonDeviceConfigName"), com.cisco.axl.api._10.XFkType.class, this.commonDeviceConfigName));
@@ -511,7 +365,7 @@ public class PhoneLinker extends AXLItemLinker
 		if(tuList.contains(toUpdate.subscribeCallingSearchSpaceName))req.setSubscribeCallingSearchSpaceName(new JAXBElement(new QName("subscribeCallingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class, this.subscribeCallingSearchSpaceName));
 		if(tuList.contains(toUpdate.rerouteCallingSearchSpaceName))req.setRerouteCallingSearchSpaceName(new JAXBElement(new QName("rerouteCallingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class, this.rerouteCallingSearchSpaceName));
 		if(tuList.contains(toUpdate.securityProfileName))req.setSecurityProfileName(new JAXBElement(new QName("securityProfileName"), com.cisco.axl.api._10.XFkType.class, this.securityProfileName));
-		if(tuList.contains(toUpdate.commonPhoneConfigName))req.setLocationName(SimpleRequest.getUUIDV105(ItemType.commonPhoneConfig, this.commonPhoneConfigName));
+		if(tuList.contains(toUpdate.commonPhoneConfigName))req.setLocationName(SimpleRequest.getUUIDV105(ItemType.commonPhoneConfig, this.commonPhoneConfigName, cucm));
 		if(tuList.contains(toUpdate.deviceMobilityMode))req.setDeviceMobilityMode(this.deviceMobilityMode);
 		
 		//Speed Dial
@@ -520,7 +374,7 @@ public class PhoneLinker extends AXLItemLinker
 			com.cisco.axl.api._10.UpdatePhoneReq.Speeddials mySDList = new com.cisco.axl.api._10.UpdatePhoneReq.Speeddials();
 			for(SpeedDial sd : sdList)
 				{
-				if(sd.getType().equals(sdType.sd))
+				if(sd.getType().equals(SDType.sd))
 					{
 					com.cisco.axl.api._10.XSpeeddial mySD = new com.cisco.axl.api._10.XSpeeddial();
 					mySD.setIndex(Integer.toString(sd.getPosition()));
@@ -538,7 +392,7 @@ public class PhoneLinker extends AXLItemLinker
 			com.cisco.axl.api._10.UpdatePhoneReq.BusyLampFields myBLFList = new com.cisco.axl.api._10.UpdatePhoneReq.BusyLampFields();
 			for(SpeedDial sd : sdList)
 				{
-				if(sd.getType().equals(sdType.blf))
+				if(sd.getType().equals(SDType.blf))
 					{
 					com.cisco.axl.api._10.XBusyLampField myBLF = new com.cisco.axl.api._10.XBusyLampField();
 					myBLF.setIndex(Integer.toString(sd.getPosition()));
@@ -556,8 +410,8 @@ public class PhoneLinker extends AXLItemLinker
 						{
 						com.cisco.axl.api._10.GetLineReq lineReq = new com.cisco.axl.api._10.GetLineReq();
 						lineReq.setPattern(sd.getNumber());
-						lineReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, sd.getPartition())));
-						com.cisco.axl.api._10.GetLineRes resp = Variables.getAXLConnectionToCUCMV105().getLine(lineReq);
+						lineReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, sd.getPartition(), cucm)));
+						com.cisco.axl.api._10.GetLineRes resp = cucm.getAXLConnectionV105().getLine(lineReq);
 						
 						//If we reach this point, it means that the line is an internal number
 						Variables.getLogger().debug("The following destination is internal, so we create the BLF using supervised destination: "+sd.getNumber());
@@ -594,7 +448,7 @@ public class PhoneLinker extends AXLItemLinker
 			for(PhoneService s : this.serviceList)
 				{
 				com.cisco.axl.api._10.XSubscribedService myService = new com.cisco.axl.api._10.XSubscribedService();
-				myService.setTelecasterServiceName(SimpleRequest.getUUIDV105(ItemType.telecasterservice, s.getServicename()));
+				myService.setTelecasterServiceName(SimpleRequest.getUUIDV105(ItemType.telecasterservice, s.getServicename(), cucm));
 				myService.setName(s.getServicename());
 				myService.setServiceNameAscii(s.getServicename());
 				myService.setUrlButtonIndex(Integer.toString(i));
@@ -629,87 +483,7 @@ public class PhoneLinker extends AXLItemLinker
 			req.setLines(myLines);
 			}
 		
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updatePhone(req);//We send the request to the CUCM
-		}
-
-	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
-		{
-		com.cisco.axl.api._8.UpdatePhoneReq req = new com.cisco.axl.api._8.UpdatePhoneReq();
-		
-		/***********
-		 * We set the item parameters
-		 */
-		req.setName(this.getName());
-		
-		//Speed Dial
-		com.cisco.axl.api._8.UpdatePhoneReq.Speeddials mySDList = new com.cisco.axl.api._8.UpdatePhoneReq.Speeddials();
-		for(SpeedDial sd : sdList)
-			{
-			if(sd.getType().equals(sdType.sd))
-				{
-				com.cisco.axl.api._8.XSpeeddial mySD = new com.cisco.axl.api._8.XSpeeddial();
-				mySD.setIndex(Integer.toString(sd.getPosition()));
-				mySD.setLabel(sd.getDescription());
-				mySD.setAsciiLabel(sd.getDescription());
-				mySD.setDirn(sd.getNumber());
-				mySDList.getSpeeddial().add(mySD);
-				}
-			}
-		req.setSpeeddials(mySDList);
-		
-		//BLF
-		com.cisco.axl.api._8.UpdatePhoneReq.BusyLampFields myBLFList = new com.cisco.axl.api._8.UpdatePhoneReq.BusyLampFields();
-		for(SpeedDial sd : sdList)
-			{
-			if(sd.getType().equals(sdType.blf))
-				{
-				com.cisco.axl.api._8.XBusyLampField myBLF = new com.cisco.axl.api._8.XBusyLampField();
-				myBLF.setIndex(Integer.toString(sd.getPosition()));
-				myBLF.setLabel(sd.getDescription());
-				myBLF.setAsciiLabel(sd.getDescription());
-				
-				/****
-				 * Here we have to be smart. Indeed, if the destination is a common one
-				 * we setup the "BLF destination". But if the destination is an internal one
-				 * which need to be supervised, we setup "BLF directory and partition"
-				 * 
-				 * To know if the destination is internal or not, we have to ask the CUCM first
-				 */
-				//First we contact the CUCM
-				try
-					{
-					com.cisco.axl.api._8.GetLineReq lineReq = new com.cisco.axl.api._8.GetLineReq();
-					lineReq.setPattern(sd.getNumber());
-					lineReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(ItemType.partition, sd.getPartition())));
-					com.cisco.axl.api._8.GetLineRes resp = Variables.getAXLConnectionToCUCM85().getLine(lineReq);
-					
-					//If we reach this point, it means that the line is an internal number
-					Variables.getLogger().debug("The following destination is internal, so we create the BLF using supervised destination: "+sd.getNumber());
-					myBLF.setBlfDirn(sd.getNumber());
-					myBLF.setRoutePartition(sd.getPartition());
-					
-					//Pickup
-					if(sd.isPickup())
-						{
-						com.cisco.axl.api._8.XBusyLampField.AssociatedBlfSdFeatures myFeatures = new com.cisco.axl.api._8.XBusyLampField.AssociatedBlfSdFeatures();
-						myFeatures.getFeature().add("Pickup");
-						myBLF.setAssociatedBlfSdFeatures(myFeatures);
-						}
-					}
-				catch (Exception e)
-					{
-					//If we reach this point, it means that the line is not an internal number
-					Variables.getLogger().debug("The following destination is not internal, so we create the BLF using normal destination: "+sd.getNumber());
-					myBLF.setBlfDest(sd.getNumber());
-					}
-				
-				myBLFList.getBusyLampField().add(myBLF);
-				}
-			}
-		req.setBusyLampFields(myBLFList);
-		/************/
-		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updatePhone(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().updatePhone(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -717,7 +491,7 @@ public class PhoneLinker extends AXLItemLinker
 	/*************
 	 * Get
 	 */
-	public ItemToInject doGetVersion105() throws Exception
+	public ItemToInject doGetVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.GetPhoneReq req = new com.cisco.axl.api._10.GetPhoneReq();
 		
@@ -733,33 +507,7 @@ public class PhoneLinker extends AXLItemLinker
 		req.setReturnedTags(returnedTags);
 		//Temp
 		
-		com.cisco.axl.api._10.GetPhoneRes resp = Variables.getAXLConnectionToCUCMV105().getPhone(req);//We send the request to the CUCM
-		
-		Phone myPhone = new Phone(this.getName());
-		myPhone.setUUID(resp.getReturn().getPhone().getUuid());
-		//etc..
-		//Has to be written
-		
-		return myPhone;//Return a phone
-		}
-
-	public ItemToInject doGetVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.GetPhoneReq req = new com.cisco.axl.api._8.GetPhoneReq();
-		
-		/*******************
-		 * We set the item parameters
-		 */
-		req.setName(this.getName());
-		/************/
-		
-		//Temp
-		com.cisco.axl.api._8.RPhone returnedTags = new com.cisco.axl.api._8.RPhone();
-		returnedTags.setUuid("");
-		req.setReturnedTags(returnedTags);
-		//Temp
-		
-		com.cisco.axl.api._8.GetPhoneRes resp = Variables.getAXLConnectionToCUCM85().getPhone(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.GetPhoneRes resp = cucm.getAXLConnectionV105().getPhone(req);//We send the request to the CUCM
 		
 		Phone myPhone = new Phone(this.getName());
 		myPhone.setUUID(resp.getReturn().getPhone().getUuid());

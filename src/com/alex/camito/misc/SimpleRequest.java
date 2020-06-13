@@ -2,6 +2,12 @@ package com.alex.camito.misc;
 
 import java.util.List;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.CucmVersion;
 import com.alex.camito.utils.Variables.ItemType;
@@ -510,6 +516,98 @@ public class SimpleRequest
 		com.cisco.axl.api._10.ExecuteSQLUpdateRes resp = cucm.getAXLConnectionV105().executeSQLUpdate(req);//We send the request to the CUCM
 		}
 	
-	/*2019*//*RATEL Alexandre 8)*/
+	/***********
+	 * Method used to find the UUID of a
+	 * set DigitDiscard pattern
+	 * 
+	 * For instance : "PreDot"
+	 */
+	public static String getDigitDiscardUUID(String digitDiscardName, CUCM cucm)
+		{
+		if(!digitDiscardName.equals(""))
+			{
+			try
+				{
+				List<Object> SQLResp = SimpleRequest.doSQLQuery("select pkid from digitdiscardinstruction where name='"+digitDiscardName+"'", cucm);
+				
+				for(Object o : SQLResp)
+					{
+					Element rowElement = (Element) o;
+					NodeList list = rowElement.getChildNodes();
+					
+					for(int i = 0; i< list.getLength(); i++)
+						{
+						if(list.item(i).getNodeName().equals("pkid"))
+							{
+							Variables.getLogger().debug("Digitdiscardinstruction "+digitDiscardName+" UUID found : "+list.item(i).getTextContent());
+							return list.item(i).getTextContent();
+							}
+						}
+					
+					}
+				}
+			catch (Exception e)
+				{
+				e.printStackTrace();
+				Variables.getLogger().error("Digitdiscardinstruction \""+digitDiscardName+"\" has not been found. We return null instead : "+e.getMessage());
+				}
+			}
+		else
+			{
+			Variables.getLogger().debug("Digitdiscardinstruction was empty. We return null instead");
+			}
+		
+		
+		return null;
+		}
+	
+	/*********************************************
+	 * Dedicated method to get the UUID of a line
+	 * @throws Exception 
+	 */
+	public static String getLineUUID(String lineNumber, String partitionName, CUCM cucm) throws Exception
+		{
+		if(cucm.getVersion().equals(CucmVersion.version105))
+			{
+			return getLineUUIDV105(lineNumber, partitionName, cucm).getUuid();
+			}
+		else
+			{
+			throw new Exception("Unsupported AXL version");
+			}
+		}
+	
+	public static com.cisco.axl.api._10.XFkType getLineUUIDV105(String lineNumber, String partitionName, CUCM cucm) throws Exception
+		{
+		Variables.getLogger().debug("Get Line UUID from CUCM : "+lineNumber+" "+partitionName);
+		
+		if((lineNumber == null) || (lineNumber.equals("")) || (partitionName == null) || (partitionName.equals("")))
+			{
+			return getXFKV105("", lineNumber, ItemType.line);
+			}
+		
+		String id = ItemType.line.name()+lineNumber;
+		
+		for(storedUUID s : Variables.getUuidList())
+			{
+			if(s.getComparison().equals(id))
+				{
+				Variables.getLogger().debug("UUID known");
+				return getXFKWithoutStoringItV105(s.getUUID(), lineNumber, ItemType.line);
+				}
+			}
+		
+		com.cisco.axl.api._10.GetLineReq req = new com.cisco.axl.api._10.GetLineReq();
+		com.cisco.axl.api._10.RLine returnedTags = new com.cisco.axl.api._10.RLine();
+		
+		req.setPattern(lineNumber);
+		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, partitionName, cucm)));
+		returnedTags.setUuid("");
+		req.setReturnedTags(returnedTags);
+		com.cisco.axl.api._10.GetLineRes resp = cucm.getAXLConnectionV105().getLine(req);//We send the request to the CUCM
+		return getXFKV105(resp.getReturn().getLine().getUuid(), lineNumber, ItemType.line);
+		}
+	
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

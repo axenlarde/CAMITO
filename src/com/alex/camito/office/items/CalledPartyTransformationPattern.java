@@ -1,13 +1,12 @@
-package com.alex.woot.office.items;
+package com.alex.camito.office.items;
 
-
-
-import com.alex.woot.axlitems.linkers.CalledPartyTransformationPatternLinker;
-import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.utils.UsefulMethod;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
+import com.alex.camito.axl.linkers.CalledPartyTransformationPatternLinker;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.CollectionTools;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.utils.UsefulMethod;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
 
 /**********************************
  * Class used to define an item of type "Called Party Transformation Pattern"
@@ -20,7 +19,6 @@ public class CalledPartyTransformationPattern extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private CalledPartyTransformationPatternLinker myCalledPartyTransformationPattern;
 	private String description,
 	routePartitionName,
 	calledPartyTransformationMask,
@@ -34,8 +32,7 @@ public class CalledPartyTransformationPattern extends ItemToInject
 			String calledPartyTransformationMask, String digitDiscardInstructionName, String calledPartyPrefixDigits,
 			String calledPartyNumberingPlan, String calledPartyNumberType) throws Exception
 		{
-		super(ItemType.calledpartytransformationpattern, name);
-		myCalledPartyTransformationPattern = new CalledPartyTransformationPatternLinker(name, routePartitionName);
+		super(ItemType.calledpartytransformationpattern, name, new CalledPartyTransformationPatternLinker(name, routePartitionName));
 		this.description = description;
 		this.routePartitionName = routePartitionName;
 		this.calledPartyTransformationMask = calledPartyTransformationMask;
@@ -47,18 +44,17 @@ public class CalledPartyTransformationPattern extends ItemToInject
 
 	public CalledPartyTransformationPattern(String name, String routePartitionName) throws Exception
 		{
-		super(ItemType.calledpartytransformationpattern, name);
+		super(ItemType.calledpartytransformationpattern, name, new CalledPartyTransformationPatternLinker(name, routePartitionName));
 		this.routePartitionName = routePartitionName;
-		myCalledPartyTransformationPattern = new CalledPartyTransformationPatternLinker(name, routePartitionName);
 		}
 
 	/***********
 	 * Method used to prepare the item for the injection
 	 * by gathering the needed UUID from the CUCM 
 	 */
-	public void doBuild() throws Exception
+	public void doBuild(CUCM cucm) throws Exception
 		{
-		this.errorList.addAll(myCalledPartyTransformationPattern.init());
+		this.errorList.addAll(linker.init(cucm));
 		}
 	
 	
@@ -68,35 +64,35 @@ public class CalledPartyTransformationPattern extends ItemToInject
 	 * 
 	 * It also return the item's UUID once injected
 	 */
-	public String doInject() throws Exception
+	public String doInject(CUCM cucm) throws Exception
 		{
-		return myCalledPartyTransformationPattern.inject();//Return UUID
+		return linker.inject(cucm);//Return UUID
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doDelete() throws Exception
+	public void doDelete(CUCM cucm) throws Exception
 		{
-		myCalledPartyTransformationPattern.delete();
+		linker.delete(cucm);
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doUpdate() throws Exception
+	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myCalledPartyTransformationPattern.update(tuList);
+		linker.update(tuList, cucm);
 		}
 	
 	/**
 	 * Method used to check if the element exist in the CUCM
 	 */
-	public boolean isExisting() throws Exception
+	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		CalledPartyTransformationPattern myCPTP = (CalledPartyTransformationPattern) myCalledPartyTransformationPattern.get();
+		CalledPartyTransformationPattern myCPTP = (CalledPartyTransformationPattern) linker.get(cucm);
 		this.UUID = myCPTP.getUUID();
 		
 		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
@@ -110,6 +106,7 @@ public class CalledPartyTransformationPattern extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		this.name = CollectionTools.getRawValue(this.name, this, true);
 		this.description = CollectionTools.getRawValue(this.description, this, true);
 		this.routePartitionName = CollectionTools.getRawValue(this.routePartitionName, this, true);
@@ -118,10 +115,12 @@ public class CalledPartyTransformationPattern extends ItemToInject
 		this.calledPartyPrefixDigits = CollectionTools.getRawValue(this.calledPartyPrefixDigits, this, false);
 		this.calledPartyNumberingPlan = CollectionTools.getRawValue(this.calledPartyNumberingPlan, this, false);
 		this.calledPartyNumberType = CollectionTools.getRawValue(this.calledPartyNumberType, this, false);
+		*/
 		
 		/**
 		 * We set the item parameters
 		 */
+		CalledPartyTransformationPatternLinker myCalledPartyTransformationPattern = (CalledPartyTransformationPatternLinker) linker;
 		myCalledPartyTransformationPattern.setName(this.getName());
 		myCalledPartyTransformationPattern.setDescription(description);
 		myCalledPartyTransformationPattern.setRoutePartitionName(routePartitionName);
@@ -218,6 +217,6 @@ public class CalledPartyTransformationPattern extends ItemToInject
 
 	
 	
-	/*2018*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

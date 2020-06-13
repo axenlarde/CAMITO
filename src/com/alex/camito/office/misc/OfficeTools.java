@@ -15,12 +15,12 @@ import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.BasicPhone.PhoneStatus;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.SimpleRequest;
+import com.alex.camito.office.items.TranslationPattern;
 import com.alex.camito.risport.RisportTools;
+import com.alex.camito.user.items.HuntPilot;
 import com.alex.camito.user.items.Line;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
-import com.alex.woot.office.items.TranslationPattern;
-import com.alex.woot.user.items.HuntPilot;
 
 
 /**
@@ -300,8 +300,8 @@ public class OfficeTools
 					}
 				
 				if(usage.equals("2"))lineList.add(new Line(pattern, partition));//2 is for device
-				else if(usage.equals("7"))hpList.add(new HuntPilot);//7 is for hunt pilot
-				else if(usage.equals("3"))tList.add(new TranslationPattern);//3 is for translation pattern
+				else if(usage.equals("7"))hpList.add(new HuntPilot(pattern, partition));//7 is for hunt pilot
+				else if(usage.equals("3"))tList.add(new TranslationPattern(pattern, partition));//3 is for translation pattern
 				}
 			
 			for(Line l : lineList)

@@ -1,22 +1,18 @@
-package com.alex.woot.user.items;
+package com.alex.camito.user.items;
 
 import java.util.ArrayList;
 
-import org.apache.poi.ss.usermodel.Workbook;
+import com.alex.camito.axl.items.PhoneLine;
+import com.alex.camito.axl.items.PhoneService;
+import com.alex.camito.axl.items.SpeedDial;
+import com.alex.camito.axl.linkers.DeviceProfileLinker;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.utils.UsefulMethod;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
 
-import com.alex.woot.axlitems.linkers.DeviceProfileLinker;
-import com.alex.woot.axlitems.linkers.PhoneLinker;
-import com.alex.woot.axlitems.misc.ToUpdate;
-import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.EmptyValueException;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.soap.items.PhoneLine;
-import com.alex.woot.soap.items.PhoneService;
-import com.alex.woot.soap.items.SpeedDial;
-import com.alex.woot.utils.UsefulMethod;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
-import com.alex.woot.utils.Variables.statusType;
+
 
 /**********************************
  * Class used to define an item of type "Device Profile"
@@ -29,7 +25,6 @@ public class DeviceProfile extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private DeviceProfileLinker myUDP;
 	private String targetName,
 	description,
 	productType,
@@ -42,7 +37,6 @@ public class DeviceProfile extends ItemToInject
 	private ArrayList<PhoneLine> lineList;
 	private ArrayList<SpeedDial> sdList;
 	
-	private int index;
 	
 	/***************
 	 * Constructor
@@ -57,8 +51,7 @@ public class DeviceProfile extends ItemToInject
 			ArrayList<PhoneLine> lineList,
 			ArrayList<SpeedDial> sdList) throws Exception
 		{
-		super(ItemType.udp, name);
-		myUDP = new DeviceProfileLinker(name);
+		super(ItemType.udp, name, new DeviceProfileLinker(name));
 		this.targetName = targetName;
 		this.description = description;
 		this.productType = productType;
@@ -73,17 +66,16 @@ public class DeviceProfile extends ItemToInject
 
 	public DeviceProfile(String name) throws Exception
 		{
-		super(ItemType.udp, name);
-		myUDP = new DeviceProfileLinker(name);
+		super(ItemType.udp, name, new DeviceProfileLinker(name));
 		}
 
 	/***********
 	 * Method used to prepare the item for the injection
 	 * by gathering the needed UUID from the CUCM 
 	 */
-	public void doBuild() throws Exception
+	public void doBuild(CUCM cucm) throws Exception
 		{
-		errorList.addAll(myUDP.init());
+		errorList.addAll(linker.init(cucm));
 		}
 	
 	
@@ -93,35 +85,35 @@ public class DeviceProfile extends ItemToInject
 	 * 
 	 * It also return the item's UUID once injected
 	 */
-	public String doInject() throws Exception
+	public String doInject(CUCM cucm) throws Exception
 		{		
-		return myUDP.inject();//Return UUID
+		return linker.inject(cucm);//Return UUID
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doDelete() throws Exception
+	public void doDelete(CUCM cucm) throws Exception
 		{
-		myUDP.delete();
+		linker.delete(cucm);
 		}
 
 	/**
 	 * Method used to update data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doUpdate() throws Exception
+	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myUDP.update(tuList);
+		linker.update(tuList, cucm);
 		}
 	
 	/**
 	 * Method used to check if the element exist in the CUCM
 	 */
-	public boolean isExisting() throws Exception
+	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		DeviceProfile myPh = (DeviceProfile) myUDP.get();
+		DeviceProfile myPh = (DeviceProfile) linker.get(cucm);
 		this.UUID = myPh.getUUID();
 		//Etc...
 		//Has to be written
@@ -141,6 +133,7 @@ public class DeviceProfile extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		this.name = CollectionTools.getValueFromCollectionFile(index, this.name, this, true);
 		this.description = CollectionTools.getValueFromCollectionFile(index, this.description, this, false);
 		this.phoneClass = CollectionTools.getValueFromCollectionFile(index, this.phoneClass, this, true);
@@ -148,7 +141,7 @@ public class DeviceProfile extends ItemToInject
 		this.protocol = CollectionTools.getValueFromCollectionFile(index, this.protocol, this, true);
 		this.protocolSide = CollectionTools.getValueFromCollectionFile(index, this.protocolSide, this, true);
 		this.phoneButtonTemplate = CollectionTools.getValueFromCollectionFile(index, this.phoneButtonTemplate, this, true);
-		
+		*/
 		/**
 		 * We fetch the errors and corrections from the lists
 		 */
@@ -176,6 +169,7 @@ public class DeviceProfile extends ItemToInject
 		/**
 		 * We set the item parameters
 		 */
+		DeviceProfileLinker myUDP = (DeviceProfileLinker) linker;
 		myUDP.setName(this.getName());
 		myUDP.setDescription(this.description);
 		myUDP.setLineList(this.lineList);
@@ -202,7 +196,7 @@ public class DeviceProfile extends ItemToInject
 			myLine.resolve();
 			}
 		
-		myUDP.setLineList(this.lineList);
+		((DeviceProfileLinker) linker).setLineList(this.lineList);
 		}
 	
 	/**
@@ -215,16 +209,6 @@ public class DeviceProfile extends ItemToInject
 		if((serviceList != null) && (serviceList.size() != 0))tuList.add(DeviceProfileLinker.toUpdate.service);
 		if((sdList != null) && (sdList.size() != 0))tuList.add(DeviceProfileLinker.toUpdate.sd);
 		if((lineList != null) && (lineList.size() != 0))tuList.add(DeviceProfileLinker.toUpdate.line);
-		}
-
-	public DeviceProfileLinker getMyUDP()
-		{
-		return myUDP;
-		}
-
-	public void setMyUDP(DeviceProfileLinker myUDP)
-		{
-		this.myUDP = myUDP;
 		}
 
 	public String getDescription()
@@ -295,16 +279,6 @@ public class DeviceProfile extends ItemToInject
 	public void setLineList(ArrayList<PhoneLine> lineList)
 		{
 		this.lineList = lineList;
-		}
-
-	public int getIndex()
-		{
-		return index;
-		}
-
-	public void setIndex(int index)
-		{
-		this.index = index;
 		}
 
 	public String getPhoneButtonTemplate()

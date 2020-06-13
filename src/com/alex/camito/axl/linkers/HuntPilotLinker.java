@@ -1,21 +1,23 @@
-package com.alex.woot.axlitems.linkers;
+package com.alex.camito.axl.linkers;
 
 import java.util.ArrayList;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import com.alex.woot.axlitems.linkers.HuntListLinker.toUpdate;
-import com.alex.woot.axlitems.misc.AXLItemLinker;
-import com.alex.woot.axlitems.misc.ToUpdate;
-import com.alex.woot.misc.ErrorTemplate;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.SimpleRequest;
-import com.alex.woot.misc.ErrorTemplate.errorType;
-import com.alex.woot.user.items.HuntPilot;
-import com.alex.woot.user.misc.UserError;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
+import com.alex.camito.axl.misc.AXLItemLinker;
+import com.alex.camito.axl.misc.ToUpdate;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ErrorTemplate;
+import com.alex.camito.misc.ErrorTemplate.errorType;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.misc.SimpleRequest;
+import com.alex.camito.user.items.HuntPilot;
+import com.alex.camito.user.misc.UserError;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
+
+
 
 
 
@@ -56,22 +58,13 @@ public class HuntPilotLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
-		{
-		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
-		
-		//Nothing to do here
-		
-		return errorList;
-		}
-	
-	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105(CUCM cucm) throws Exception
 		{
 		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
 		
 		try
 			{
-			SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName);
+			SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm);
 			}
 		catch (Exception e)
 			{
@@ -85,29 +78,20 @@ public class HuntPilotLinker extends AXLItemLinker
 	/***************
 	 * Delete
 	 */
-	public void doDeleteVersion105() throws Exception
+	public void doDeleteVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.RemoveHuntPilotReq deleteReq = new com.cisco.axl.api._10.RemoveHuntPilotReq();
 		
 		deleteReq.setPattern(this.getName());//We add the parameters to the request
-		deleteReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName)));
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().removeHuntPilot(deleteReq);//We send the request to the CUCM
-		}
-
-	public void doDeleteVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.RemoveHuntPilotReq deleteReq = new com.cisco.axl.api._8.RemoveHuntPilotReq();
-		
-		deleteReq.setPattern(this.getName());//We add the parameters to the request
-		deleteReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(ItemType.partition, routePartitionName)));
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().removeHuntPilot(deleteReq);//We send the request to the CUCM
+		deleteReq.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName, cucm)));
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().removeHuntPilot(deleteReq);//We send the request to the CUCM
 		}
 	/**************/
 
 	/***************
 	 * Injection
 	 */
-	public String doInjectVersion105() throws Exception
+	public String doInjectVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.AddHuntPilotReq req = new com.cisco.axl.api._10.AddHuntPilotReq();
 		com.cisco.axl.api._10.XHuntPilot params = new com.cisco.axl.api._10.XHuntPilot();
@@ -116,39 +100,16 @@ public class HuntPilotLinker extends AXLItemLinker
 		 * We set the item parameters
 		 */
 		params.setPattern(this.getName());//Name
-		params.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName)));
+		params.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName, cucm)));
 		params.setDescription(description);
 		
 		params.setAlertingName(alertingName);
 		params.setAsciiAlertingName(asciiAlertingName);
-		params.setHuntListName(SimpleRequest.getUUIDV105(ItemType.huntlist, huntListName));
+		params.setHuntListName(SimpleRequest.getUUIDV105(ItemType.huntlist, huntListName, cucm));
 		/************/
 		
 		req.setHuntPilot(params);//We add the parameters to the request
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().addHuntPilot(req);//We send the request to the CUCM
-		
-		return resp.getReturn();//Return UUID
-		}
-
-	public String doInjectVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.AddHuntPilotReq req = new com.cisco.axl.api._8.AddHuntPilotReq();
-		com.cisco.axl.api._8.XHuntPilot params = new com.cisco.axl.api._8.XHuntPilot();
-		
-		/**
-		 * We set the item parameters
-		 */
-		params.setPattern(this.getName());//Name
-		params.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(ItemType.partition, routePartitionName)));
-		params.setDescription(description);
-		
-		params.setAlertingName(alertingName);
-		params.setAsciiAlertingName(asciiAlertingName);
-		params.setHuntListName(SimpleRequest.getUUIDV85(ItemType.huntlist, huntListName));
-		/************/
-		
-		req.setHuntPilot(params);//We add the parameters to the request
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().addHuntPilot(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().addHuntPilot(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
 		}
@@ -157,7 +118,7 @@ public class HuntPilotLinker extends AXLItemLinker
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList, CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateHuntPilotReq req = new com.cisco.axl.api._10.UpdateHuntPilotReq();
 		
@@ -165,7 +126,7 @@ public class HuntPilotLinker extends AXLItemLinker
 		 * We set the item parameters
 		 */
 		req.setPattern(this.getName());
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName)));
+		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName, cucm)));
 		
 		if(tuList.contains(toUpdate.description))req.setDescription(description);
 		if(tuList.contains(toUpdate.alertingName))
@@ -173,25 +134,10 @@ public class HuntPilotLinker extends AXLItemLinker
 			req.setAlertingName(alertingName);
 			req.setAsciiAlertingName(asciiAlertingName);
 			}
-		if(tuList.contains(toUpdate.huntListName))req.setHuntListName(SimpleRequest.getUUIDV105(ItemType.huntlist, huntListName));
+		if(tuList.contains(toUpdate.huntListName))req.setHuntListName(SimpleRequest.getUUIDV105(ItemType.huntlist, huntListName, cucm));
 		/************/
 		
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().updateHuntPilot(req);//We send the request to the CUCM
-		}
-
-	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
-		{
-		com.cisco.axl.api._8.UpdateHuntPilotReq req = new com.cisco.axl.api._8.UpdateHuntPilotReq();
-		
-		/***********
-		 * We set the item parameters
-		 */
-		req.setPattern(this.getName());
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(ItemType.partition, routePartitionName)));
-		//Has to be written
-		/************/
-		
-		com.cisco.axl.api._8.StandardResponse resp = Variables.getAXLConnectionToCUCM85().updateHuntPilot(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().updateHuntPilot(req);//We send the request to the CUCM
 		}
 	/**************/
 	
@@ -199,7 +145,7 @@ public class HuntPilotLinker extends AXLItemLinker
 	/*************
 	 * Get
 	 */
-	public ItemToInject doGetVersion105() throws Exception
+	public ItemToInject doGetVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.GetHuntPilotReq req = new com.cisco.axl.api._10.GetHuntPilotReq();
 		
@@ -207,30 +153,10 @@ public class HuntPilotLinker extends AXLItemLinker
 		 * We set the item parameters
 		 */
 		req.setPattern(this.getName());
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName)));
+		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, routePartitionName, cucm)));
 		/************/
 		
-		com.cisco.axl.api._10.GetHuntPilotRes resp = Variables.getAXLConnectionToCUCMV105().getHuntPilot(req);//We send the request to the CUCM
-		
-		HuntPilot myHP = new HuntPilot(this.getName(), this.routePartitionName);
-		myHP.setUUID(resp.getReturn().getHuntPilot().getUuid());
-		//Has to be written
-		
-		return myHP;
-		}
-
-	public ItemToInject doGetVersion85() throws Exception
-		{
-		com.cisco.axl.api._8.GetHuntPilotReq req = new com.cisco.axl.api._8.GetHuntPilotReq();
-		
-		/**
-		 * We set the item parameters
-		 */
-		req.setPattern(this.getName());
-		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._8.XFkType.class, SimpleRequest.getUUIDV85(ItemType.partition, routePartitionName)));
-		/************/
-		
-		com.cisco.axl.api._8.GetHuntPilotRes resp = Variables.getAXLConnectionToCUCM85().getHuntPilot(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.GetHuntPilotRes resp = cucm.getAXLConnectionV105().getHuntPilot(req);//We send the request to the CUCM
 		
 		HuntPilot myHP = new HuntPilot(this.getName(), this.routePartitionName);
 		myHP.setUUID(resp.getReturn().getHuntPilot().getUuid());

@@ -1,11 +1,12 @@
-package com.alex.woot.office.items;
+package com.alex.camito.office.items;
 
-import com.alex.woot.axlitems.linkers.TranslationPatternLinker;
-import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.utils.UsefulMethod;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
+import com.alex.camito.axl.linkers.TranslationPatternLinker;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.CollectionTools;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.utils.UsefulMethod;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
 
 /**********************************
  * Class used to define an item of type "Translation Pattern"
@@ -18,7 +19,6 @@ public class TranslationPattern extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private TranslationPatternLinker myTranslationPattern;
 	private String usage,//Translation
 	provideOutsideDialtone,//True
 	description,
@@ -43,8 +43,7 @@ public class TranslationPattern extends ItemToInject
 			String callingPartyTransformationMask,
 			String digitDiscardInstructionName) throws Exception
 		{
-		super(ItemType.translationpattern, name);
-		myTranslationPattern = new TranslationPatternLinker(name,routePartitionName);
+		super(ItemType.translationpattern, name, new TranslationPatternLinker(name, routePartitionName));
 		this.usage = "Translation";
 		this.provideOutsideDialtone = "true";
 		this.description = description;
@@ -59,18 +58,17 @@ public class TranslationPattern extends ItemToInject
 
 	public TranslationPattern(String name, String routePartitionName) throws Exception
 		{
-		super(ItemType.translationpattern, name);
+		super(ItemType.translationpattern, name, new TranslationPatternLinker(name, routePartitionName));
 		this.routePartitionName = routePartitionName;
-		myTranslationPattern = new TranslationPatternLinker(name, routePartitionName);
 		}
 
 	/***********
 	 * Method used to prepare the item for the injection
 	 * by gathering the needed UUID from the CUCM 
 	 */
-	public void doBuild() throws Exception
+	public void doBuild(CUCM cucm) throws Exception
 		{
-		this.errorList.addAll(myTranslationPattern.init());
+		this.errorList.addAll(linker.init(cucm));
 		}
 	
 	
@@ -80,35 +78,35 @@ public class TranslationPattern extends ItemToInject
 	 * 
 	 * It also return the item's UUID once injected
 	 */
-	public String doInject() throws Exception
+	public String doInject(CUCM cucm) throws Exception
 		{
-		return myTranslationPattern.inject();//Return UUID
+		return linker.inject(cucm);//Return UUID
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doDelete() throws Exception
+	public void doDelete(CUCM cucm) throws Exception
 		{
-		myTranslationPattern.delete();
+		linker.delete(cucm);
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doUpdate() throws Exception
+	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myTranslationPattern.update(tuList);
+		linker.update(tuList, cucm);
 		}
 	
 	/**
 	 * Method used to check if the element exist in the CUCM
 	 */
-	public boolean isExisting() throws Exception
+	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		TranslationPattern myTP = (TranslationPattern) myTranslationPattern.get();
+		TranslationPattern myTP = (TranslationPattern) linker.get(cucm);
 		this.UUID = myTP.getUUID();
 		
 		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
@@ -122,6 +120,7 @@ public class TranslationPattern extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		this.name = CollectionTools.getRawValue(this.name, this, true);
 		this.description = CollectionTools.getRawValue(this.description, this, true);
 		this.routePartitionName = CollectionTools.getRawValue(this.routePartitionName, this, true);
@@ -131,10 +130,11 @@ public class TranslationPattern extends ItemToInject
 		this.callingPartyTransformationMask = CollectionTools.getRawValue(this.callingPartyTransformationMask, this, true);
 		this.calledPartyTransformationMask = CollectionTools.getRawValue(this.calledPartyTransformationMask, this, true);
 		this.digitDiscardInstructionName = CollectionTools.getRawValue(this.digitDiscardInstructionName, this, true);
-		
+		*/
 		/**
 		 * We set the item parameters
 		 */
+		TranslationPatternLinker myTranslationPattern = (TranslationPatternLinker) linker;
 		myTranslationPattern.setName(this.getName());
 		myTranslationPattern.setRoutePartitionName(routePartitionName);
 		myTranslationPattern.setCalledPartyTransformationMask(calledPartyTransformationMask);

@@ -16,6 +16,7 @@ Overal configuration file
 		<allowdeviceipduplicate>false</allowdeviceipduplicate><!--Allow device ip duplicate-->
 		<forwardprefix>8080</forwardprefix><!--Prefix to use to forward the lines to the destination cluster-->
 		<forwardcss>INTERNAL_CSS</forwardcss><!--CSS to use to forward to the destination cluster-->
+		<usersource>external</usersource><!--external,internal--><!--LDAP or internal cucm database-->
 		<!--Cli parameters-->
 		<maxclithread>10</maxclithread>
 		<cliconnectiontimeout>10000</cliconnectiontimeout>

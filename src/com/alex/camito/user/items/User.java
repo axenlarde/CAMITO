@@ -1,17 +1,20 @@
-package com.alex.woot.user.items;
+package com.alex.camito.user.items;
 
 import java.util.ArrayList;
 
-import com.alex.woot.axlitems.linkers.UserLinker;
-import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.EmptyValueException;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.utils.UsefulMethod;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
-import com.alex.woot.utils.Variables.statusType;
-import com.alex.woot.utils.Variables.UserSource;
-import com.alex.woot.utils.Variables.actionType;
+import com.alex.camito.axl.linkers.UserLinker;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.CollectionTools;
+import com.alex.camito.misc.EmptyValueException;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.utils.UsefulMethod;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ActionType;
+import com.alex.camito.utils.Variables.ItemType;
+import com.alex.camito.utils.Variables.StatusType;
+import com.alex.camito.utils.Variables.UserSource;
+
+
 
 /**********************************
  * Class used to define an item of type "Device Pool"
@@ -24,7 +27,6 @@ public class User extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private UserLinker myUser;
 	private String targetName,
 	lastname,//Name is the userID
 	firstname,
@@ -41,8 +43,6 @@ public class User extends ItemToInject
 	private ArrayList<String> deviceList;
 	private ArrayList<String> UDPList;
 	private ArrayList<String> ctiUDPList;
-	
-	private int index;
 	
 
 	/***************
@@ -66,9 +66,8 @@ public class User extends ItemToInject
 			String pin,
 			String password) throws Exception
 		{
-		super(ItemType.user, name);
+		super(ItemType.user, name, new UserLinker(name));
 		this.targetName = targetName;
-		myUser = new UserLinker(name);
 		this.deviceList = deviceList;
 		this.UDPList = UDPList;
 		this.ctiUDPList = ctiUDPList;
@@ -101,8 +100,7 @@ public class User extends ItemToInject
 			String pin,
 			String password) throws Exception
 		{
-		super(ItemType.user, name);
-		myUser = new UserLinker(name);
+		super(ItemType.user, name, new UserLinker(name));
 		deviceList = new ArrayList<String>();
 		if(!((deviceName == null) || (deviceName.equals(""))))deviceList.add(deviceName);
 		UDPList = new ArrayList<String>();
@@ -125,29 +123,28 @@ public class User extends ItemToInject
 	
 	public User(String name) throws Exception
 		{
-		super(ItemType.user, name);
-		myUser = new UserLinker(name);
+		super(ItemType.user, name, new UserLinker(name));
 		}
 
 	/***********
 	 * Method used to prepare the item for the injection
 	 * by gathering the needed UUID from the CUCM 
 	 */
-	public void doBuild() throws Exception
+	public void doBuild(CUCM cucm) throws Exception
 		{
 		/**
 		 * If the user already exist but the data source is LDAP
 		 * we will update it instead
 		 */
 		if((this.status == StatusType.injected) && 
-			(Variables.getUserSource().equals(UserSource.external)) &&
+			(UsefulMethod.getTargetOption("usersource").equals(UserSource.external.name())) &&
 			!(this.action.equals(ActionType.delete)))
 			{
 			setStatus(StatusType.waiting);
 			setAction(ActionType.update);
 			}
 		
-		errorList.addAll(myUser.init());
+		errorList.addAll(linker.init(cucm));
 		}
 	
 	
@@ -157,35 +154,35 @@ public class User extends ItemToInject
 	 * 
 	 * It also return the item's UUID once injected
 	 */
-	public String doInject() throws Exception
+	public String doInject(CUCM cucm) throws Exception
 		{
-		return myUser.inject();//Return UUID
+		return linker.inject(cucm);//Return UUID
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doDelete() throws Exception
+	public void doDelete(CUCM cucm) throws Exception
 		{
-		myUser.delete();
+		linker.delete(cucm);
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doUpdate() throws Exception
+	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myUser.update(tuList);
+		linker.update(tuList, cucm);
 		}
 	
 	/**
 	 * Method used to check if the element exist in the CUCM
 	 */
-	public boolean isExisting() throws Exception
+	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		User myU = (User) myUser.get();
+		User myU = (User) linker.get(cucm);
 		this.UUID = myU.getUUID();
 		//Has to be written
 		
@@ -204,6 +201,7 @@ public class User extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
 		lastname = CollectionTools.getValueFromCollectionFile(index, lastname, this, true);
 		firstname = CollectionTools.getValueFromCollectionFile(index, firstname, this, false);
@@ -230,12 +228,14 @@ public class User extends ItemToInject
 				}
 			}
 		this.userControlGroupList = ucgList;
-		
-		resolveDevices(index);
+		*/
+		//resolveDevices(index);
+		resolveDevices(0);
 		
 		/**
 		 * We set the item parameters
 		 */
+		UserLinker myUser = (UserLinker) linker;
 		myUser.setName(this.getName());
 		myUser.setFirstname(firstname);
 		myUser.setLastname(lastname);
@@ -257,6 +257,7 @@ public class User extends ItemToInject
 	 */
 	public void resolveDevices(int j) throws Exception
 		{
+		/*
 		//Devices
 		ArrayList<String> dList = new ArrayList<String>();
 		for(int i=0; i<deviceList.size(); i++)
@@ -305,6 +306,8 @@ public class User extends ItemToInject
 		deviceList = dList;
 		UDPList = udpList;
 		ctiUDPList = ctiudpList;
+		*/
+		UserLinker myUser = (UserLinker) linker;
 		myUser.setDeviceList(deviceList);
 		myUser.setUDPList(UDPList);
 		myUser.setCtiUDPList(ctiUDPList);
@@ -360,16 +363,6 @@ public class User extends ItemToInject
 		this.deviceList = deviceList;
 		}
 
-	public int getIndex()
-		{
-		return index;
-		}
-
-	public void setIndex(int index)
-		{
-		this.index = index;
-		}
-
 	public ArrayList<String> getUDPList()
 		{
 		return UDPList;
@@ -388,16 +381,6 @@ public class User extends ItemToInject
 	public void setPin(String pin)
 		{
 		this.pin = pin;
-		}
-
-	public UserLinker getMyUser()
-		{
-		return myUser;
-		}
-
-	public void setMyUser(UserLinker myUser)
-		{
-		this.myUser = myUser;
 		}
 
 	public String getTargetName()

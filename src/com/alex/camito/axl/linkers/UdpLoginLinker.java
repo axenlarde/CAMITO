@@ -1,17 +1,18 @@
-package com.alex.woot.axlitems.linkers;
+package com.alex.camito.axl.linkers;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import com.alex.woot.axlitems.misc.AXLItemLinker;
-import com.alex.woot.axlitems.misc.ToUpdate;
-import com.alex.woot.misc.ErrorTemplate;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.misc.SimpleRequest;
-import com.alex.woot.misc.ErrorTemplate.errorType;
-import com.alex.woot.user.misc.UserError;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
+import com.alex.camito.axl.misc.AXLItemLinker;
+import com.alex.camito.axl.misc.ToUpdate;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ErrorTemplate;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.misc.SimpleRequest;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
+
+
 
 
 /**********************************
@@ -47,15 +48,7 @@ public class UdpLoginLinker extends AXLItemLinker
 	/***************
 	 * Initialization
 	 */
-	public ArrayList<ErrorTemplate> doInitVersion85() throws Exception
-		{
-		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
-		//To be written
-		
-		return errorList;
-		}
-	
-	public ArrayList<ErrorTemplate> doInitVersion105() throws Exception
+	public ArrayList<ErrorTemplate> doInitVersion105(CUCM cucm) throws Exception
 		{
 		ArrayList<ErrorTemplate> errorList = new ArrayList<ErrorTemplate>();
 		/*
@@ -93,12 +86,7 @@ public class UdpLoginLinker extends AXLItemLinker
 	/***************
 	 * Delete
 	 */
-	public void doDeleteVersion105() throws Exception
-		{
-		Variables.getLogger().debug("There is nothing to delete in the case of a UDP login");
-		}
-
-	public void doDeleteVersion85() throws Exception
+	public void doDeleteVersion105(CUCM cucm) throws Exception
 		{
 		Variables.getLogger().debug("There is nothing to delete in the case of a UDP login");
 		}
@@ -107,7 +95,7 @@ public class UdpLoginLinker extends AXLItemLinker
 	/***************
 	 * Injection
 	 */
-	public String doInjectVersion105() throws Exception
+	public String doInjectVersion105(CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.DoDeviceLoginReq req = new com.cisco.axl.api._10.DoDeviceLoginReq();
 		
@@ -115,34 +103,23 @@ public class UdpLoginLinker extends AXLItemLinker
 		 * We set the item parameters
 		 * 
 		 */
-		req.setDeviceName(SimpleRequest.getUUIDV105(ItemType.phone, this.deviceName));
+		req.setDeviceName(SimpleRequest.getUUIDV105(ItemType.phone, this.deviceName, cucm));
 		req.setLoginDuration(new BigInteger("0"));
 		req.setUserId(this.name);
-		req.setProfileName(SimpleRequest.getUUIDV105(ItemType.udp, this.deviceProfile));
+		req.setProfileName(SimpleRequest.getUUIDV105(ItemType.udp, this.deviceProfile, cucm));
 	
 		/**********/
 			
-		com.cisco.axl.api._10.StandardResponse resp = Variables.getAXLConnectionToCUCMV105().doDeviceLogin(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().doDeviceLogin(req);//We send the request to the CUCM
 		
 		return resp.getReturn();//Return UUID
-		}
-
-	public String doInjectVersion85() throws Exception
-		{
-		//To be written
-		return null;
 		}
 	/**************/
 	
 	/***************
 	 * Update
 	 */
-	public void doUpdateVersion105(ArrayList<ToUpdate> tuList) throws Exception
-		{
-		Variables.getLogger().debug("There is nothing to update in the case of a UDP login");
-		}
-
-	public void doUpdateVersion85(ArrayList<ToUpdate> tuList) throws Exception
+	public void doUpdateVersion105(ArrayList<ToUpdate> tuList, CUCM cucm) throws Exception
 		{
 		Variables.getLogger().debug("There is nothing to update in the case of a UDP login");
 		}
@@ -152,13 +129,7 @@ public class UdpLoginLinker extends AXLItemLinker
 	/*************
 	 * Get
 	 */
-	public ItemToInject doGetVersion105() throws Exception
-		{
-		Variables.getLogger().debug("There is nothing to get in the case of a UDP login");
-		return null;
-		}
-
-	public ItemToInject doGetVersion85() throws Exception
+	public ItemToInject doGetVersion105(CUCM cucm) throws Exception
 		{
 		Variables.getLogger().debug("There is nothing to get in the case of a UDP login");
 		return null;
@@ -184,10 +155,8 @@ public class UdpLoginLinker extends AXLItemLinker
 		{
 		this.deviceProfile = deviceProfile;
 		}
-
 	
 	
-	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

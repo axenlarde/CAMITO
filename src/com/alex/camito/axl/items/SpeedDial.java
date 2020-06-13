@@ -1,10 +1,8 @@
 package com.alex.camito.axl.items;
 
-
 import com.alex.camito.misc.BasicItem;
 import com.alex.camito.misc.CollectionTools;
 import com.alex.camito.utils.UsefulMethod;
-
 
 /**********************************
  * Used to store a speed dial config
@@ -16,29 +14,44 @@ public class SpeedDial extends BasicItem
 	/**
 	 * Variables
 	 */
+	
+	/********************************************
+	 * SDType :
+	 * Is used to set the type of the Speed dial :
+	 * - simple SD
+	 * - BLF
+	 ***************************************/
+	public enum SDType
+		{
+		sd,
+		blf,
+		};
+		
 	private String template, partition,
 	number,
 	description;
 	
 	private boolean pickup;
-	private sdType type;
+	private SDType type;
 	private int position;
+	private String didPartition;
 	private int index;
 	
 	/***************
 	 * Constructor
 	 ***************/
-	public SpeedDial(String template, int position)
+	public SpeedDial(String template, int position, String didPartition)
 		{
 		super();
 		this.template = template;
 		this.position = position;
-		type = sdType.sd;
+		this.didPartition = didPartition;
+		type = SDType.sd;
 		}
 	
 	public void resolve() throws Exception
 		{
-		template = CollectionTools.getValueFromCollectionFile(index, template, this, true);
+		//template = CollectionTools.getValueFromCollectionFile(index, template, this, true);
 		
 		if(template.contains(":"))
 			{
@@ -49,12 +62,12 @@ public class SpeedDial extends BasicItem
 			if(tab.length == 3)
 				{
 				pickup = (tab[2].equals("true"))?true:false;
-				type = sdType.blf;
+				type = SDType.blf;
 				partition = UsefulMethod.getTargetOption("didpartition");//Temp
 				}
 			else
 				{
-				type = sdType.sd;
+				type = SDType.sd;
 				partition = "";
 				}
 			}
@@ -94,12 +107,12 @@ public class SpeedDial extends BasicItem
 		this.description = description;
 		}
 
-	public sdType getType()
+	public SDType getType()
 		{
 		return type;
 		}
 
-	public void setType(sdType type)
+	public void setType(SDType type)
 		{
 		this.type = type;
 		}
@@ -143,11 +156,21 @@ public class SpeedDial extends BasicItem
 		{
 		this.index = index;
 		}
+
+	public String getDidPartition()
+		{
+		return didPartition;
+		}
+
+	public void setDidPartition(String didPartition)
+		{
+		this.didPartition = didPartition;
+		}
 	
 	
 	
 	
 	
-	/*2016*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

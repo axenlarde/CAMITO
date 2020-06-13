@@ -200,6 +200,26 @@ public class Variables
 		unknown
 		};
 		
+	/********************************************
+	 * sqlRequestType :
+	 * Query or update
+	 ***************************************/
+	public enum SQLRequestType
+		{
+		update,
+		query
+		};
+		
+	/********************************************
+	 * userSource :
+	 * CUCM Corporate directory user source
+	 ***************************************/
+	public enum UserSource
+		{
+		external,//LDAP for instance
+		internal//CUCM Internal user
+		};
+		
 	//Misc
 	private static String softwareName;
 	private static String softwareVersion;

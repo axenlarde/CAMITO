@@ -1,17 +1,11 @@
-package com.alex.woot.user.items;
+package com.alex.camito.user.items;
 
-import org.apache.poi.ss.usermodel.Workbook;
-
-import com.alex.woot.axlitems.linkers.HuntPilotLinker;
-import com.alex.woot.axlitems.linkers.LineGroupLinker;
-import com.alex.woot.axlitems.misc.ToUpdate;
-import com.alex.woot.misc.CollectionTools;
-import com.alex.woot.misc.ItemToInject;
-import com.alex.woot.utils.UsefulMethod;
-import com.alex.woot.utils.Variables;
-import com.alex.woot.utils.Variables.itemType;
-import com.alex.woot.utils.Variables.statusType;
-
+import com.alex.camito.axl.linkers.HuntPilotLinker;
+import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ItemToInject;
+import com.alex.camito.utils.UsefulMethod;
+import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.ItemType;
 
 /**********************************
  * Class used to define an item of type "Hunt Pilot"
@@ -24,15 +18,12 @@ public class HuntPilot extends ItemToInject
 	/**
 	 * Variables
 	 */
-	private HuntPilotLinker myHuntPilot;
 	private String description,//Name is the HP Number
 	routePartitionName,
 	alertingName,
 	asciiAlertingName,
 	huntListName;
 	
-	private int index;
-
 	/***************
 	 * Constructor
 	 * @throws Exception 
@@ -41,31 +32,26 @@ public class HuntPilot extends ItemToInject
 			String description, String routePartitionName, String alertingName,
 			String asciiAlertingName, String huntListName) throws Exception
 		{
-		super(ItemType.huntpilot, name);
+		super(ItemType.huntpilot, name, new HuntPilotLinker(huntListName, routePartitionName));
 		this.description = description;
 		this.routePartitionName = routePartitionName;
 		this.alertingName = alertingName;
 		this.asciiAlertingName = asciiAlertingName;
 		this.huntListName = huntListName;
-		
-		myHuntPilot = new HuntPilotLinker(name, routePartitionName);
-		
-		this.index = 0;
 		}
 
 	public HuntPilot(String name, String routePartitionName) throws Exception
 		{
-		super(ItemType.huntpilot, name);
-		myHuntPilot = new HuntPilotLinker(name, routePartitionName);
+		super(ItemType.huntpilot, name, new HuntPilotLinker(name, routePartitionName));
 		}
 
 	/***********
 	 * Method used to prepare the item for the injection
 	 * by gathering the needed UUID from the CUCM 
 	 */
-	public void doBuild() throws Exception
+	public void doBuild(CUCM cucm) throws Exception
 		{
-		errorList.addAll(myHuntPilot.init());
+		errorList.addAll(linker.init(cucm));
 		}
 	
 	
@@ -75,35 +61,35 @@ public class HuntPilot extends ItemToInject
 	 * 
 	 * It also return the item's UUID once injected
 	 */
-	public String doInject() throws Exception
+	public String doInject(CUCM cucm) throws Exception
 		{
-		return myHuntPilot.inject();//Return UUID
+		return linker.inject(cucm);//Return UUID
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doDelete() throws Exception
+	public void doDelete(CUCM cucm) throws Exception
 		{
-		myHuntPilot.delete();
+		linker.delete(cucm);
 		}
 
 	/**
 	 * Method used to delete data in the CUCM using
 	 * the Cisco API
 	 */
-	public void doUpdate() throws Exception
+	public void doUpdate(CUCM cucm) throws Exception
 		{
-		myHuntPilot.update(tuList);
+		linker.update(tuList, cucm);
 		}
 	
 	/**
 	 * Method used to check if the element exist in the CUCM
 	 */
-	public boolean isExisting() throws Exception
+	public boolean isExisting(CUCM cucm) throws Exception
 		{
-		HuntPilot myHP = (HuntPilot) myHuntPilot.get();
+		HuntPilot myHP = (HuntPilot) linker.get(cucm);
 		this.UUID = myHP.getUUID();
 		//Has to be enhanced
 		
@@ -122,13 +108,16 @@ public class HuntPilot extends ItemToInject
 	 */
 	public void resolve() throws Exception
 		{
+		/*
 		name = CollectionTools.getValueFromCollectionFile(index, name, this, true);
 		description = CollectionTools.getValueFromCollectionFile(index, description, this, false);
 		routePartitionName = CollectionTools.getValueFromCollectionFile(index, routePartitionName, this, true);
 		alertingName = CollectionTools.getValueFromCollectionFile(index, alertingName, this, false);
 		asciiAlertingName = CollectionTools.getValueFromCollectionFile(index, asciiAlertingName, this, false);
 		huntListName = CollectionTools.getValueFromCollectionFile(index, huntListName, this, true);
+		*/
 		
+		HuntPilotLinker myHuntPilot = (HuntPilotLinker) linker;
 		myHuntPilot.setAlertingName(alertingName);
 		myHuntPilot.setAsciiAlertingName(asciiAlertingName);
 		myHuntPilot.setDescription(description);
@@ -194,20 +183,8 @@ public class HuntPilot extends ItemToInject
 		{
 		this.huntListName = huntListName;
 		}
-
-	public int getIndex()
-		{
-		return index;
-		}
-
-	public void setIndex(int index)
-		{
-		this.index = index;
-		}
-
 	
 	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 
