@@ -36,6 +36,7 @@ public class LineLinker extends AXLItemLinker
 	shareLineAppearanceCssName,
 	callPickupGroupName,
 	fwCallingSearchSpaceName,
+	fwAllCallingSearchSpaceName,
 	fwAllDestination,
 	fwNoanDestination,
 	fwBusyDestination,
@@ -55,6 +56,7 @@ public class LineLinker extends AXLItemLinker
 		shareLineAppearanceCssName,
 		callPickupGroupName,
 		fwCallingSearchSpaceName,
+		fwAllCallingSearchSpaceName,
 		fwAllDestination,
 		fwNoanDestination,
 		fwBusyDestination,
@@ -114,7 +116,16 @@ public class LineLinker extends AXLItemLinker
 			}
 		catch (Exception e)
 			{
-			errorList.add(new UserError(this.name, this.shareLineAppearanceCssName, "Not found during init : "+e.getMessage(), ItemType.line, ItemType.callingsearchspace, errorType.notFound));
+			errorList.add(new UserError(this.name, this.fwCallingSearchSpaceName, "Not found during init : "+e.getMessage(), ItemType.line, ItemType.callingsearchspace, errorType.notFound));
+			}
+		
+		try
+			{
+			SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwAllCallingSearchSpaceName, cucm);
+			}
+		catch (Exception e)
+			{
+			errorList.add(new UserError(this.name, this.fwAllCallingSearchSpaceName, "Not found during init : "+e.getMessage(), ItemType.line, ItemType.callingsearchspace, errorType.notFound));
 			}
 		
 		try
@@ -175,7 +186,8 @@ public class LineLinker extends AXLItemLinker
 		 */
 		//All
 		com.cisco.axl.api._10.XCallForwardAll myFwAll = new com.cisco.axl.api._10.XCallForwardAll();
-		myFwAll.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
+		if(fwAllCallingSearchSpaceName.isEmpty())myFwAll.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
+		else myFwAll.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwAllCallingSearchSpaceName, cucm)));
 		myFwAll.setDestination(new JAXBElement(new QName("destination"), String.class , this.fwAllDestination));
 		myFwAll.setForwardToVoiceMail((this.fwAllVoicemailEnable)?"true":"false");
 		params.setCallForwardAll(myFwAll);
@@ -243,7 +255,12 @@ public class LineLinker extends AXLItemLinker
 		if(tuList.contains(toUpdate.asciiAlertingName))req.setAsciiAlertingName(this.asciiAlertingName);
 		if(tuList.contains(toUpdate.shareLineAppearanceCssName))req.setShareLineAppearanceCssName(new JAXBElement(new QName("shareLineAppearanceCssName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.shareLineAppearanceCssName, cucm)));
 		if(tuList.contains(toUpdate.callPickupGroupName))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(ItemType.callpickupgroup, this.callPickupGroupName, cucm));
-		if(tuList.contains(toUpdate.fwCallingSearchSpaceName))
+		if(tuList.contains(toUpdate.fwAllCallingSearchSpaceName))
+			{
+			CallFA.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwAllCallingSearchSpaceName, cucm)));
+			req.setCallForwardAll(CallFA);
+			}
+		else if(tuList.contains(toUpdate.fwCallingSearchSpaceName))
 			{
 			CallFA.setCallingSearchSpaceName(new JAXBElement(new QName("callingSearchSpaceName"), com.cisco.axl.api._10.XFkType.class,SimpleRequest.getUUIDV105(ItemType.callingsearchspace, this.fwCallingSearchSpaceName, cucm)));
 			req.setCallForwardAll(CallFA);
@@ -464,6 +481,16 @@ public class LineLinker extends AXLItemLinker
 	public void setFwUnrVoicemailEnable(boolean fwUnrVoicemailEnable)
 		{
 		this.fwUnrVoicemailEnable = fwUnrVoicemailEnable;
+		}
+
+	public String getFwAllCallingSearchSpaceName()
+		{
+		return fwAllCallingSearchSpaceName;
+		}
+
+	public void setFwAllCallingSearchSpaceName(String fwAllCallingSearchSpaceName)
+		{
+		this.fwAllCallingSearchSpaceName = fwAllCallingSearchSpaceName;
 		}
 
 	

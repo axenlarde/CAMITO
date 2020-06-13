@@ -26,6 +26,7 @@ public class Line extends ItemToInject
 	shareLineAppearanceCssName,
 	callPickupGroupName,
 	fwCallingSearchSpaceName,
+	fwAllCallingSearchSpaceName,
 	fwAllDestination,
 	fwNoanDestination,
 	fwBusyDestination,
@@ -45,7 +46,7 @@ public class Line extends ItemToInject
 	public Line(String name, String description,
 			String routePartitionName, String alertingName,
 			String asciiAlertingName, String shareLineAppearanceCssName,
-			String fwCallingSearchSpaceName,
+			String fwCallingSearchSpaceName, String fwAllCallingSearchSpaceName,
 			String fwAllDestination, String fwNoanDestination,
 			String fwBusyDestination, String fwUnrDestination,
 			String voiceMailProfileName, String fwAllVoicemailEnable,
@@ -60,6 +61,7 @@ public class Line extends ItemToInject
 		this.asciiAlertingName = asciiAlertingName;
 		this.shareLineAppearanceCssName = shareLineAppearanceCssName;
 		this.fwCallingSearchSpaceName = fwCallingSearchSpaceName;
+		this.fwAllCallingSearchSpaceName = fwAllCallingSearchSpaceName;
 		this.fwAllDestination = fwAllDestination;
 		this.fwNoanDestination = fwNoanDestination;
 		this.fwBusyDestination = fwBusyDestination;
@@ -174,6 +176,7 @@ public class Line extends ItemToInject
 		myLine.setUsage(usage);
 		myLine.setCallPickupGroupName(callPickupGroupName);
 		myLine.setFwCallingSearchSpaceName(fwCallingSearchSpaceName);
+		myLine.setFwAllCallingSearchSpaceName(fwAllCallingSearchSpaceName);
 		myLine.setFwAllDestination(fwAllDestination);
 		myLine.setFwNoanDestination(fwNoanDestination);
 		myLine.setFwBusyDestination(fwBusyDestination);
@@ -197,6 +200,7 @@ public class Line extends ItemToInject
 		if(UsefulMethod.isNotEmpty(shareLineAppearanceCssName))tuList.add(LineLinker.toUpdate.shareLineAppearanceCssName);
 		if(UsefulMethod.isNotEmpty(callPickupGroupName))tuList.add(LineLinker.toUpdate.callPickupGroupName);
 		if(UsefulMethod.isNotEmpty(fwCallingSearchSpaceName))tuList.add(LineLinker.toUpdate.fwCallingSearchSpaceName);
+		if(UsefulMethod.isNotEmpty(fwAllCallingSearchSpaceName))tuList.add(LineLinker.toUpdate.fwAllCallingSearchSpaceName);
 		if(UsefulMethod.isNotEmpty(fwAllDestination))tuList.add(LineLinker.toUpdate.fwAllDestination);
 		if(UsefulMethod.isNotEmpty(fwNoanDestination))tuList.add(LineLinker.toUpdate.fwNoanDestination);
 		if(UsefulMethod.isNotEmpty(fwBusyDestination))tuList.add(LineLinker.toUpdate.fwBusyDestination);
@@ -378,12 +382,22 @@ public class Line extends ItemToInject
 		this.fwUnrVoicemailEnable = fwUnrVoicemailEnable;
 		}
 
+	public String getFwAllCallingSearchSpaceName()
+		{
+		return fwAllCallingSearchSpaceName;
+		}
+
+	public void setFwAllCallingSearchSpaceName(String fwAllCallingSearchSpaceName)
+		{
+		this.fwAllCallingSearchSpaceName = fwAllCallingSearchSpaceName;
+		}
+
 	
 	
 	
 	
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

@@ -260,21 +260,20 @@ public class OfficeTools
 	 * 
 	 * We will also have to find the related cti route point to forward them too
 	 */
-	public static void forwardOfficeLines(Office office, String prefix, String forwardCSSName, CUCM cucm)
+	public static void forwardOfficeLines(Office office, String forwardDestination, String forwardCSSName, CUCM cucm)
 		{
 		try
 			{
 			/**
-			 * 1. We get the line list and forward them
+			 * 1. We get the line list
 			 */
 			String request = "select nm.dnorpattern as pattern,nm.tkpatternusage as usage,rp.name as partition from numplan nm, routepartition rp where nm.fkroutepartition=rp.pkid and nm.dnorpattern like '"+office.getCoda()+"%'";
 			
 			//The item lists
 			ArrayList<Line> lineList = new ArrayList<Line>();
 			ArrayList<HuntPilot> hpList = new ArrayList<HuntPilot>();
-			ArrayList<TranslationPattern> tList = new ArrayList<TranslationPattern>();
-			//ArrayList<RoutePattern> tList = new ArrayList<RoutePattern>();
-			
+			ArrayList<TranslationPattern> tpList = new ArrayList<TranslationPattern>();
+			//ArrayList<RoutePattern> rpList = new ArrayList<RoutePattern>();//To write if needed
 			
 			List<Object> reply = SimpleRequest.doSQLQuery(request, cucm);
 			for(Object o : reply)
@@ -301,26 +300,40 @@ public class OfficeTools
 				
 				if(usage.equals("2"))lineList.add(new Line(pattern, partition));//2 is for device
 				else if(usage.equals("7"))hpList.add(new HuntPilot(pattern, partition));//7 is for hunt pilot
-				else if(usage.equals("3"))tList.add(new TranslationPattern(pattern, partition));//3 is for translation pattern
+				else if(usage.equals("3"))tpList.add(new TranslationPattern(pattern, partition));//3 is for translation pattern
 				}
 			
+			/**
+			 * 2. We now forward each line using the forward all destination
+			 */
 			for(Line l : lineList)
 				{
-				if(l.getUsage().equals("2"))//2 is for device
-					{
-					//We now forward the lines
-					
-					}
+				//We now forward the line
+				l.setFwAllDestination(forwardDestination);
+				l.setFwAllCallingSearchSpaceName(forwardCSSName);
+				l.update(cucm);
 				}
 			
 			/**
-			 * 2. We get the hunt pilot list and forward their Called Party Transformation Pattern
+			 * 3. We get the hunt pilot list and forward their Called Party Transformation Pattern
 			 */
-			
+			for(HuntPilot hp : hpList)
+				{
+				
+				}
 			
 			/**
-			 * 3. We get the cti route point list and forward them
+			 * 4. we now forward each translation pattern
 			 */
+			for(TranslationPattern tp : tpList)
+				{
+				
+				}
+			
+			/**
+			 * 5. We get the cti route point list and forward them
+			 */
+			
 			}
 		catch(Exception e)
 			{
