@@ -21,6 +21,7 @@ import com.alex.camito.user.items.HuntPilot;
 import com.alex.camito.user.items.Line;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 /**
@@ -251,6 +252,7 @@ public class OfficeTools
 	 * Will scan for the following line type :
 	 * - Phone line
 	 * - Hunt pilot
+	 * - Translation pattern
 	 * 
 	 * For hunt pilots we will modify the related Calling Party Transformation Pattern
 	 * Because there is no forward all option, just noan which is not enough
@@ -260,7 +262,7 @@ public class OfficeTools
 	 * 
 	 * We will also have to find the related cti route point to forward them too
 	 */
-	public static void forwardOfficeLines(Office office, String forwardDestination, String forwardCSSName, CUCM cucm)
+	public static void forwardOfficeLines(Office office, String forwardDestination, String forwardCSSName, CUCM srccucm, CUCM dstcucm)
 		{
 		try
 			{
@@ -275,7 +277,7 @@ public class OfficeTools
 			ArrayList<TranslationPattern> tpList = new ArrayList<TranslationPattern>();
 			//ArrayList<RoutePattern> rpList = new ArrayList<RoutePattern>();//To write if needed
 			
-			List<Object> reply = SimpleRequest.doSQLQuery(request, cucm);
+			List<Object> reply = SimpleRequest.doSQLQuery(request, srccucm);
 			for(Object o : reply)
 				{
 				Element rowElement = (Element) o;
@@ -305,13 +307,38 @@ public class OfficeTools
 			
 			/**
 			 * 2. We now forward each line using the forward all destination
+			 * In addition we also copy the current forward all destination from the source cluster to the
+			 * detsination one
 			 */
 			for(Line l : lineList)
 				{
-				//We now forward the line
-				l.setFwAllDestination(forwardDestination);
-				l.setFwAllCallingSearchSpaceName(forwardCSSName);
-				l.update(cucm);
+				try
+					{
+					//We create a destination line to allow comparison and modification
+					Line dstLine = new Line(l.getName(), l.getRoutePartitionName());
+					
+					//We first check for exist and also get the current fwall values
+					l.isExisting(srccucm);
+					dstLine.isExisting(dstcucm);
+					
+					//We then copy the current forward all destination to the destination cluster
+					dstLine.setFwAllCallingSearchSpaceName(l.getFwAllCallingSearchSpaceName());
+					dstLine.setFwAllDestination(l.getFwAllDestination());
+					dstLine.setFwAllVoicemailEnable(l.getFwAllVoicemailEnable());
+					dstLine.resolve();
+					dstLine.update(dstcucm);
+					
+					//Finally we forward the line
+					l.setFwAllDestination(forwardDestination);
+					l.setFwAllCallingSearchSpaceName(forwardCSSName);
+					l.setFwAllVoicemailEnable("false");
+					l.resolve();
+					l.update(srccucm);
+					}
+				catch (Exception e)
+					{
+					Variables.getLogger().error(l.getInfo()+" : ERROR while forwarding the line : "+e.getMessage(),e);
+					}
 				}
 			
 			/**

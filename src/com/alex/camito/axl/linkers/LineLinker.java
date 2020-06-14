@@ -306,6 +306,9 @@ public class LineLinker extends AXLItemLinker
 		
 		Line myLine = new Line(this.getName(),this.getRoutePartitionName());
 		myLine.setUUID(resp.getReturn().getLine().getUuid());
+		myLine.setFwAllDestination(resp.getReturn().getLine().getCallForwardAll().getDestination());
+		myLine.setFwAllCallingSearchSpaceName(resp.getReturn().getLine().getCallForwardAll().getCallingSearchSpaceName().getValue());
+		myLine.setFwAllVoicemailEnable(resp.getReturn().getLine().getCallForwardAll().getForwardToVoiceMail());
 		//etc..
 		//Has to be written
 		
