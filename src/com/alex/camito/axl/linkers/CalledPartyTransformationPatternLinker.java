@@ -177,8 +177,9 @@ public class CalledPartyTransformationPatternLinker extends AXLItemLinker
 		
 		CalledPartyTransformationPattern myCPTP = new CalledPartyTransformationPattern(this.getName(), this.getRoutePartitionName());
 		myCPTP.setUUID(resp.getReturn().getCalledPartyTransformationPattern().getUuid());
+		myCPTP.setCalledPartyTransformationMask(resp.getReturn().getCalledPartyTransformationPattern().getCalledPartyTransformationMask());
 		
-		return myCPTP;//Return a Translation Pattern
+		return myCPTP;
 		}
 	/****************/
 

@@ -22,7 +22,8 @@ public class HuntPilot extends ItemToInject
 	routePartitionName,
 	alertingName,
 	asciiAlertingName,
-	huntListName;
+	huntListName,
+	forwardHuntNoAnswerDestination;
 	
 	/***************
 	 * Constructor
@@ -30,7 +31,7 @@ public class HuntPilot extends ItemToInject
 	 ***************/
 	public HuntPilot(String name,
 			String description, String routePartitionName, String alertingName,
-			String asciiAlertingName, String huntListName) throws Exception
+			String asciiAlertingName, String huntListName, String forwardHuntNoAnswerDestination) throws Exception
 		{
 		super(ItemType.huntpilot, name, new HuntPilotLinker(huntListName, routePartitionName));
 		this.description = description;
@@ -38,6 +39,7 @@ public class HuntPilot extends ItemToInject
 		this.alertingName = alertingName;
 		this.asciiAlertingName = asciiAlertingName;
 		this.huntListName = huntListName;
+		this.forwardHuntNoAnswerDestination = forwardHuntNoAnswerDestination;
 		}
 
 	public HuntPilot(String name, String routePartitionName) throws Exception
@@ -124,6 +126,7 @@ public class HuntPilot extends ItemToInject
 		myHuntPilot.setHuntListName(huntListName);
 		myHuntPilot.setName(name);
 		myHuntPilot.setRoutePartitionName(routePartitionName);
+		myHuntPilot.setForwardHuntNoAnswerDestination(forwardHuntNoAnswerDestination);
 		}
 	
 	public void manageTuList() throws Exception
@@ -132,6 +135,7 @@ public class HuntPilot extends ItemToInject
 		if(UsefulMethod.isNotEmpty(alertingName))tuList.add(HuntPilotLinker.toUpdate.alertingName);
 		if(UsefulMethod.isNotEmpty(asciiAlertingName))tuList.add(HuntPilotLinker.toUpdate.alertingName);
 		if(UsefulMethod.isNotEmpty(huntListName))tuList.add(HuntPilotLinker.toUpdate.huntListName);
+		if(UsefulMethod.isNotEmpty(forwardHuntNoAnswerDestination))tuList.add(HuntPilotLinker.toUpdate.forwardHuntNoAnswerDestination);
 		}
 
 	public String getDescription()
@@ -182,6 +186,16 @@ public class HuntPilot extends ItemToInject
 	public void setHuntListName(String huntListName)
 		{
 		this.huntListName = huntListName;
+		}
+
+	public String getForwardHuntNoAnswerDestination()
+		{
+		return forwardHuntNoAnswerDestination;
+		}
+
+	public void setForwardHuntNoAnswerDestination(String forwardHuntNoAnswerDestination)
+		{
+		this.forwardHuntNoAnswerDestination = forwardHuntNoAnswerDestination;
 		}
 	
 	

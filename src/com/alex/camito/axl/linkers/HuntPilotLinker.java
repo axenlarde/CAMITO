@@ -14,9 +14,7 @@ import com.alex.camito.misc.ItemToInject;
 import com.alex.camito.misc.SimpleRequest;
 import com.alex.camito.user.items.HuntPilot;
 import com.alex.camito.user.misc.UserError;
-import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ItemType;
-
 
 
 
@@ -36,13 +34,15 @@ public class HuntPilotLinker extends AXLItemLinker
 	routePartitionName,
 	alertingName,
 	asciiAlertingName,
-	huntListName;
+	huntListName,
+	forwardHuntNoAnswerDestination;
 
 	public enum toUpdate implements ToUpdate
 		{
 		description,
 		alertingName,
-		huntListName
+		huntListName,
+		forwardHuntNoAnswerDestination
 		}
 	
 	/***************
@@ -95,6 +95,7 @@ public class HuntPilotLinker extends AXLItemLinker
 		{
 		com.cisco.axl.api._10.AddHuntPilotReq req = new com.cisco.axl.api._10.AddHuntPilotReq();
 		com.cisco.axl.api._10.XHuntPilot params = new com.cisco.axl.api._10.XHuntPilot();
+		com.cisco.axl.api._10.XHuntPilot.ForwardHuntNoAnswer fwnoan = new com.cisco.axl.api._10.XHuntPilot.ForwardHuntNoAnswer();
 		
 		/**
 		 * We set the item parameters
@@ -106,6 +107,8 @@ public class HuntPilotLinker extends AXLItemLinker
 		params.setAlertingName(alertingName);
 		params.setAsciiAlertingName(asciiAlertingName);
 		params.setHuntListName(SimpleRequest.getUUIDV105(ItemType.huntlist, huntListName, cucm));
+		fwnoan.setDestination(new JAXBElement(new QName("destination"), String.class, forwardHuntNoAnswerDestination));
+		params.setForwardHuntNoAnswer(fwnoan);
 		/************/
 		
 		req.setHuntPilot(params);//We add the parameters to the request
@@ -121,6 +124,7 @@ public class HuntPilotLinker extends AXLItemLinker
 	public void doUpdateVersion105(ArrayList<ToUpdate> tuList, CUCM cucm) throws Exception
 		{
 		com.cisco.axl.api._10.UpdateHuntPilotReq req = new com.cisco.axl.api._10.UpdateHuntPilotReq();
+		com.cisco.axl.api._10.UpdateHuntPilotReq.ForwardHuntNoAnswer fwnoan = new com.cisco.axl.api._10.UpdateHuntPilotReq.ForwardHuntNoAnswer();
 		
 		/***********
 		 * We set the item parameters
@@ -135,6 +139,11 @@ public class HuntPilotLinker extends AXLItemLinker
 			req.setAsciiAlertingName(asciiAlertingName);
 			}
 		if(tuList.contains(toUpdate.huntListName))req.setHuntListName(SimpleRequest.getUUIDV105(ItemType.huntlist, huntListName, cucm));
+		if(tuList.contains(toUpdate.forwardHuntNoAnswerDestination))
+			{
+			fwnoan.setDestination(new JAXBElement(new QName("destination"), String.class, forwardHuntNoAnswerDestination));
+			req.setForwardHuntNoAnswer(fwnoan);
+			}
 		/************/
 		
 		com.cisco.axl.api._10.StandardResponse resp = cucm.getAXLConnectionV105().updateHuntPilot(req);//We send the request to the CUCM
@@ -160,6 +169,8 @@ public class HuntPilotLinker extends AXLItemLinker
 		
 		HuntPilot myHP = new HuntPilot(this.getName(), this.routePartitionName);
 		myHP.setUUID(resp.getReturn().getHuntPilot().getUuid());
+		myHP.setForwardHuntNoAnswerDestination(resp.getReturn().getHuntPilot().getForwardHuntNoAnswer().getDestination());
+		
 		//Has to be written
 		
 		return myHP;
@@ -216,9 +227,19 @@ public class HuntPilotLinker extends AXLItemLinker
 		this.huntListName = huntListName;
 		}
 
+	public String getForwardHuntNoAnswerDestination()
+		{
+		return forwardHuntNoAnswerDestination;
+		}
+
+	public void setForwardHuntNoAnswerDestination(String forwardHuntNoAnswerDestination)
+		{
+		this.forwardHuntNoAnswerDestination = forwardHuntNoAnswerDestination;
+		}
+
 	
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

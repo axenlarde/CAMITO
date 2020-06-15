@@ -15,6 +15,7 @@ import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.BasicPhone.PhoneStatus;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.SimpleRequest;
+import com.alex.camito.office.items.CalledPartyTransformationPattern;
 import com.alex.camito.office.items.TranslationPattern;
 import com.alex.camito.risport.RisportTools;
 import com.alex.camito.user.items.HuntPilot;
@@ -262,7 +263,7 @@ public class OfficeTools
 	 * 
 	 * We will also have to find the related cti route point to forward them too
 	 */
-	public static void forwardOfficeLines(Office office, String forwardDestination, String forwardCSSName, CUCM srccucm, CUCM dstcucm)
+	public static void forwardOfficeLines(Office office, String forwardPrefix, String forwardCSSName, CUCM srccucm, CUCM dstcucm)
 		{
 		try
 			{
@@ -275,6 +276,7 @@ public class OfficeTools
 			ArrayList<Line> lineList = new ArrayList<Line>();
 			ArrayList<HuntPilot> hpList = new ArrayList<HuntPilot>();
 			ArrayList<TranslationPattern> tpList = new ArrayList<TranslationPattern>();
+			ArrayList<String> ctiRPNumberList = new ArrayList<String>();
 			//ArrayList<RoutePattern> rpList = new ArrayList<RoutePattern>();//To write if needed
 			
 			List<Object> reply = SimpleRequest.doSQLQuery(request, srccucm);
@@ -308,7 +310,7 @@ public class OfficeTools
 			/**
 			 * 2. We now forward each line using the forward all destination
 			 * In addition we also copy the current forward all destination from the source cluster to the
-			 * detsination one
+			 * destination one
 			 */
 			for(Line l : lineList)
 				{
@@ -329,15 +331,16 @@ public class OfficeTools
 					dstLine.update(dstcucm);
 					
 					//Finally we forward the line
-					l.setFwAllDestination(forwardDestination);
+					l.setFwAllDestination(forwardPrefix+l.getName());
 					l.setFwAllCallingSearchSpaceName(forwardCSSName);
 					l.setFwAllVoicemailEnable("false");
 					l.resolve();
 					l.update(srccucm);
+					Variables.getLogger().debug(office.getInfo()+" Line "+l.getInfo()+" :  forwarded");
 					}
 				catch (Exception e)
 					{
-					Variables.getLogger().error(l.getInfo()+" : ERROR while forwarding the line : "+e.getMessage(),e);
+					Variables.getLogger().error(office.getInfo()+" : "+l.getInfo()+" : ERROR while forwarding the line : "+e.getMessage(),e);
 					}
 				}
 			
@@ -346,7 +349,51 @@ public class OfficeTools
 			 */
 			for(HuntPilot hp : hpList)
 				{
-				
+				try
+					{
+					//Check for exist
+					hp.isExisting(srccucm);
+					
+					//We check for forward to cti route point
+					if(UsefulMethod.isNotEmpty(hp.getForwardHuntNoAnswerDestination()))ctiRPNumberList.add(hp.getForwardHuntNoAnswerDestination());
+					
+					//We find the related called party transformation pattern using a sql request
+					String calledPTPRequest = "select np.dnorpattern as pattern, rp.name as partition from numplan np, routepartition rp where np.fkroutepartition=rp.pkid and tkpatternusage='20' and calledpartytransformationmask='"+hp.getName()+"'";
+					List<Object> calledPTPReply = SimpleRequest.doSQLQuery(calledPTPRequest, srccucm);
+					
+					CalledPartyTransformationPattern calledPTP = null;
+					for(Object o : calledPTPReply)
+						{
+						Element rowElement = (Element) o;
+						NodeList list = rowElement.getChildNodes();
+						
+						String pattern=null,partition=null;
+						for(int i = 0; i< list.getLength(); i++)
+							{
+							if(list.item(i).getNodeName().equals("pattern"))
+								{
+								pattern = list.item(i).getTextContent();
+								}
+							else if(list.item(i).getNodeName().equals("partition"))
+								{
+								partition = list.item(i).getTextContent();
+								}
+							}
+						calledPTP = new CalledPartyTransformationPattern(pattern, partition);
+						break;//Should only return one object
+						}
+					
+					//We now update the Called Party Transformation Pattern
+					calledPTP.isExisting(srccucm);
+					calledPTP.setCalledPartyTransformationMask(forwardPrefix+calledPTP.getCalledPartyTransformationMask());
+					calledPTP.resolve();
+					calledPTP.update(srccucm);
+					Variables.getLogger().debug(office.getInfo()+" Hunt Pilot "+hp.getInfo()+" :  forwarded");
+					}
+				catch (Exception e)
+					{
+					Variables.getLogger().error(office.getInfo()+" : "+hp.getInfo()+" : ERROR while forwarding hunt pilot : "+e.getMessage(),e);
+					}
 				}
 			
 			/**
@@ -354,13 +401,76 @@ public class OfficeTools
 			 */
 			for(TranslationPattern tp : tpList)
 				{
-				
+				try
+					{
+					tp.isExisting(srccucm);
+					tp.setCalledPartyTransformationMask(forwardPrefix+tp.getCalledPartyTransformationMask());
+					tp.resolve();
+					tp.update(srccucm);
+					}
+				catch(Exception e)
+					{
+					Variables.getLogger().error(office.getInfo()+" : "+tp.getInfo()+" : ERROR while forwarding translation pattern : "+e.getMessage(),e);
+					}
 				}
 			
 			/**
 			 * 5. We get the cti route point list and forward them
 			 */
-			
+			for(String s : ctiRPNumberList)
+				{
+				try
+					{
+					//If the line begins with the office prefix we ignore it because it has already been processed
+					if(s.startsWith(office.getCoda()))
+						{
+						//Ignore
+						}
+					else
+						{
+						//Should be a cti route point so we forward it
+						Line ctiRP = null;
+						
+						/**
+						 * We first have to get the partition so we start with a sql request
+						 * This request also get only cti route point device so we are sure
+						 * this is a ctirp
+						 */
+						String ctiRequest = "select np.dnorpattern as pattern,rp.name as partition from numplan np, routepartition rp, devicenumplanmap dnpm, device d where np.fkroutepartition=rp.pkid and dnpm.fknumplan=np.pkid and d.pkid = dnpm.fkdevice and d.tkclass='10' and np.dnorpattern='"+s+"'";
+						List<Object> ctiReply = SimpleRequest.doSQLQuery(ctiRequest, srccucm);
+						for(Object o : ctiReply)
+							{
+							Element rowElement = (Element) o;
+							NodeList list = rowElement.getChildNodes();
+							
+							String pattern = null,partition = null;
+							for(int i = 0; i< list.getLength(); i++)
+								{
+								if(list.item(i).getNodeName().equals("pattern"))
+									{
+									pattern = list.item(i).getTextContent();
+									}
+								else if(list.item(i).getNodeName().equals("partition"))
+									{
+									partition = list.item(i).getTextContent();
+									}
+								}
+							ctiRP = new Line(pattern, partition);
+							break;//Should only return one line so we can break
+							}
+						ctiRP.isExisting(srccucm);
+						ctiRP.setFwAllCallingSearchSpaceName(forwardCSSName);
+						ctiRP.setFwAllDestination(forwardPrefix+ctiRP.getName());
+						ctiRP.resolve();
+						ctiRP.update(srccucm);
+						Variables.getLogger().debug(office.getInfo()+" : CTI RP '"+s+"' forwarded");
+						}
+					}
+				catch (Exception e)
+					{
+					Variables.getLogger().error(office.getInfo()+" : "+s+" : ERROR while forwarding cti route point : "+e.getMessage(),e);
+					}
+				}
 			}
 		catch(Exception e)
 			{

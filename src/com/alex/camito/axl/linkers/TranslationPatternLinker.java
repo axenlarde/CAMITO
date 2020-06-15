@@ -143,6 +143,7 @@ public class TranslationPatternLinker extends AXLItemLinker
 		 */
 		req.setPattern(this.getName());
 		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm)));
+		req.setCalledPartyTransformationMask(new JAXBElement(new QName("calledPartyTransformationMask"), String.class, calledPartyTransformationMask));
 		//Has to be written
 		/************/
 		
@@ -165,10 +166,11 @@ public class TranslationPatternLinker extends AXLItemLinker
 		req.setRoutePartitionName(new JAXBElement(new QName("routePartitionName"), com.cisco.axl.api._10.XFkType.class, SimpleRequest.getUUIDV105(ItemType.partition, this.routePartitionName, cucm)));
 		/************/
 		
-		com.cisco.axl.api._10.GetTransPatternRes resp =cucm.getAXLConnectionV105().getTransPattern(req);//We send the request to the CUCM
+		com.cisco.axl.api._10.GetTransPatternRes resp = cucm.getAXLConnectionV105().getTransPattern(req);//We send the request to the CUCM
 		
 		TranslationPattern myTP = new TranslationPattern(this.getName(), this.getRoutePartitionName());
 		myTP.setUUID(resp.getReturn().getTransPattern().getUuid());
+		myTP.setCalledPartyTransformationMask(resp.getReturn().getTransPattern().getCalledPartyTransformationMask());
 		
 		return myTP;//Return a Translation Pattern
 		}
@@ -280,8 +282,6 @@ public class TranslationPatternLinker extends AXLItemLinker
 	
 
 	
-	
-	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 
