@@ -65,7 +65,7 @@ public class Main
 			 * 
 			 * We do it now to avoid latency during real request
 			 */
-			//UsefulMethod.initCUCM();
+			UsefulMethod.initCUCM();
 			}
 		catch(Exception exc)
 			{

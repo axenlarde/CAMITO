@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.alex.camito.cli.CliInjector;
 import com.alex.camito.cli.CliTools;
 import com.alex.camito.device.Device;
+import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.EmailManager;
-import com.alex.camito.misc.ErrorTemplate;
 import com.alex.camito.misc.storedUUID;
 import com.alex.camito.office.misc.Office;
 import com.alex.camito.office.misc.OfficeTools;
@@ -54,6 +54,7 @@ public class Task extends Thread
 	private ThreadManager cliManager;
 	private ThreadManager pingManager;
 	private String statusDescription;
+	private CUCM srccucm, dstcucm;
 	
 	/***************
 	 * Constructor
@@ -67,6 +68,8 @@ public class Task extends Thread
 		this.taskID = id;
 		this.ownerID = ownerID;
 		this.action = action;
+		this.srccucm = (action.equals(ActionType.rollback))?Variables.getDstcucm():Variables.getSrccucm();
+		this.dstcucm = (action.equals(ActionType.rollback))?Variables.getSrccucm():Variables.getDstcucm();
 		}
 	
 	public void run()
@@ -109,6 +112,7 @@ public class Task extends Thread
 				 * - Test the selected office's did line
 				 */
 				status = TaskStatus.preaudit;
+				if(!stop)fixMismatch();
 				if(!stop)officeSurvey();
 				if(!stop)deviceSurvey();
 				
@@ -130,6 +134,21 @@ public class Task extends Thread
 				if(!stop)status = TaskStatus.processing;
 				if(!stop)sendDeviceCli();
 				if(!stop)reset();
+				if(!stop)forwardLines();
+				
+				if(cliManager.isAlive() && (!stop))
+					{
+					/**
+					 * If the cli manager is not ended yet we wait for it
+					 */
+					Variables.getLogger().debug("We wait for the cli manager to end");
+					while(cliManager.isAlive() && (!stop))
+						{
+						this.sleep(500);
+						}
+					Variables.getLogger().debug("Cli manager ends");
+					}
+				
 				setOfficeMigrationStatus();
 				if(!stop)status = TaskStatus.postaudit;
 				officeSurvey();
@@ -217,7 +236,7 @@ public class Task extends Thread
 		for(Office o : officeList)
 			{
 			if(stop)break;
-			o.build();
+			o.build(srccucm, dstcucm);
 			}
 		
 		Variables.getLogger().info("Build process ends");
@@ -393,55 +412,8 @@ public class Task extends Thread
 		else if(!stop)
 			{
 			cliManager.start();
-			
-			/**
-			 * It is better to wait for the cli task to end before starting the AXL ones
-			 * For instance, it is pointless to reset a sip trunk before changing the ISR ip
-			 */
-			Variables.getLogger().debug("We wait for the cli manager to end");
-			while(cliManager.isAlive() && (!stop))
-				{
-				this.sleep(500);
-				}
-			Variables.getLogger().debug("Cli manager ends");
-			
-			if(UsefulMethod.getTargetOption("smtperroremailenable").equals("true"))
-				{
-				/**
-				 * If an error occurred we send an email to warn the main admin
-				 */
-				for(Thread t : cliManager.getThreadList())
-					{
-					CliInjector clii = (CliInjector)t;
-					Device d = clii.getDevice();
-					if(d.getStatus().equals(StatusType.error))
-						{
-						Variables.getLogger().debug("Error occurred with device "+d.getInfo()+" : sending email to the main admin");
-						String adminEmail = UsefulMethod.getTargetOption("smtperroremail");
-						
-						try
-							{
-							StringBuffer content = new StringBuffer();
-							content.append("An error occured with the following device : "+d.getInfo()+" , office "+d.getOfficeid()+"\t\r\n");
-							for(ErrorTemplate e : d.getErrorList())
-								{
-								content.append("- "+e.getErrorDesc()+"\t\r\n");
-								}
-							Variables.geteMSender().send(adminEmail,
-									Variables.getSoftwareName()+" : an error occurred with a device",
-									content.toString(),
-									"Error email");
-							Variables.getLogger().debug("Error email sent for "+d.getInfo());
-							}
-						catch (Exception e)
-							{
-							Variables.getLogger().debug("Failed to send an error email to "+adminEmail+" : "+e.getMessage());
-							}
-						}
-					}
-				}
 			}
-		
+			
 		Variables.getLogger().info("Sending device cli ends");
 		}
 	
@@ -450,7 +422,7 @@ public class Task extends Thread
 	 */
 	private void reset()
 		{
-		Variables.getLogger().info("Beginning the reset process");
+		Variables.getLogger().info("Starting reset process");
 		for(Office o : officeList)
 			{
 			try
@@ -491,6 +463,52 @@ public class Task extends Thread
 			case start:setPause(false);break;
 			case stop:setStop(true);break;
 			default:break;
+			}
+		}
+	
+	/**
+	 * Forward all the lines from the source cluster
+	 * to the destination one
+	 */
+	private void forwardLines()
+		{
+		Variables.getLogger().info("Starting forwarding lines");
+		try
+			{
+			String forwardPrefix = UsefulMethod.getTargetOption("forwardprefix");
+			String forwardCSSName = UsefulMethod.getTargetOption("forwardcss");
+			
+			for(Office o : officeList)
+				{
+				OfficeTools.forwardOfficeLines(o, forwardPrefix, forwardCSSName, srccucm, dstcucm);
+				}
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().error("ERROR while forwarding lines : "+e.getMessage(), e);
+			}
+		
+		Variables.getLogger().info("End of the forward lines process");
+		}
+	
+	/**
+	 * Check for configuration mismatch between source and destination cluster
+	 * and fix them
+	 */
+	private void fixMismatch()
+		{
+		if(action.equals(ActionType.rollback))
+			{
+			Variables.getLogger().debug("Nothing to fix during a rollback : skipping the fix mismatch process");
+			}
+		else
+			{
+			Variables.getLogger().info("Starting mismatch fixing");
+			
+			
+			
+			
+			Variables.getLogger().info("End of the mismatch fix process");
 			}
 		}
 

@@ -506,7 +506,76 @@ public class OfficeTools
 			}
 		}
 	
-	
+	/******
+	 * Fix configuration mismatch between the source
+	 * and the destination cluster
+	 * 
+	 * Will look for configuration mismatch among the following :
+	 * - Devices
+	 * - Line group members
+	 * - Lines
+	 * 
+	 * !!!! In this version we only report the mismatch, we do not fix them !!!!
+	 */
+	public static void fixMismatch(Office office, CUCM srccucm, CUCM dstcucm)
+		{
+		try
+			{
+			StringBuffer mismatchList = new StringBuffer("");
+			String splitter = UsefulMethod.getTargetOption("csvsplitter");
+			/**
+			 * 1. Device mismatch
+			 * 
+			 * The device mismatch have already been discovered during the office build process
+			 * So we do not check for it again
+			 */
+			for(BasicPhone bp : office.getMissingPhone())mismatchList.append(office.getInfo()+" : "+bp.getName()+"\r\n");
+			
+			/**
+			 * 2. Line group members
+			 * 
+			 * We report mismatch and in the same time we verify that
+			 * all the members are logged in
+			 */
+			String lgRequest = "select np.pkid as lineUUID,lg.pkid as lgUUID,np.dnorpattern as pattern,lg.name as lgName from numplan np, linegroup lg, linegroupnumplanmap lgnpm where lg.pkid=lgnpm.fklinegroup and np.pkid=lgnpm.fknumplan and np.dnorpattern like '"+office.getCoda()+"%'";
+			List<Object> reply = SimpleRequest.doSQLQuery(lgRequest, srccucm);
+			for(Object o : reply)
+				{
+				Element rowElement = (Element) o;
+				NodeList list = rowElement.getChildNodes();
+				
+				String pattern = null,usage = null,partition = null;
+				for(int i = 0; i< list.getLength(); i++)
+					{
+					if(list.item(i).getNodeName().equals("pattern"))
+						{
+						pattern = list.item(i).getTextContent();
+						}
+					else if(list.item(i).getNodeName().equals("usage"))
+						{
+						usage = list.item(i).getTextContent();
+						}
+					else if(list.item(i).getNodeName().equals("partition"))
+						{
+						partition = list.item(i).getTextContent();
+						}
+					}
+				
+				}
+			
+			/**
+			 * 3. Lines
+			 * We should check for alerting name, description, etc. changes
+			 * but it is too time consuming for what it brings  
+			 */
+			
+			
+			}
+		catch (Exception e)
+			{
+			Variables.getLogger().error(office.getInfo()+" : ERROR while fixing mismatch : "+e.getMessage(),e);
+			}
+		}
 	
 	
 	/*2020*//*RATEL Alexandre 8)*/

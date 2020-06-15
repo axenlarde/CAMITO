@@ -47,6 +47,8 @@ public class Office
 	
 	private DevicePool devicePool;
 	private ArrayList<BasicPhone> phoneList;
+	private ArrayList<BasicPhone> dstPhoneList;
+	private ArrayList<BasicPhone> missingPhone;
 	private ArrayList<Did> didList;
 	private ArrayList<ErrorTemplate> errorList;
 	private ArrayList<Device> deviceList;
@@ -68,6 +70,8 @@ public class Office
 		deviceList = new ArrayList<Device>();
 		for(BasicDevice bd : bo.getDeviceList())deviceList.add(new Device(bd, action));
 		phoneList = new ArrayList<BasicPhone>();
+		dstPhoneList = new ArrayList<BasicPhone>();
+		missingPhone = new ArrayList<BasicPhone>();
 		errorList = new ArrayList<ErrorTemplate>();
 		this.status = StatusType.init;
 		}
@@ -99,7 +103,7 @@ public class Office
 		else return s.toString();
 		}
 
-	public void build() throws Exception
+	public void build(CUCM srccucm, CUCM dstcucm) throws Exception
 		{
 		/**
 		 * We build the associated device pool
@@ -107,12 +111,12 @@ public class Office
 		//We check for the office device pool in both cluster
 		try
 			{
-			devicePool.isExisting(Variables.getSrccucm());//Will raise an exception if not
+			devicePool.isExisting(srccucm);//Will raise an exception if not
 			exists = true;
 			}
 		catch(Exception e)
 			{
-			addError(new ErrorTemplate(getInfo()+" ERROR : the associated device pool was not found in the source cluster : "+devicePool.getName()));
+			addError(new ErrorTemplate(getInfo()+" : ERROR : the associated device pool was not found in the source cluster : "+devicePool.getName()));
 			this.status = StatusType.error;
 			exists = false;
 			return;
@@ -120,27 +124,26 @@ public class Office
 		
 		try
 			{
-			devicePool.isExisting(Variables.getDstcucm());//Will raise an exception if not
+			devicePool.isExisting(dstcucm);//Will raise an exception if not
 			exists = true;
 			}
 		catch(Exception e)
 			{
-			addError(new ErrorTemplate(getInfo()+" ERROR : the associated device pool was not found in the destination cluster : "+devicePool.getName()));
+			addError(new ErrorTemplate(getInfo()+" : ERROR : the associated device pool was not found in the destination cluster : "+devicePool.getName()));
 			this.status = StatusType.error;
 			exists = false;
 			return;
 			}
 		
 		/**
-		 * We now build the associated phone list
+		 * We now build the associated phone lists
 		 */
-		phoneList = OfficeTools.getDevicePoolPhoneList(devicePool.getName(), action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm());
+		phoneList = OfficeTools.getDevicePoolPhoneList(devicePool.getName(), srccucm);
+		dstPhoneList = OfficeTools.getDevicePoolPhoneList(devicePool.getName(), dstcucm);
 		
 		/**
 		 * We check that no phone are missing in the destination cluster
 		 */
-		ArrayList<BasicPhone> dstPhoneList = OfficeTools.getDevicePoolPhoneList(devicePool.getName(), action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
-		
 		for(BasicPhone bp : phoneList)
 			{
 			boolean missing = true;
@@ -152,7 +155,11 @@ public class Office
 					break;
 					}
 				}
-			if(missing)Variables.getLogger().debug("Warning : the following phone is missing in the destination cluster : "+bp.getName());
+			if(missing)
+				{
+				missingPhone.add(bp);
+				Variables.getLogger().debug("Warning : the following phone is missing in the destination cluster : "+bp.getName());
+				}
 			}
 		}
 	
@@ -343,6 +350,16 @@ public class Office
 	public void setStatus(StatusType status)
 		{
 		this.status = status;
+		}
+
+	public ArrayList<BasicPhone> getDstPhoneList()
+		{
+		return dstPhoneList;
+		}
+
+	public ArrayList<BasicPhone> getMissingPhone()
+		{
+		return missingPhone;
 		}
 
 
