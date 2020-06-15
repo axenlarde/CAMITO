@@ -362,6 +362,7 @@ public class OfficeTools
 					List<Object> calledPTPReply = SimpleRequest.doSQLQuery(calledPTPRequest, srccucm);
 					
 					CalledPartyTransformationPattern calledPTP = null;
+					CalledPartyTransformationPattern dstCalledPTP = null;
 					for(Object o : calledPTPReply)
 						{
 						Element rowElement = (Element) o;
@@ -380,11 +381,18 @@ public class OfficeTools
 								}
 							}
 						calledPTP = new CalledPartyTransformationPattern(pattern, partition);
+						dstCalledPTP = new CalledPartyTransformationPattern(pattern, partition);
 						break;//Should only return one object
 						}
 					
-					//We now update the Called Party Transformation Pattern
+					//We copy the source data to the destination one
 					calledPTP.isExisting(srccucm);
+					dstCalledPTP.isExisting(dstcucm);
+					dstCalledPTP.setCalledPartyTransformationMask(calledPTP.getCalledPartyTransformationMask());
+					dstCalledPTP.resolve();
+					dstCalledPTP.update(dstcucm);
+					
+					//We now forward the Called Party Transformation Pattern
 					calledPTP.setCalledPartyTransformationMask(forwardPrefix+calledPTP.getCalledPartyTransformationMask());
 					calledPTP.resolve();
 					calledPTP.update(srccucm);
@@ -403,10 +411,21 @@ public class OfficeTools
 				{
 				try
 					{
+					//We first copy the source object
+					TranslationPattern dstTP = new TranslationPattern(tp.getName(), tp.getRoutePartitionName());
+					
+					//We copy the source data to the destination one
 					tp.isExisting(srccucm);
+					dstTP.isExisting(dstcucm);
+					dstTP.setCalledPartyTransformationMask(tp.getCalledPartyTransformationMask());
+					dstTP.resolve();
+					dstTP.update(dstcucm);
+					
+					//We now forward the source translation pattern
 					tp.setCalledPartyTransformationMask(forwardPrefix+tp.getCalledPartyTransformationMask());
 					tp.resolve();
 					tp.update(srccucm);
+					Variables.getLogger().debug(office.getInfo()+" Translation Pattern "+tp.getInfo()+" :  forwarded");
 					}
 				catch(Exception e)
 					{
@@ -458,6 +477,15 @@ public class OfficeTools
 							ctiRP = new Line(pattern, partition);
 							break;//Should only return one line so we can break
 							}
+						
+						//We copy the source data to the destination one
+						Line dstCtiRP = new Line(ctiRP.getName(), ctiRP.getRoutePartitionName());
+						dstCtiRP.setFwAllCallingSearchSpaceName(ctiRP.getFwAllCallingSearchSpaceName());
+						dstCtiRP.setFwAllDestination(ctiRP.getFwAllDestination());
+						dstCtiRP.resolve();
+						dstCtiRP.update(dstcucm);
+						
+						//We now forward the source cti route point
 						ctiRP.isExisting(srccucm);
 						ctiRP.setFwAllCallingSearchSpaceName(forwardCSSName);
 						ctiRP.setFwAllDestination(forwardPrefix+ctiRP.getName());
