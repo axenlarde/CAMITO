@@ -1,6 +1,11 @@
 package com.alex.camito.action;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.alex.camito.cli.CliInjector;
 import com.alex.camito.cli.CliTools;
@@ -8,6 +13,7 @@ import com.alex.camito.device.Device;
 import com.alex.camito.misc.CUCM;
 import com.alex.camito.misc.EmailManager;
 import com.alex.camito.misc.storedUUID;
+import com.alex.camito.office.misc.LinkedOffice;
 import com.alex.camito.office.misc.Office;
 import com.alex.camito.office.misc.OfficeTools;
 import com.alex.camito.utils.UsefulMethod;
@@ -136,7 +142,7 @@ public class Task extends Thread
 				if(!stop)reset();
 				if(!stop)forwardLines();
 				
-				if(cliManager.isAlive() && (!stop))
+				if((cliManager != null) && cliManager.isAlive() && (!stop))
 					{
 					/**
 					 * If the cli manager is not ended yet we wait for it
@@ -260,27 +266,34 @@ public class Task extends Thread
 	private void officeSurvey()
 		{
 		Variables.getLogger().info("Starting office survey");
-		ArrayList<Office> ol = new ArrayList<Office>();
-		
-		for(Office o : officeList)
+		try
 			{
-			if(o.getStatus().equals(StatusType.error))
+			ArrayList<Office> ol = new ArrayList<Office>();
+			
+			for(Office o : officeList)
 				{
-				Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not start the survey");
-				}
-			else
-				{
-				if(o.isExists())
+				if(o.getStatus().equals(StatusType.error))
 					{
-					ol.add(o);
+					Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not start the survey");
+					}
+				else
+					{
+					if(o.isExists())
+						{
+						ol.add(o);
+						}
 					}
 				}
+			
+			if(ol.size() > 0)
+				{
+				OfficeTools.phoneSurvey(ol, action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm(),
+						action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
+				}
 			}
-		
-		if(ol.size() > 0)
+		catch (Exception e)
 			{
-			OfficeTools.phoneSurvey(ol, action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm(),
-					action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
+			Variables.getLogger().error("ERROR during the office survey : "+e.getMessage(), e);
 			}
 		
 		Variables.getLogger().info("Office survey ends");
@@ -294,65 +307,72 @@ public class Task extends Thread
 		{
 		Variables.getLogger().info("Starting device survey");
 		
-		/**
-		 * First we ping the devices and disable the not reachable ones
-		 */
-		
-		int pingTimeout = Integer.parseInt(UsefulMethod.getTargetOption("pingtimeout"));
-		int maxThread = Integer.parseInt(UsefulMethod.getTargetOption("maxpingthread"));
-		ArrayList<Device> deviceList = new ArrayList<Device>();
-		
-		for(Office o : officeList)
+		try
 			{
-			if(o.getStatus().equals(StatusType.error))
+			/**
+			 * First we ping the devices and disable the not reachable ones
+			 */
+			
+			int pingTimeout = Integer.parseInt(UsefulMethod.getTargetOption("pingtimeout"));
+			int maxThread = Integer.parseInt(UsefulMethod.getTargetOption("maxpingthread"));
+			ArrayList<Device> deviceList = new ArrayList<Device>();
+			
+			for(Office o : officeList)
 				{
-				Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not start the survey");
+				if(o.getStatus().equals(StatusType.error))
+					{
+					Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not start the survey");
+					}
+				else
+					{
+					deviceList.addAll(o.getDeviceList());
+					}
 				}
-			else
+			
+			Variables.getLogger().info("Pinging devices");
+			
+			if((deviceList == null) || (deviceList.size() == 0))
 				{
-				deviceList.addAll(o.getDeviceList());
+				Variables.getLogger().debug("No device to ping");
+				return;
 				}
+			
+			ArrayList<Thread> threadList = new ArrayList<Thread>();
+			
+			for(Device d : deviceList)
+				{
+				if(d.getStatus() == StatusType.error)
+					{
+					Variables.getLogger().debug(d.getInfo()+" : Raised an error so we do not start the survey");
+					}
+				else
+					{
+					threadList.add(new PingProcess(d, pingTimeout));
+					}
+				}
+			
+			pingManager = new ThreadManager(maxThread,
+					100,
+					threadList);
+			
+			pingManager.start();
+			
+			/**
+			 * It is better to wait for the ping manager to end before continue
+			 */
+			Variables.getLogger().debug("We wait for the ping manager to end");
+			while(pingManager.isAlive() && (!stop))
+				{
+				this.sleep(200);
+				}
+			Variables.getLogger().debug("Ping manager ends");
+			
+			Variables.getLogger().info("Device survey ends");
 			}
-		
-		Variables.getLogger().info("Pinging devices");
-		
-		if((deviceList == null) || (deviceList.size() == 0))
+		catch (Exception e)
 			{
-			Variables.getLogger().debug("No device to ping");
-			return;
+			Variables.getLogger().error("ERROR during the device survey : "+e.getMessage(),e);
 			}
-		
-		ArrayList<Thread> threadList = new ArrayList<Thread>();
-		
-		for(Device d : deviceList)
-			{
-			if(d.getStatus() == StatusType.error)
-				{
-				Variables.getLogger().debug(d.getInfo()+" : Raised an error so we do not start the survey");
-				}
-			else
-				{
-				threadList.add(new PingProcess(d, pingTimeout));
-				}
-			}
-		
-		pingManager = new ThreadManager(maxThread,
-				100,
-				threadList);
-		
-		pingManager.start();
-		
-		/**
-		 * It is better to wait for the ping manager to end before continue
-		 */
-		Variables.getLogger().debug("We wait for the ping manager to end");
-		while(pingManager.isAlive() && (!stop))
-			{
-			this.sleep(200);
-			}
-		Variables.getLogger().debug("Ping manager ends");
-		
-		Variables.getLogger().info("Device survey ends");
 		}
 	
 	/**
@@ -363,58 +383,65 @@ public class Task extends Thread
 		{
 		Variables.getLogger().info("Starting sending device cli");
 		
-		/**
-		 * We take all the devices and start the cli update process
-		 * Because each cliInjector is a different thread we can start them all
-		 * simultaneously to save time
-		 */
-		
-		ArrayList<Device> deviceList = new ArrayList<Device>();
-		ArrayList<Thread> cliList = new ArrayList<Thread>();
-		
-		for(Office o : officeList)
+		try
 			{
-			if(o.getStatus().equals(StatusType.error))
+			/**
+			 * We take all the devices and start the cli update process
+			 * Because each cliInjector is a different thread we can start them all
+			 * simultaneously to save time
+			 */
+			
+			ArrayList<Device> deviceList = new ArrayList<Device>();
+			ArrayList<Thread> cliList = new ArrayList<Thread>();
+			
+			for(Office o : officeList)
 				{
-				Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not process its devices");
-				}
-			else
-				{
-				deviceList.addAll(o.getDeviceList());
-				}
-			}
-		
-		for(Device d : deviceList)
-			{
-			if(d.getStatus() == StatusType.error)
-				{
-				Variables.getLogger().debug(d.getInfo()+" : Raised an error so we do not start to send cli for it");
-				}
-			else
-				{
-				if(d.getCliProfile() != null)
+				if(o.getStatus().equals(StatusType.error))
 					{
-					CliInjector clii = new CliInjector(d);
-					clii.resolve();
-					cliList.add(clii);
+					Variables.getLogger().debug(o.getInfo()+" : Raised an error so we do not process its devices");
+					}
+				else
+					{
+					deviceList.addAll(o.getDeviceList());
 					}
 				}
+			
+			for(Device d : deviceList)
+				{
+				if(d.getStatus() == StatusType.error)
+					{
+					Variables.getLogger().debug(d.getInfo()+" : Raised an error so we do not start to send cli for it");
+					}
+				else
+					{
+					if(d.getCliProfile() != null)
+						{
+						CliInjector clii = new CliInjector(d);
+						clii.resolve();
+						cliList.add(clii);
+						}
+					}
+				}
+			
+			cliManager = new ThreadManager(Integer.parseInt(UsefulMethod.getTargetOption("maxclithread")),
+					100,
+					cliList);
+			
+			if(cliList.size() == 0)
+				{
+				Variables.getLogger().debug("No device to update");
+				}
+			else if(!stop)
+				{
+				cliManager.start();
+				}
 			}
-		
-		cliManager = new ThreadManager(Integer.parseInt(UsefulMethod.getTargetOption("maxclithread")),
-				100,
-				cliList);
-		
-		if(cliList.size() == 0)
+		catch (Exception e)
 			{
-			Variables.getLogger().debug("No device to update");
-			}
-		else if(!stop)
-			{
-			cliManager.start();
+			Variables.getLogger().error("ERROR during the device cli injection : "+e.getMessage(), e);
 			}
 			
-		Variables.getLogger().info("Sending device cli ends");
+		Variables.getLogger().info("Cli manager started");
 		}
 	
 	/**
@@ -480,7 +507,15 @@ public class Task extends Thread
 			
 			for(Office o : officeList)
 				{
-				OfficeTools.forwardOfficeLines(o, forwardPrefix, forwardCSSName, srccucm, dstcucm);
+				if(!o.getStatus().equals(StatusType.error))
+					{
+					OfficeTools.forwardOfficeLines(o, forwardPrefix, forwardCSSName, srccucm, dstcucm);
+					
+					for(LinkedOffice lo : o.getLinkedOffice())
+						{
+						OfficeTools.forwardOfficeLines(lo, forwardPrefix, forwardCSSName, srccucm, dstcucm);
+						}
+					}
 				}
 			}
 		catch (Exception e)
@@ -505,8 +540,51 @@ public class Task extends Thread
 			{
 			Variables.getLogger().info("Starting mismatch fixing");
 			
-			
-			
+			try
+				{
+				ArrayList<String> mismatchList = new ArrayList<String>();
+				String splitter = UsefulMethod.getTargetOption("csvsplitter");
+				
+				for(Office o : officeList)
+					{
+					if(!o.getStatus().equals(StatusType.error))
+						{
+						mismatchList.addAll(OfficeTools.fixMismatch(o, srccucm, dstcucm));
+						
+						for(LinkedOffice lo : o.getLinkedOffice())
+							{
+							mismatchList.addAll(OfficeTools.fixMismatch(lo, srccucm, dstcucm));
+							}
+						}
+					}
+				
+				/**
+				 * We end by writing down the mismatch found
+				 */
+				if(mismatchList.size() > 0)
+					{
+					Variables.getLogger().debug("Writing mismatch list to a file");
+					SimpleDateFormat time = new SimpleDateFormat("HHmmss");
+					Date date = new Date();
+					String fileName = Variables.getMismatcheListFileName()+"_"+time.format(date);
+					BufferedWriter csvBuffer = new BufferedWriter(new FileWriter(new File(Variables.getMainDirectory()+"/"+fileName+".csv"), false));
+					csvBuffer.write("Office,Item Type,Description\r\n");//First line
+					
+					for(String s : mismatchList)csvBuffer.write(s);
+					
+					csvBuffer.flush();
+					csvBuffer.close();
+					Variables.getLogger().debug("Writing mismatch list : Done !");
+					}
+				else
+					{
+					Variables.getLogger().debug("No mismatch to write");
+					}
+				}
+			catch (Exception e)
+				{
+				Variables.getLogger().error("ERROR while fixing mismatch : "+e.getMessage(), e);
+				}
 			
 			Variables.getLogger().info("End of the mismatch fix process");
 			}

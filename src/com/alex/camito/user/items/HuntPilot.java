@@ -93,6 +93,7 @@ public class HuntPilot extends ItemToInject
 		{
 		HuntPilot myHP = (HuntPilot) linker.get(cucm);
 		this.UUID = myHP.getUUID();
+		this.forwardHuntNoAnswerDestination = myHP.getForwardHuntNoAnswerDestination();
 		//Has to be enhanced
 		
 		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");

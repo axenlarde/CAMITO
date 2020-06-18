@@ -25,7 +25,7 @@ import com.alex.camito.utils.Variables.StatusType;
  *
  * @author Alexandre RATEL
  */
-public class Office  
+public class Office extends SourceOffice
 	{
 	/**
 	 * Variables
@@ -34,12 +34,8 @@ public class Office
 	private ActionType action;
 	
 	private String id,
-	name,
-	coda,
-	pole,
 	dxi;
 	
-	private OfficeType officeType;
 	private CMG cmg;
 	private Lot lot;
 	
@@ -50,20 +46,16 @@ public class Office
 	private ArrayList<BasicPhone> dstPhoneList;
 	private ArrayList<BasicPhone> missingPhone;
 	private ArrayList<Did> didList;
-	private ArrayList<ErrorTemplate> errorList;
 	private ArrayList<Device> deviceList;
+	private ArrayList<LinkedOffice> linkedOffice;
 
 	public Office(BasicOffice bo, ActionType action) throws Exception
 		{
-		super();
+		super(bo.getCoda(), bo.getName(), bo.getPole(), bo.getOfficeType());
 		this.action = action;
 		this.id = bo.getId();
-		this.name = bo.getName();
-		this.coda = bo.getCoda();
-		this.pole = bo.getPole();
 		this.dxi = bo.getDxi();
 		this.devicePool = new DevicePool(bo.getDevicepool());
-		this.officeType = bo.getOfficeType();
 		this.cmg = bo.getCmg();
 		this.lot = bo.getLot();
 		this.didList = bo.getDidList();
@@ -74,33 +66,8 @@ public class Office
 		missingPhone = new ArrayList<BasicPhone>();
 		errorList = new ArrayList<ErrorTemplate>();
 		this.status = StatusType.init;
-		}
-
-	public String getInfo()
-		{
-		StringBuffer s = new StringBuffer("");
-		s.append(LanguageManagement.getString("office")+" ");
-		s.append(coda+" ");
-		s.append(name);
-		
-		int maxchar = 50;
-		
-		try
-			{
-			maxchar = Integer.parseInt(UsefulMethod.getTargetOption("maxinfochar"));
-			}
-		catch (Exception e)
-			{
-			Variables.getLogger().error("Unable to retrieve maxinfochar");
-			}
-		
-		if(s.length()>maxchar)
-			{
-			String t = s.substring(0, maxchar);
-			t = t+"...";
-			return t;
-			}
-		else return s.toString();
+		errorList = new ArrayList<ErrorTemplate>();
+		this.linkedOffice = bo.getLinkedOffice();
 		}
 
 	public void build(CUCM srccucm, CUCM dstcucm) throws Exception
@@ -253,19 +220,6 @@ public class Office
 		
 		return null;
 		}
-	
-	/**
-	 * Add an error to the error list and check for duplicate
-	 */
-	public void addError(ErrorTemplate error)
-		{
-		boolean duplicate = false;
-		for(ErrorTemplate e : errorList)
-			{
-			if(e.getErrorDesc().equals(error.getErrorDesc()))duplicate = true;break;//Duplicate found
-			}
-		if(!duplicate)errorList.add(error);
-		}
 
 	public StatusType getStatus()
 		{
@@ -282,29 +236,9 @@ public class Office
 		return id;
 		}
 
-	public String getName()
-		{
-		return name;
-		}
-
-	public String getCoda()
-		{
-		return coda;
-		}
-
-	public String getPole()
-		{
-		return pole;
-		}
-
 	public String getDxi()
 		{
 		return dxi;
-		}
-
-	public OfficeType getOfficeType()
-		{
-		return officeType;
 		}
 
 	public CMG getCmg()
@@ -360,6 +294,11 @@ public class Office
 	public ArrayList<BasicPhone> getMissingPhone()
 		{
 		return missingPhone;
+		}
+
+	public ArrayList<LinkedOffice> getLinkedOffice()
+		{
+		return linkedOffice;
 		}
 
 

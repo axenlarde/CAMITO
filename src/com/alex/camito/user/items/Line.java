@@ -6,6 +6,7 @@ import com.alex.camito.misc.ItemToInject;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ItemType;
+import com.alex.camito.utils.Variables.StatusType;
 
 /**********************************
  * Class used to define an item of type "Line"
@@ -125,10 +126,15 @@ public class Line extends ItemToInject
 		{
 		Line myL = (Line) linker.get(cucm);
 		this.UUID = myL.getUUID();
+		this.fwAllDestination = myL.getFwAllDestination();
+		this.fwAllVoicemailEnable = myL.getFwAllVoicemailEnable();
+		this.fwAllCallingSearchSpaceName = myL.getFwAllCallingSearchSpaceName();
+		
 		//Etc...
 		//Has to be written
 		
 		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		this.status = StatusType.waiting;
 		return true;
 		}
 	
@@ -182,10 +188,10 @@ public class Line extends ItemToInject
 		myLine.setFwBusyDestination(fwBusyDestination);
 		myLine.setFwUnrDestination(fwUnrDestination);
 		myLine.setVoiceMailProfileName(voiceMailProfileName);
-		myLine.setFwAllVoicemailEnable(fwAllVoicemailEnable.equals("true")?true:false);
-		myLine.setFwNoanVoicemailEnable(fwNoanVoicemailEnable.equals("true")?true:false);
-		myLine.setFwBusyVoicemailEnable(fwBusyVoicemailEnable.equals("true")?true:false);
-		myLine.setFwUnrVoicemailEnable(fwUnrVoicemailEnable.equals("true")?true:false);
+		if(UsefulMethod.isNotEmpty(fwAllVoicemailEnable))myLine.setFwAllVoicemailEnable(fwAllVoicemailEnable.equals("true")?true:false);
+		if(UsefulMethod.isNotEmpty(fwNoanVoicemailEnable))myLine.setFwNoanVoicemailEnable(fwNoanVoicemailEnable.equals("true")?true:false);
+		if(UsefulMethod.isNotEmpty(fwBusyVoicemailEnable))myLine.setFwBusyVoicemailEnable(fwBusyVoicemailEnable.equals("true")?true:false);
+		if(UsefulMethod.isNotEmpty(fwUnrVoicemailEnable))myLine.setFwUnrVoicemailEnable(fwUnrVoicemailEnable.equals("true")?true:false);
 		/*********/
 		}
 	

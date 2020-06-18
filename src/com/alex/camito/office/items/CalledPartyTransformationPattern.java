@@ -7,6 +7,7 @@ import com.alex.camito.misc.ItemToInject;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.ItemType;
+import com.alex.camito.utils.Variables.StatusType;
 
 /**********************************
  * Class used to define an item of type "Called Party Transformation Pattern"
@@ -94,8 +95,10 @@ public class CalledPartyTransformationPattern extends ItemToInject
 		{
 		CalledPartyTransformationPattern myCPTP = (CalledPartyTransformationPattern) linker.get(cucm);
 		this.UUID = myCPTP.getUUID();
+		this.calledPartyTransformationMask = myCPTP.getCalledPartyTransformationMask();
 		
 		Variables.getLogger().debug("Item "+this.name+" already exist in the CUCM");
+		this.status = StatusType.waiting;
 		return true;
 		}
 	

@@ -11,11 +11,15 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.alex.camito.axl.items.LineGroupMember;
 import com.alex.camito.device.BasicPhone;
 import com.alex.camito.device.BasicPhone.PhoneStatus;
+import com.alex.camito.device.Device;
 import com.alex.camito.misc.CUCM;
+import com.alex.camito.misc.ErrorTemplate;
 import com.alex.camito.misc.SimpleRequest;
 import com.alex.camito.office.items.CalledPartyTransformationPattern;
+import com.alex.camito.office.items.LineGroup;
 import com.alex.camito.office.items.TranslationPattern;
 import com.alex.camito.risport.RisportTools;
 import com.alex.camito.user.items.HuntPilot;
@@ -229,11 +233,21 @@ public class OfficeTools
 			BufferedWriter csvBuffer = new BufferedWriter(new FileWriter(new File(Variables.getMainDirectory()+"/"+fileName+".csv"), false));
 			
 			//FirstLine
-			csvBuffer.write("Coda"+splitter+"Device Pool"+splitter+"Office Name"+splitter+"Status"+splitter+"Detailed Status"+cr);
+			csvBuffer.write("Type"+splitter+"ID"+splitter+"Device Pool"+splitter+"Name"+splitter+"Status"+splitter+"Detailed Status"+cr);
 			
 			for(Office o : officeList)
 				{
-				csvBuffer.write(o.getCoda()+splitter+o.getDevicePool()+splitter+o.getName()+splitter+o.getStatus()+splitter+o.getDetailedStatus()+cr);
+				csvBuffer.write("Office"+splitter+o.getCoda()+splitter+o.getDevicePool()+splitter+o.getName()+splitter+o.getStatus()+splitter+o.getDetailedStatus()+cr);
+				
+				for(LinkedOffice lo : o.getLinkedOffice())
+					{
+					csvBuffer.write("LinkedOffice"+splitter+lo.getCoda()+splitter+o.getDevicePool()+splitter+lo.getName()+splitter+o.getStatus()+splitter+""+cr);
+					}
+				
+				for(Device d : o.getDeviceList())
+					{
+					csvBuffer.write("Device"+splitter+d.getIp()+splitter+d.getOfficeid()+splitter+d.getName()+splitter+d.getStatus()+splitter+d.getDetailedStatus()+cr);
+					}
 				}
 			
 			csvBuffer.flush();
@@ -263,10 +277,11 @@ public class OfficeTools
 	 * 
 	 * We will also have to find the related cti route point to forward them too
 	 */
-	public static void forwardOfficeLines(Office office, String forwardPrefix, String forwardCSSName, CUCM srccucm, CUCM dstcucm)
+	public static void forwardOfficeLines(SourceOffice office, String forwardPrefix, String forwardCSSName, CUCM srccucm, CUCM dstcucm)
 		{
 		try
 			{
+			Variables.getLogger().debug(office.getInfo()+" : Forwarding lines");
 			/**
 			 * 1. We get the line list
 			 */
@@ -341,6 +356,7 @@ public class OfficeTools
 				catch (Exception e)
 					{
 					Variables.getLogger().error(office.getInfo()+" : "+l.getInfo()+" : ERROR while forwarding the line : "+e.getMessage(),e);
+					office.addError(new ErrorTemplate(l.getInfo()+" : ERROR while forwarding the line : "+e.getMessage()));
 					}
 				}
 			
@@ -400,7 +416,8 @@ public class OfficeTools
 					}
 				catch (Exception e)
 					{
-					Variables.getLogger().error(office.getInfo()+" : "+hp.getInfo()+" : ERROR while forwarding hunt pilot : "+e.getMessage(),e);
+					Variables.getLogger().error(office.getInfo()+" : "+hp.getInfo()+" : ERROR while forwarding the hunt pilot : "+e.getMessage(),e);
+					office.addError(new ErrorTemplate(hp.getInfo()+" : ERROR while forwarding the hunt pilot : "+e.getMessage()));
 					}
 				}
 			
@@ -429,7 +446,8 @@ public class OfficeTools
 					}
 				catch(Exception e)
 					{
-					Variables.getLogger().error(office.getInfo()+" : "+tp.getInfo()+" : ERROR while forwarding translation pattern : "+e.getMessage(),e);
+					Variables.getLogger().error(office.getInfo()+" : "+tp.getInfo()+" : ERROR while forwarding the translation pattern : "+e.getMessage(),e);
+					office.addError(new ErrorTemplate(tp.getInfo()+" : ERROR while forwarding the translation pattern : "+e.getMessage()));
 					}
 				}
 			
@@ -480,6 +498,7 @@ public class OfficeTools
 						
 						//We copy the source data to the destination one
 						Line dstCtiRP = new Line(ctiRP.getName(), ctiRP.getRoutePartitionName());
+						dstCtiRP.isExisting(dstcucm);
 						dstCtiRP.setFwAllCallingSearchSpaceName(ctiRP.getFwAllCallingSearchSpaceName());
 						dstCtiRP.setFwAllDestination(ctiRP.getFwAllDestination());
 						dstCtiRP.resolve();
@@ -496,13 +515,16 @@ public class OfficeTools
 					}
 				catch (Exception e)
 					{
-					Variables.getLogger().error(office.getInfo()+" : "+s+" : ERROR while forwarding cti route point : "+e.getMessage(),e);
+					Variables.getLogger().error(office.getInfo()+" : "+s+" : ERROR while forwarding the cti route point : "+e.getMessage(),e);
+					office.addError(new ErrorTemplate(s+" : ERROR while forwarding the cti route point : "+e.getMessage()));
 					}
 				}
+			Variables.getLogger().debug(office.getInfo()+" : Forwarding lines ends");
 			}
 		catch(Exception e)
 			{
-			Variables.getLogger().error(office.getInfo()+" : ERROR while forwardinglines : "+e.getMessage(),e);
+			Variables.getLogger().error(office.getInfo()+" : ERROR while forwarding the lines : "+e.getMessage(),e);
+			office.addError(new ErrorTemplate("ERROR while forwarding the lines : "+e.getMessage()));
 			}
 		}
 	
@@ -517,19 +539,28 @@ public class OfficeTools
 	 * 
 	 * !!!! In this version we only report the mismatch, we do not fix them !!!!
 	 */
-	public static void fixMismatch(Office office, CUCM srccucm, CUCM dstcucm)
+	public static ArrayList<String> fixMismatch(SourceOffice office, CUCM srccucm, CUCM dstcucm)
 		{
+		ArrayList<String> mismatchList = new ArrayList<String>();
+		
 		try
 			{
-			StringBuffer mismatchList = new StringBuffer("");
+			Variables.getLogger().debug(office.getInfo()+" : Fixing mismatch");
 			String splitter = UsefulMethod.getTargetOption("csvsplitter");
+			
 			/**
 			 * 1. Device mismatch
 			 * 
 			 * The device mismatch have already been discovered during the office build process
 			 * So we do not check for it again
 			 */
-			for(BasicPhone bp : office.getMissingPhone())mismatchList.append(office.getInfo()+" : "+bp.getName()+"\r\n");
+			if(office instanceof Office)
+				{
+				for(BasicPhone bp : ((Office)office).getMissingPhone())
+					{
+					mismatchList.add(office.getInfo()+splitter+"Phone"+splitter+"Phone "+bp.getName()+" was not found in the destination cluster\r\n");
+					}
+				}
 			
 			/**
 			 * 2. Line group members
@@ -537,30 +568,130 @@ public class OfficeTools
 			 * We report mismatch and in the same time we verify that
 			 * all the members are logged in
 			 */
-			String lgRequest = "select np.pkid as lineUUID,lg.pkid as lgUUID,np.dnorpattern as pattern,lg.name as lgName from numplan np, linegroup lg, linegroupnumplanmap lgnpm where lg.pkid=lgnpm.fklinegroup and np.pkid=lgnpm.fknumplan and np.dnorpattern like '"+office.getCoda()+"%'";
+			ArrayList<LineGroup> lgList = new ArrayList<LineGroup>();
+			ArrayList<LineGroup> dstLgList = new ArrayList<LineGroup>();
+			
+			//List the line groups containing office lines
+			String lgRequest = "select distinct lg.pkid as lgUUID, lg.name as lgName from numplan np, linegroup lg, linegroupnumplanmap lgnpm where lg.pkid=lgnpm.fklinegroup and np.pkid=lgnpm.fknumplan and np.dnorpattern like '"+office.getCoda()+"%'";
+			
 			List<Object> reply = SimpleRequest.doSQLQuery(lgRequest, srccucm);
 			for(Object o : reply)
 				{
 				Element rowElement = (Element) o;
 				NodeList list = rowElement.getChildNodes();
 				
-				String pattern = null,usage = null,partition = null;
+				String lgName = null;
 				for(int i = 0; i< list.getLength(); i++)
 					{
-					if(list.item(i).getNodeName().equals("pattern"))
+					if(list.item(i).getNodeName().equals("lgname"))
 						{
-						pattern = list.item(i).getTextContent();
-						}
-					else if(list.item(i).getNodeName().equals("usage"))
-						{
-						usage = list.item(i).getTextContent();
-						}
-					else if(list.item(i).getNodeName().equals("partition"))
-						{
-						partition = list.item(i).getTextContent();
+						lgName = list.item(i).getTextContent();
+						break;
 						}
 					}
-				
+				lgList.add(new LineGroup(lgName));
+				dstLgList.add(new LineGroup(lgName));
+				}
+			
+			//We check if Line group exists in both cluster, in the same time we retrieve the lg member
+			for(LineGroup lg : lgList)
+				{
+				try
+					{
+					lg.isExisting(srccucm);
+					}
+				catch (Exception e)
+					{
+					Variables.getLogger().error(lg.getInfo()+" : ERROR while retrieving information about the line group in the source cluster : "+e.getMessage());
+					lg.setStatus(StatusType.error);
+					}
+				}
+			for(LineGroup lg : dstLgList)
+				{
+				try
+					{
+					lg.isExisting(dstcucm);
+					}
+				catch (Exception e)
+					{
+					Variables.getLogger().error(lg.getInfo()+" : ERROR while retrieving information about the line group in the destination cluster");
+					lg.setStatus(StatusType.error);
+					mismatchList.add(office.getInfo()+splitter+"Line Group"+splitter+"Line group "+lg.getName()+" was not found in the destination cluster\r\n");
+					}
+				}
+			
+			//We now check that the members are identical
+			for(LineGroup lg : lgList)
+				{
+				if(!lg.getStatus().equals(StatusType.error))
+					{
+					for(LineGroup dlg : dstLgList)
+						{
+						if(lg.getName().equals(dlg.getName()))
+							{
+							//We now compare the members
+							for(LineGroupMember lgm : lg.getLineList())
+								{
+								boolean foundLGM = false;
+								for(LineGroupMember dlgm : dlg.getLineList())
+									{
+									if(lgm.getNumber().equals(dlgm.getNumber()))
+										{
+										foundLGM = true;
+										break;
+										}
+									}
+								if(!foundLGM)
+									{
+									Variables.getLogger().debug(office.getInfo()+" : "+lg.getName()+" : Line group member missing in the destination cluster : "+lgm.getNumber());
+									mismatchList.add(office.getInfo()+splitter+"Line group"+splitter+"Line group "+lg.getName()+" : Line group member missing in the destination cluster : "+lgm.getNumber()+"\r\n");
+									}
+								}
+							break;
+							}
+						}
+					}
+				}
+			
+			//We finally check that the members are logged in
+			for(LineGroup lg : dstLgList)
+				{
+				if(!lg.getStatus().equals(StatusType.error))
+					{
+					for(LineGroupMember lgm : lg.getLineList())
+						{
+						try
+							{
+							Line l = new Line(lgm.getNumber(), lgm.getPartition());
+							l.isExisting(dstcucm);
+							String LineHLogRequest = "select dhd.hlog as status from devicenumplanmap dnpm, devicehlogdynamic dhd where dnpm.fkdevice=dhd.fkdevice and dnpm.fknumplan='"+l.getUUID().toLowerCase().substring(1, l.getUUID().length()-1)+"'";//Substring to remove UUID{}
+							
+							List<Object> lineReply = SimpleRequest.doSQLQuery(LineHLogRequest, dstcucm);
+							for(Object o : lineReply)
+								{
+								Element rowElement = (Element) o;
+								NodeList list = rowElement.getChildNodes();
+								
+								for(int i = 0; i< list.getLength(); i++)
+									{
+									if(list.item(i).getNodeName().equals("status"))
+										{
+										if(list.item(i).getTextContent().equals("f"))
+											{
+											Variables.getLogger().debug(office.getInfo()+" : "+lg.getName()+" : Line group member logged out in the destination cluster : "+lgm.getNumber());
+											mismatchList.add(office.getInfo()+splitter+"Line group"+splitter+"Line group "+lg.getName()+" : Line group member logged out in the destination cluster : "+lgm.getNumber()+"\r\n");
+											}
+										break;
+										}
+									}
+								}
+							}
+						catch (Exception e)
+							{
+							Variables.getLogger().error(office.getInfo()+" : "+lg.getName()+" ERROR while checking the logged in status : "+e.getMessage(),e);
+							}
+						}
+					}
 				}
 			
 			/**
@@ -568,13 +699,16 @@ public class OfficeTools
 			 * We should check for alerting name, description, etc. changes
 			 * but it is too time consuming for what it brings  
 			 */
+			//To be written
 			
-			
+			Variables.getLogger().debug(office.getInfo()+" : Fixing mismatch ends");
 			}
 		catch (Exception e)
 			{
 			Variables.getLogger().error(office.getInfo()+" : ERROR while fixing mismatch : "+e.getMessage(),e);
 			}
+		
+		return mismatchList;
 		}
 	
 	

@@ -53,6 +53,7 @@ public class Device
 		this.action = action;
 		this.id = bd.getId();
 		this.name = bd.getName();
+		this.deviceType = bd.getDeviceType();
 		this.ip = bd.getIp();
 		this.mask = bd.getMask();
 		this.gateway = bd.getGateway();
@@ -64,26 +65,18 @@ public class Device
 		this.reachable = ReachableStatus.unknown;
 		shortmask = UsefulMethod.convertlongMaskToShortOne(this.mask);
 		this.status = StatusType.init;
+		errorList = new ArrayList<ErrorTemplate>();
 		}
 	
 	public String getInfo()
 		{
 		StringBuffer s = new StringBuffer("");
 		
-		s.append(LanguageManagement.getString(deviceType.getName())+" ");
+		s.append(deviceType.getName()+" ");
 		s.append(ip+" ");
 		s.append(name);
 		
 		int maxchar = 60;
-		
-		try
-			{
-			maxchar = Integer.parseInt(UsefulMethod.getTargetOption("maxinfochar"));
-			}
-		catch (Exception e)
-			{
-			Variables.getLogger().error("Unable to retrieve maxinfochar");
-			}
 		
 		if(s.length()>maxchar)
 			{

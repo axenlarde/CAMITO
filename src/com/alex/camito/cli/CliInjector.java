@@ -54,6 +54,8 @@ public class CliInjector extends Thread
 			 * Here we send the cli command
 			 */
 			CliLinker clil = new CliLinker(this);
+			clil.connect();//First we initialize the connection
+			Variables.getLogger().debug(device.getInfo()+" : Connected successfully, ready for cli injection");
 			
 			Variables.getLogger().debug(device.getInfo()+" : CLI : command injection starts");
 			for(OneLine l : todo)
@@ -74,8 +76,10 @@ public class CliInjector extends Thread
 					device.setStatus(StatusType.error);
 					}
 				}
-			clil.disconnect();
 			Variables.getLogger().debug(device.getInfo()+" : CLI : command injection ends");
+			
+			clil.disconnect();//Last we disconnect
+			Variables.getLogger().debug(device.getInfo()+" : Disconnected successfully");
 			}
 		catch (Exception e)
 			{

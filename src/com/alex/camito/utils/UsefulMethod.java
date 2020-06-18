@@ -491,8 +491,8 @@ public class UsefulMethod
 								UsefulMethod.getItemByName("officeid", s),
 								UsefulMethod.getItemByName("user", s),
 								UsefulMethod.getItemByName("password", s),
-								getCliProfile(UsefulMethod.getItemByName("cliprofile", s)),
-								getCliProfile(UsefulMethod.getItemByName("rollbackcliprofile", s)),
+								UsefulMethod.getCliProfile(UsefulMethod.getItemByName("cliprofile", s)),
+								UsefulMethod.getCliProfile(UsefulMethod.getItemByName("rollbackcliprofile", s)),
 								getProtocolType(UsefulMethod.getItemByName("protocol", s)),
 								UsefulMethod.getDeviceType(UsefulMethod.getItemByName("type",s)));
 					
@@ -1502,13 +1502,7 @@ public class UsefulMethod
 		{
 		for(CliProfile clip : Variables.getCliProfileList())
 			{
-			if(s.toLowerCase().replaceAll(" ", "").contains(clip.getName().toLowerCase()))return clip;
-			}
-		
-		//If we didn't find the pofile by name, we look for the profile type
-		for(CliProfile clip : Variables.getCliProfileList())
-			{
-			if(s.toLowerCase().replaceAll(" ", "").contains(clip.getType().getName().toLowerCase()))return clip;
+			if(s.toLowerCase().replaceAll(" ", "").equals(clip.getName().toLowerCase()))return clip;
 			}
 		
 		return null;//Important;
@@ -1728,6 +1722,11 @@ public class UsefulMethod
 				{
 				if(o.getCoda().equals(officeID))return o;
 				}
+			//We also search using the device pool
+			for(BasicOffice o : Variables.getOfficeList())
+				{
+				if(o.getDevicepool().equals(officeID))return o;
+				}
 			}
 		catch (Exception e)
 			{
@@ -1828,13 +1827,13 @@ public class UsefulMethod
 				UsefulMethod.getTargetOption("port"),
 				UsefulMethod.getTargetOption("username"),
 				UsefulMethod.getTargetOption("password"),
-				UsefulMethod.convertStringToCUCMAXLVersion(UsefulMethod.getTargetOption("version")));
+				UsefulMethod.convertStringToCUCMAXLVersion(UsefulMethod.getTargetOption("axlversionsrc")));
 		
 		Variables.getLogger().debug("Initializing source CUCM : "+srccucm.getInfo());
 		
 		initAXLConnectionToCUCM(srccucm);
 		initRISConnectionToCUCM(srccucm);
-		Variables.getLogger().debug("Source CUCM done !");
+		Variables.getLogger().debug("Initializing source CUCM done !");
 		Variables.setSrccucm(srccucm);
 		
 		/**
@@ -1844,13 +1843,13 @@ public class UsefulMethod
 				UsefulMethod.getTargetOption("port"),
 				UsefulMethod.getTargetOption("username"),
 				UsefulMethod.getTargetOption("password"),
-				UsefulMethod.convertStringToCUCMAXLVersion(UsefulMethod.getTargetOption("version")));
+				UsefulMethod.convertStringToCUCMAXLVersion(UsefulMethod.getTargetOption("axlversiondst")));
 		
 		Variables.getLogger().debug("Initializing destination CUCM : "+dstcucm.getInfo());
 		
 		initAXLConnectionToCUCM(dstcucm);
 		initRISConnectionToCUCM(dstcucm);
-		Variables.getLogger().debug("Destination CUCM done !");
+		Variables.getLogger().debug("Initializing destination CUCM done !");
 		Variables.setDstcucm(dstcucm);
 		}
 	

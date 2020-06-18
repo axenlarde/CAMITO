@@ -21,7 +21,7 @@ Overal configuration file
 		<maxclithread>10</maxclithread>
 		<cliconnectiontimeout>10000</cliconnectiontimeout>
 		<!--Smtp parameters-->
-		<smtpemailenable>true</smtpemailenable>
+		<smtpemailenable>false</smtpemailenable>
 		<smtpemailport>25</smtpemailport>
 		<smtpemailprotocol>smtp</smtpemailprotocol>
 		<smtpemailserver>smtp.certiam.cnaf</smtpemailserver>

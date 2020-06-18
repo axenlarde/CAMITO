@@ -3487,14 +3487,14 @@
 		<device>
 			<name>1328_1371 - GW - Aix en provence</name>
 			<type>ISR</type>
-			<ip>10.6.173.99</ip>
+			<ip>10.0.1.172</ip>
 			<mask></mask>
 			<gateway></gateway>
 			<protocol>auto</protocol>
-			<user>spie</user>
+			<user>OSAdmin</user>
 			<password>CCMCisco92</password>
-			<cliprofile>ISR</cliprofile>
-			<rollbackcliprofile>RollbackISR</rollbackcliprofile>
+			<cliprofile>TestISR</cliprofile>
+			<rollbackcliprofile>TestRollbackISR</rollbackcliprofile>
 			<officeid>1328_1371_DP</officeid>
 		</device>
 		<device>
@@ -6061,14 +6061,14 @@
 		<device>
 			<name>SKIGW08F692D4B0</name>
 			<type>ISR</type>
-			<ip>10.6.173.99</ip>
+			<ip>10.0.1.172</ip>
 			<mask></mask>
 			<gateway></gateway>
 			<protocol>auto</protocol>
-			<user>spie</user>
+			<user>OSAdmin</user>
 			<password>CCMCisco92</password>
-			<cliprofile>ISR</cliprofile>
-			<rollbackcliprofile>RollbackISR</rollbackcliprofile>
+			<cliprofile>TestISR</cliprofile>
+			<rollbackcliprofile>TestRollbackISR</rollbackcliprofile>
 			<officeid>1328_1371_DP</officeid>
 		</device>
 		<device>

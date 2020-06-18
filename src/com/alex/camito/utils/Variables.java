@@ -243,6 +243,7 @@ public class Variables
 	private static String deviceTypeListFileName;
 	private static String phoneSurveyFileName;
 	private static String overallResultFileName;
+	private static String mismatcheListFileName;
 	private static ArrayList<String> matcherList;
 	private static ArrayList<ValueMatcher> substituteList;
 	private static ArrayList<storedUUID> uuidList;
@@ -288,6 +289,7 @@ public class Variables
 		deviceTypeListFileName = "deviceTypeList.xml";
 		phoneSurveyFileName = "phoneSurvey";
 		overallResultFileName = "overallResult";
+		mismatcheListFileName = "mismatchList";
 		}
 
 	public static String getSoftwareName()
@@ -700,6 +702,16 @@ public class Variables
 	public static void setOverallResultFileName(String overallResultFileName)
 		{
 		Variables.overallResultFileName = overallResultFileName;
+		}
+
+	public static String getMismatcheListFileName()
+		{
+		return mismatcheListFileName;
+		}
+
+	public static void setMismatcheListFileName(String mismatcheListFileName)
+		{
+		Variables.mismatcheListFileName = mismatcheListFileName;
 		}
 	
 	

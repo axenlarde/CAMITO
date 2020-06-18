@@ -66,6 +66,19 @@ public class WebRequestBuilder
 					Variables.getLogger().debug("Office found : "+o.getInfo());
 					ol.add(o);
 					}
+				else
+					{
+					for(LinkedOffice lo : o.getLinkedOffice())
+						{
+						if((lo.getName().toLowerCase().contains(search.toLowerCase())) ||
+								(lo.getCoda().toLowerCase().contains(search.toLowerCase())) ||
+								(lo.getPole().toLowerCase().contains(search.toLowerCase())))
+							{
+							Variables.getLogger().debug("Office found : "+lo.getInfo());
+							ol.add(o);
+							}
+						}
+					}
 				}
 			}
 		catch (Exception e)

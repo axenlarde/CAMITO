@@ -33,10 +33,12 @@ public class PingProcess extends Thread
 		{
 		if(ping(device.getIp()))
 			{
+			Variables.getLogger().debug(device.getInfo()+" : Ping success !");
 			device.setReachable(ReachableStatus.reachable);
 			}
 		else
 			{
+			Variables.getLogger().debug(device.getInfo()+" : Ping failed !");
 			device.setReachable(ReachableStatus.unreachable);
 			device.setStatus(StatusType.error);
 			device.addError(new ErrorTemplate("Ping failed"));

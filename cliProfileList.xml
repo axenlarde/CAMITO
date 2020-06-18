@@ -34,6 +34,59 @@ Gateway config file
 				<write>sccp ccm group 1</write>
 				<write>no associate ccm 1</write>
 				<write>no associate ccm 2</write>
+				<write>no sccp ccm 10.7.180.3</write>
+				<write>no sccp ccm 10.7.180.2</write>
+				<write>no sccp ccm 10.102.118.11</write>
+				<write>no sccp ccm 10.102.118.12</write>
+				<write>no sccp ccm 10.102.118.13</write>
+				<write>no sccp ccm 10.102.118.14</write>
+				<write>'sccp ccm '+office.cmg.cucm1+' identifier 1 version 7.0'</write>
+				<write>'sccp ccm '+office.cmg.cucm2+' identifier 2 version 7.0'</write>
+				<write>sccp ccm group 1</write>
+				<write>associate ccm 1 priority 1</write>
+				<write>associate ccm 2 priority 2</write>
+				<write>no ccm-manager config server 10.7.180.6 10.7.180.7</write>
+				<write>no ccm-manager config server 10.102.118.15 10.102.118.16</write>
+				<write>ccm-manager config server 10.102.118.155 10.102.118.156</write>
+				<write>ccm-manager config</write>
+				<write>stcapp</write>
+				<write>sccp</write>
+				<write>no username axians</write>
+				<write>exit</write>
+				<save></save>
+			</config>
+		</profile>
+		<profile>
+			<name>RollbackISR</name>
+			<type>ISR</type>
+			<defaultintercommandtimer>50</defaultintercommandtimer>
+			<config>
+				<save></save>
+				<write>configure terminal</write>
+				<write>ip dhcp pool VOIX</write>
+				<write>option 150 ip 10.102.118.155 10.102.118.156</write>
+				<write>option 60 ip 10.102.106.155 10.102.106.156</write>
+				<write>clear ip dhcp binding *</write>
+				<write>dial-peer voice 20 voip</write>
+				<write>'session target ipv4:'+office.cmg.cucm1</write>
+				<write>dial-peer voice 21 voip</write>
+				<write>'session target ipv4:'+office.cmg.cucm2</write>
+				<write>no dial-peer voice 22 voip</write>
+				<write>no dial-peer voice 23 voip</write>
+				<write>voice service voip</write>
+				<write>ip address trusted list</write>
+				<write>no ipv4 10.7.180.0 255.255.255.128</write>
+				<write>ipv4 10.102.118.151 255.255.255.255</write>
+				<write>ipv4 10.102.118.152 255.255.255.255</write>
+				<write>ipv4 10.102.118.153 255.255.255.255</write>
+				<write>ipv4 10.102.118.154 255.255.255.255</write>
+				<write>no stcapp</write>
+				<wait>1000</wait>
+				<write>no sccp</write>
+				<wait>1000</wait>
+				<write>sccp ccm group 1</write>
+				<write>no associate ccm 1</write>
+				<write>no associate ccm 2</write>
 				<write>no associate ccm 3</write>
 				<write>no sccp ccm 10.7.180.3</write>
 				<write>no sccp ccm 10.7.180.2</write>
@@ -93,6 +146,41 @@ Gateway config file
 			</config>
 		</profile>
 		<profile>
+			<name>RollbackVG</name>
+			<type>VG</type>
+			<defaultintercommandtimer>50</defaultintercommandtimer>
+			<config>
+				<write>enable</write>
+				<write>configure terminal</write>
+				<write>end</write>
+				<save></save>
+				<write>reload in 5</write>
+				<write></write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write>configure terminal</write>
+				<!--IP-->
+				<write>'ip route 0.0.0.0 0.0.0.0 '+device.newgateway</write>
+				<write>interface fastethernet 0/0</write>
+				<write>'ip address '+device.newip+' '+device.newmask</write>
+				<disconnect></disconnect>
+				<connect>device.newip</connect>
+				<write>configure terminal</write>
+				<!--Cleaning-->
+				<write>'no ip route 0.0.0.0 0.0.0.0 '+device.gateway</write>
+				<write>no interface Loopback0</write>
+				<write>no ip route 193.105.90.0 255.255.255.0 10.10.200.1 name ADMIN</write>
+				<write>no ip route 194.250.187.0 255.255.255.128 10.10.200.1 name ADMIN</write>
+				<!--Misc-->
+				<write>ntp server 172.20.4.249</write>
+				<write>end</write>
+				<!--End-->
+				<save></save>
+				<write>reload cancel</write>
+				<waitfor>SHUTDOWN</waitfor>
+				<write></write>
+			</config>
+		</profile>
+		<profile>
 			<name>TEST</name>
 			<type>ISR</type>
 			<defaultintercommandtimer>50</defaultintercommandtimer>
@@ -105,6 +193,26 @@ Gateway config file
 				<write>no shut</write>
 				<write>end</write>
 				<save></save>
+			</config>
+		</profile>
+		<profile>
+			<name>TESTISR</name>
+			<type>ISR</type>
+			<defaultintercommandtimer>50</defaultintercommandtimer>
+			<config>
+				<waitfor>admin</waitfor>
+				<write>'show status'</write>
+				<write>'utils network ping '+device.ip</write>
+				<write>'utils network ping '+office.cmg.cucm1</write>
+				<get>Status:::show status:::1</get>
+			</config>
+		</profile>
+		<profile>
+			<name>TESTRollbackISR</name>
+			<type>ISR</type>
+			<defaultintercommandtimer>50</defaultintercommandtimer>
+			<config>
+				<write>'show status'</write>
 			</config>
 		</profile>
 		<profile>

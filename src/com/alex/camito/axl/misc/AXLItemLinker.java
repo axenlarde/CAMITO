@@ -7,6 +7,7 @@ import com.alex.camito.misc.ErrorTemplate;
 import com.alex.camito.misc.ItemToInject;
 import com.alex.camito.utils.Variables;
 import com.alex.camito.utils.Variables.CucmVersion;
+import com.alex.camito.utils.Variables.StatusType;
 
 
 
