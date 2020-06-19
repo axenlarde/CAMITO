@@ -19,16 +19,18 @@ public class CMG
 		}
 	
 	private CMGName name;
-	private String cucm1, cucm2;
+	private String cucm1, cucm2, cucm3, cucm4;
 	
-	public CMG(CMGName name, String cucm1, String cucm2)
+	public CMG(CMGName name, String cucm1, String cucm2, String cucm3, String cucm4)
 		{
 		super();
 		this.name = name;
 		this.cucm1 = cucm1;
 		this.cucm2 = cucm2;
+		this.cucm3 = cucm3;
+		this.cucm4 = cucm4;
 		}
-	
+
 	public String getString(String s) throws Exception
 		{
 		for(Field f : this.getClass().getDeclaredFields())
@@ -56,6 +58,18 @@ public class CMG
 		{
 		return cucm2;
 		}
+
+	public String getCucm3()
+		{
+		return cucm3;
+		}
+
+	public String getCucm4()
+		{
+		return cucm4;
+		}
+	
+	
 	
 	/*2020*//*Alexandre RATEL 8)*/
 	}

@@ -109,7 +109,8 @@ public class Variables
 		reseted,
 		init,
 		deleted,
-		updated
+		updated,
+		done
 		};
 		
 	/********************************************

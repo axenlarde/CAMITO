@@ -71,10 +71,10 @@ public class SimpleRequest
 		
 		if((itemName == null) || (itemName.equals("")))
 			{
-			return getXFKV105("", itemName, type);
+			return getXFKV105("", itemName, type, cucm);
 			}
 		
-		String id = type.name()+itemName;
+		String id = type.name()+itemName+cucm.getIp();
 		
 		for(storedUUID s : Variables.getUuidList())
 			{
@@ -93,7 +93,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetLocationRes resp = cucm.getAXLConnectionV105().getLocation(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getLocation().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getLocation().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.region))
 			{
@@ -103,7 +103,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetRegionRes resp = cucm.getAXLConnectionV105().getRegion(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getRegion().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getRegion().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.partition))
 			{
@@ -113,7 +113,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetRoutePartitionRes resp = cucm.getAXLConnectionV105().getRoutePartition(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getRoutePartition().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getRoutePartition().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.callingsearchspace))
 			{
@@ -123,7 +123,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetCssRes resp = cucm.getAXLConnectionV105().getCss(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getCss().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getCss().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.conferencebridge))
 			{
@@ -133,7 +133,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetConferenceBridgeRes resp = cucm.getAXLConnectionV105().getConferenceBridge(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getConferenceBridge().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getConferenceBridge().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.devicepool))
 			{
@@ -143,7 +143,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetDevicePoolRes resp = cucm.getAXLConnectionV105().getDevicePool(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getDevicePool().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getDevicePool().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.mediaresourcegroup))
 			{
@@ -153,7 +153,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetMediaResourceGroupRes resp = cucm.getAXLConnectionV105().getMediaResourceGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getMediaResourceGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getMediaResourceGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.mediaresourcegrouplist))
 			{
@@ -163,7 +163,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetMediaResourceListRes resp = cucm.getAXLConnectionV105().getMediaResourceList(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getMediaResourceList().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getMediaResourceList().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.physicallocation))
 			{
@@ -173,7 +173,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetPhysicalLocationRes resp = cucm.getAXLConnectionV105().getPhysicalLocation(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getPhysicalLocation().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getPhysicalLocation().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.routegroup))
 			{
@@ -183,7 +183,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetRouteGroupRes resp = cucm.getAXLConnectionV105().getRouteGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getRouteGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getRouteGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.srstreference))
 			{
@@ -193,7 +193,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetSrstRes resp = cucm.getAXLConnectionV105().getSrst(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getSrst().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getSrst().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.trunksip))
 			{
@@ -203,7 +203,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetSipTrunkRes resp = cucm.getAXLConnectionV105().getSipTrunk(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getSipTrunk().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getSipTrunk().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.vg))
 			{
@@ -213,7 +213,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetGatewayRes resp = cucm.getAXLConnectionV105().getGateway(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getGateway().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getGateway().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.datetimesetting))
 			{
@@ -223,7 +223,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetDateTimeGroupRes resp = cucm.getAXLConnectionV105().getDateTimeGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getDateTimeGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getDateTimeGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.phone))
 			{
@@ -233,7 +233,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetPhoneRes resp = cucm.getAXLConnectionV105().getPhone(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getPhone().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getPhone().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.udp))
 			{
@@ -243,7 +243,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetDeviceProfileRes resp = cucm.getAXLConnectionV105().getDeviceProfile(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getDeviceProfile().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getDeviceProfile().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.user))
 			{
@@ -253,7 +253,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetUserRes resp = cucm.getAXLConnectionV105().getUser(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getUser().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getUser().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.phonetemplatename))
 			{
@@ -263,7 +263,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetPhoneButtonTemplateRes resp = cucm.getAXLConnectionV105().getPhoneButtonTemplate(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getPhoneButtonTemplate().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getPhoneButtonTemplate().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.callmanagergroup))
 			{
@@ -273,7 +273,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetCallManagerGroupRes resp = cucm.getAXLConnectionV105().getCallManagerGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getCallManagerGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getCallManagerGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.devicemobilitygroup))
 			{
@@ -283,7 +283,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetDeviceMobilityGroupRes resp = cucm.getAXLConnectionV105().getDeviceMobilityGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getDeviceMobilityGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getDeviceMobilityGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.telecasterservice))
 			{
@@ -293,7 +293,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetIpPhoneServicesRes resp = cucm.getAXLConnectionV105().getIpPhoneServices(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getIpPhoneServices().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getIpPhoneServices().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.commondeviceconfig))
 			{
@@ -303,7 +303,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetCommonDeviceConfigRes resp = cucm.getAXLConnectionV105().getCommonDeviceConfig(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getCommonDeviceConfig().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getCommonDeviceConfig().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.siptrunksecurityprofile))
 			{
@@ -313,7 +313,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetSipTrunkSecurityProfileRes resp = cucm.getAXLConnectionV105().getSipTrunkSecurityProfile(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getSipTrunkSecurityProfile().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getSipTrunkSecurityProfile().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.sipprofile))
 			{
@@ -323,7 +323,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetSipProfileRes resp = cucm.getAXLConnectionV105().getSipProfile(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getSipProfile().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getSipProfile().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.linegroup))
 			{
@@ -333,7 +333,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetLineGroupRes resp = cucm.getAXLConnectionV105().getLineGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getLineGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getLineGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.huntlist))
 			{
@@ -343,7 +343,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetHuntListRes resp = cucm.getAXLConnectionV105().getHuntList(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getHuntList().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getHuntList().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.callpickupgroup))
 			{
@@ -353,7 +353,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetCallPickupGroupRes resp = cucm.getAXLConnectionV105().getCallPickupGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getCallPickupGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getCallPickupGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.voicemail))
 			{
@@ -363,7 +363,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetVoiceMailProfileRes resp = cucm.getAXLConnectionV105().getVoiceMailProfile(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getVoiceMailProfile().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getVoiceMailProfile().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.aargroup))
 			{
@@ -373,7 +373,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetAarGroupRes resp = cucm.getAXLConnectionV105().getAarGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getAarGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getAarGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.usercontrolgroup))
 			{
@@ -383,7 +383,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetUserGroupRes resp = cucm.getAXLConnectionV105().getUserGroup(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getUserGroup().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getUserGroup().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.gateway))
 			{
@@ -393,7 +393,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetGatewayRes resp = cucm.getAXLConnectionV105().getGateway(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getGateway().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getGateway().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.commonPhoneConfig))
 			{
@@ -403,7 +403,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetCommonPhoneConfigRes resp = cucm.getAXLConnectionV105().getCommonPhoneConfig(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getCommonPhoneConfig().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getCommonPhoneConfig().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.securityProfile))
 			{
@@ -413,7 +413,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetPhoneSecurityProfileRes resp = cucm.getAXLConnectionV105().getPhoneSecurityProfile(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getPhoneSecurityProfile().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getPhoneSecurityProfile().getUuid(), itemName, type, cucm);
 			}
 		else if(type.equals(ItemType.softkeytemplate))
 			{
@@ -423,7 +423,7 @@ public class SimpleRequest
 			returnedTags.setUuid("");
 			req.setReturnedTags(returnedTags);
 			com.cisco.axl.api._10.GetSoftKeyTemplateRes resp = cucm.getAXLConnectionV105().getSoftKeyTemplate(req);//We send the request to the CUCM
-			return getXFKV105(resp.getReturn().getSoftKeyTemplate().getUuid(), itemName, type);
+			return getXFKV105(resp.getReturn().getSoftKeyTemplate().getUuid(), itemName, type, cucm);
 			}
 		
 		throw new Exception("ItemType \""+type+"\" not found");
@@ -432,11 +432,11 @@ public class SimpleRequest
 	/***************
 	 * Store and return an XFXType item from an UUID
 	 */
-	private static com.cisco.axl.api._10.XFkType getXFKV105(String UUID, String itemName, ItemType type)
+	private static com.cisco.axl.api._10.XFkType getXFKV105(String UUID, String itemName, ItemType type, CUCM cucm)
 		{
 		com.cisco.axl.api._10.XFkType xfk = new com.cisco.axl.api._10.XFkType();
 		//UUID = UUID.toLowerCase();//Temp
-		Variables.getUuidList().add(new storedUUID(UUID, itemName, type));//We add the item to the uuid stored slist
+		Variables.getUuidList().add(new storedUUID(UUID, itemName, type, cucm));//We add the item to the uuid stored slist
 		xfk.setUuid(UUID);
 		Variables.getLogger().debug("Returned UUID from CUCM : "+xfk.getUuid());
 		return xfk;
@@ -583,7 +583,7 @@ public class SimpleRequest
 		
 		if((lineNumber == null) || (lineNumber.equals("")) || (partitionName == null) || (partitionName.equals("")))
 			{
-			return getXFKV105("", lineNumber, ItemType.line);
+			return getXFKV105("", lineNumber, ItemType.line, cucm);
 			}
 		
 		String id = ItemType.line.name()+lineNumber;
@@ -605,7 +605,7 @@ public class SimpleRequest
 		returnedTags.setUuid("");
 		req.setReturnedTags(returnedTags);
 		com.cisco.axl.api._10.GetLineRes resp = cucm.getAXLConnectionV105().getLine(req);//We send the request to the CUCM
-		return getXFKV105(resp.getReturn().getLine().getUuid(), lineNumber, ItemType.line);
+		return getXFKV105(resp.getReturn().getLine().getUuid(), lineNumber, ItemType.line, cucm);
 		}
 	
 	/*2020*//*RATEL Alexandre 8)*/

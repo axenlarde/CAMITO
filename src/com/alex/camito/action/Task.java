@@ -94,10 +94,13 @@ public class Task extends Thread
 				 */
 				pause = false;
 				status = TaskStatus.preaudit;
+				setOfficeStatus(StatusType.preaudit);
 				if(!stop)officeSurvey();
 				status = TaskStatus.processing;
+				setOfficeStatus(StatusType.processing);
 				if(!stop)reset();
 				status = TaskStatus.postaudit;
+				setOfficeStatus(StatusType.postaudit);
 				if(!stop)officeSurvey();
 				}
 			else if((action.equals(ActionType.migrate)) ||
@@ -118,6 +121,7 @@ public class Task extends Thread
 				 * - Test the selected office's did line
 				 */
 				status = TaskStatus.preaudit;
+				setOfficeStatus(StatusType.preaudit);
 				if(!stop)fixMismatch();
 				if(!stop)officeSurvey();
 				if(!stop)deviceSurvey();
@@ -138,6 +142,7 @@ public class Task extends Thread
 				if((pause == false) && (stop == false))Variables.getLogger().info(action+" task "+taskID+" starts");
 				
 				if(!stop)status = TaskStatus.processing;
+				setOfficeStatus(StatusType.processing);
 				if(!stop)sendDeviceCli();
 				if(!stop)reset();
 				if(!stop)forwardLines();
@@ -157,6 +162,7 @@ public class Task extends Thread
 				
 				setOfficeMigrationStatus();
 				if(!stop)status = TaskStatus.postaudit;
+				setOfficeStatus(StatusType.postaudit);
 				officeSurvey();
 				deviceSurvey();
 				
@@ -184,6 +190,7 @@ public class Task extends Thread
 			if(status.equals(TaskStatus.postaudit) && (UsefulMethod.getTargetOption("smtpemailenable").equals("true")))new EmailManager(officeList);
 			
 			status = TaskStatus.done;
+			setOfficeStatus(StatusType.done);
 			Variables.getLogger().info(action+" task "+taskID+" ends");
 			
 			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
@@ -287,8 +294,7 @@ public class Task extends Thread
 			
 			if(ol.size() > 0)
 				{
-				OfficeTools.phoneSurvey(ol, action.equals(ActionType.rollback)?Variables.getDstcucm():Variables.getSrccucm(),
-						action.equals(ActionType.rollback)?Variables.getSrccucm():Variables.getDstcucm());
+				OfficeTools.phoneSurvey(ol, srccucm, dstcucm);
 				}
 			}
 		catch (Exception e)
@@ -470,7 +476,7 @@ public class Task extends Thread
 					 * If migrated we reset the destination cluster
 					 * If not we reset the source cluster
 					 */
-					o.reset(Variables.getMigratedItemList().contains(o.getId())?Variables.getDstcucm():Variables.getSrccucm());
+					o.reset(srccucm);
 					}
 				}
 			catch (InterruptedException e)

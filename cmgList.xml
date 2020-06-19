@@ -7,11 +7,15 @@ CallManager Group list
 			<name>SUB1_SUB4_CMG</name>
 			<cucm1>10.102.118.151</cucm1>
 			<cucm2>10.102.118.154</cucm2>
+			<cucm3>10.102.118.11</cucm3>
+			<cucm4>10.102.118.14</cucm4>
 		</cmg>
 		<cmg>
 			<name>SUB2_SUB3_CMG</name>
 			<cucm1>10.102.118.152</cucm1>
 			<cucm2>10.102.118.153</cucm2>
+			<cucm3>10.102.118.12</cucm3>
+			<cucm4>10.102.118.13</cucm4>
 		</cmg>
 	</cmgs>
 </xml>

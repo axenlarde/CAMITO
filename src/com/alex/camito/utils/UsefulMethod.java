@@ -614,7 +614,9 @@ public class UsefulMethod
 					{
 					CMG cmg = new CMG(CMGName.valueOf(UsefulMethod.getItemByName("name",s).toUpperCase()),
 							UsefulMethod.getItemByName("cucm1",s),
-							UsefulMethod.getItemByName("cucm2",s));
+							UsefulMethod.getItemByName("cucm2",s),
+							UsefulMethod.getItemByName("cucm3",s),
+							UsefulMethod.getItemByName("cucm4",s));
 					
 					/**
 					 * We avoid duplicate

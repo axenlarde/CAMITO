@@ -61,6 +61,7 @@ public class Device
 		this.user = bd.getUser();
 		this.password = bd.getPassword();
 		this.cliProfile = bd.getCliProfile();
+		this.rollbackCliProfile = bd.getRollbackCliProfile();
 		this.connexionProtocol = bd.getConnexionProtocol();
 		this.reachable = ReachableStatus.unknown;
 		shortmask = UsefulMethod.convertlongMaskToShortOne(this.mask);

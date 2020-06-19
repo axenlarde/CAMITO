@@ -32,7 +32,7 @@ Overal configuration file
 		<smtperroremail>alexandre.ratel@spie.com</smtperroremail>
 		<!--CUCM parameters-->
 		<srccucmip>10.0.1.172</srccucmip><!--IP of the source CUCM-->
-		<dstcucmip>10.0.1.172</dstcucmip><!--IP of the destination CUCM-->
+		<dstcucmip>10.10.20.1</dstcucmip><!--IP of the destination CUCM-->
 		<axlversionsrc>105</axlversionsrc><!--AXL version of the source CUCM-->
 		<axlversiondst>105</axlversiondst><!--AXL version of the destination CUCM-->
 		<port>8443</port><!--Port to contact the CUCM server-->

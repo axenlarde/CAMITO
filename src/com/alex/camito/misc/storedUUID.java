@@ -14,16 +14,18 @@ public class storedUUID
 	 */
 	private String UUID, name, comparison;
 	private ItemType type;
+	private CUCM cucm;
 	
 	/***************
 	 * Constructor
 	 ***************/
-	public storedUUID(String uUID, String name, ItemType type)
+	public storedUUID(String uUID, String name, ItemType type, CUCM cucm)
 		{
 		UUID = uUID;
 		this.name = name;
 		this.type = type;
-		this.comparison = type.name()+name;
+		this.cucm = cucm;
+		this.comparison = type.name()+name+cucm.getIp();
 		}
 
 	public String getUUID()
@@ -69,6 +71,6 @@ public class storedUUID
 	
 	
 	
-	/*2015*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}
 

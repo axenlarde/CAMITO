@@ -388,6 +388,20 @@ public class ManageWebRequest
 					}
 				}
 			
+			/**
+			 * Finally we copy the mismatch file
+			 */
+			Variables.getLogger().debug("##Copying mismatch##");
+			for(File f : srcDirectory.listFiles())
+				{
+				if(f.getName().toLowerCase().contains(Variables.getMismatcheListFileName().toLowerCase()))
+					{
+					Variables.getLogger().debug("Copying mismatch file : "+f.getName());
+					File dstFile = new File(UsefulMethod.getTargetOption("targetdirectory")+"/"+f.getName());
+					FileUtils.copyFile(f, dstFile);
+					}
+				}
+			
 			return WebRequestBuilder.buildWebRequest(webRequestType.success, null);
 			}
 		catch (Exception e)
