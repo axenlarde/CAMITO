@@ -27,7 +27,9 @@ public class BasicDevice extends SimpleItem
 	officeid,
 	officename,
 	user,
-	password;
+	password,
+	secondaryuser,
+	secondarypassword;
 	private CliProfile cliProfile;
 	private CliProfile rollbackCliProfile;
 	private CliProtocol connexionProtocol;
@@ -35,13 +37,15 @@ public class BasicDevice extends SimpleItem
 	
 	
 	public BasicDevice(String name, String ip, String mask, String gateway, String officeid,
-			String user, String password, CliProfile cliProfile, CliProfile rollbackCliProfile, CliProtocol connexionProtocol, DeviceType deviceType) throws Exception
+			String user, String password, String secondaryuser, String secondarypassword, CliProfile cliProfile, CliProfile rollbackCliProfile, CliProtocol connexionProtocol, DeviceType deviceType) throws Exception
 		{
 		super(name+ip+officeid);
 		this.name = name;
 		this.officeid = officeid;
 		this.user = user;
 		this.password = password;
+		this.secondaryuser = secondaryuser;
+		this.secondarypassword = secondarypassword;
 		this.cliProfile = cliProfile;
 		this.rollbackCliProfile = rollbackCliProfile;
 		this.connexionProtocol = connexionProtocol;
@@ -205,6 +209,16 @@ public class BasicDevice extends SimpleItem
 	public DeviceType getDeviceType()
 		{
 		return deviceType;
+		}
+
+	public String getSecondaryuser()
+		{
+		return secondaryuser;
+		}
+
+	public String getSecondarypassword()
+		{
+		return secondarypassword;
 		}
 
 	

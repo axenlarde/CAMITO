@@ -18,6 +18,7 @@ public class ThreadManager extends Thread
 	private int maxConcurrentThread, sleepTime;
 	private ArrayList<Thread> threadList;
 	private boolean stop, pause;
+	private int index;
 
 	public ThreadManager(int maxConcurrentThread, int sleepTime, ArrayList<Thread> threadList)
 		{
@@ -27,13 +28,13 @@ public class ThreadManager extends Thread
 		this.threadList = threadList;
 		stop = false;
 		pause = false;
+		index = 0;
 		}
 
 	public void run()
 		{
 		try
 			{
-			int index = 0;
 			while((index < threadList.size()) && (!stop))
 				{
 				for(int i=index; i<threadList.size(); i++)
@@ -124,6 +125,11 @@ public class ThreadManager extends Thread
 	public void shutDown()
 		{
 		this.stop = true;
+		}
+
+	public int getIndex()
+		{
+		return index;
 		}
 	
 	

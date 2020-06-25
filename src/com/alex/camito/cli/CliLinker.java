@@ -69,13 +69,7 @@ public class CliLinker
 			{
 			if((connection == null) || (!connection.isConnected()))
 				{
-				connection = new CliConnection(device.getUser(),
-						device.getPassword(),
-						ip,
-						device.getInfo(),
-						device.getConnexionProtocol(),
-						timeout);
-				
+				connection = new CliConnection(device, timeout);
 				connection.connect();
 				out = connection.getOut();
 				receiver = connection.getReceiver();
@@ -281,6 +275,37 @@ public class CliLinker
 				{
 				execute(l);
 				}
+			
+			/**
+			 * We check if the authentication was successful
+			 * If not we try the secondary credentials
+			 */
+			receiver.getExchange().clear();
+			waitForAReturn();
+			clii.sleep(1000);//Just to be sure we received the full answer
+			for(String s : receiver.getExchange())
+				{
+				if(s.toLowerCase().contains(device.getDeviceType().getCheckTelnet().toLowerCase()))
+					{
+					Variables.getLogger().debug(device.getInfo()+" : CLI : Telnet authentication failed using the first credentials so we try the second ones");
+					for(OneLine l : device.getDeviceType().getSecondaryHowToConnect())
+						{
+						execute(l);
+						}
+					receiver.getExchange().clear();
+					waitForAReturn();
+					clii.sleep(1000);//Just to be sure we received the full answer
+					for(String s2 : receiver.getExchange())
+						{
+						if(s.toLowerCase().contains(device.getDeviceType().getCheckTelnet().toLowerCase()))
+							{
+							Variables.getLogger().debug(device.getInfo()+" : CLI : Telnet authentication failed using the second credentials");
+							throw new Exception("Bad credentials");
+							}
+						}
+					}
+				}
+			
 			Variables.getLogger().debug(device.getInfo()+" : CLI : Telnet connection initiated successfully");
 			}
 		catch(Exception exc)

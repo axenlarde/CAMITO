@@ -85,6 +85,7 @@ public class CliInjector extends Thread
 			
 			clil.disconnect();//Last we disconnect
 			Variables.getLogger().debug(device.getInfo()+" : Disconnected successfully");
+			device.setStatus(StatusType.injected);
 			}
 		catch (Exception e)
 			{

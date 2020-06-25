@@ -38,7 +38,9 @@ public class Device
 	gateway,
 	officeid,
 	user,
-	password;
+	password,
+	secondaryuser,
+	secondarypassword;
 	
 	private DeviceType deviceType;
 	private ReachableStatus reachable;
@@ -60,6 +62,8 @@ public class Device
 		this.officeid = bd.getOfficeid();
 		this.user = bd.getUser();
 		this.password = bd.getPassword();
+		this.secondaryuser = bd.getSecondaryuser();
+		this.secondarypassword = bd.getSecondarypassword();
 		this.cliProfile = bd.getCliProfile();
 		this.rollbackCliProfile = bd.getRollbackCliProfile();
 		this.connexionProtocol = bd.getConnexionProtocol();
@@ -307,6 +311,21 @@ public class Device
 	public void setStatus(StatusType status)
 		{
 		this.status = status;
+		}
+
+	public String getSecondaryuser()
+		{
+		return secondaryuser;
+		}
+
+	public String getSecondarypassword()
+		{
+		return secondarypassword;
+		}
+
+	public CliProfile getRollbackCliProfile()
+		{
+		return rollbackCliProfile;
 		}
 
 		

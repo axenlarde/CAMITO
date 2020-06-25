@@ -8,11 +8,17 @@ such as the way to authenticate
 		<device>
 			<name>ISR</name>
 			<vendor>Cisco</vendor>
+			<checktelnet>failed</checktelnet><!--to check if the telnet auth failed-->
 			<howtoconnect><!--Used only with telnet connection-->
 				<waitfor>Username:</waitfor>
 				<write>device.user</write>
 				<write>device.password</write>
 			</howtoconnect>
+			<secondaryhowtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.secondaryuser</write>
+				<write>device.secondarypassword</write>
+			</secondaryhowtoconnect>
 			<howtosave>
 				<write>copy running-config startup-config</write>
 				<write></write>
@@ -27,11 +33,17 @@ such as the way to authenticate
 		<device>
 			<name>VG</name>
 			<vendor>Cisco</vendor>
+			<checktelnet>failed</checktelnet><!--to check if the telnet auth failed-->
 			<howtoconnect><!--Used only with telnet connection-->
 				<waitfor>Username:</waitfor>
 				<write>device.user</write>
 				<write>device.password</write>
 			</howtoconnect>
+			<secondaryhowtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.secondaryuser</write>
+				<write>device.secondarypassword</write>
+			</secondaryhowtoconnect>
 			<howtosave>
 				<write>copy running-config startup-config</write>
 				<write></write>
@@ -46,11 +58,17 @@ such as the way to authenticate
 		<device>
 			<name>DECT</name>
 			<vendor>Ascom</vendor>
+			<checktelnet>failed</checktelnet><!--to check if the telnet auth failed-->
 			<howtoconnect><!--Used only with telnet connection-->
 				<waitfor>Username:</waitfor>
 				<write>device.user</write>
 				<write>device.password</write>
 			</howtoconnect>
+			<secondaryhowtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.secondaryuser</write>
+				<write>device.secondarypassword</write>
+			</secondaryhowtoconnect>
 			<howtosave>
 				<write>copy running-config startup-config</write>
 				<write></write>
@@ -65,11 +83,17 @@ such as the way to authenticate
 		<device>
 			<name>SIP</name>
 			<vendor>Misc</vendor>
+			<checktelnet>failed</checktelnet><!--to check if the telnet auth failed-->
 			<howtoconnect><!--Used only with telnet connection-->
 				<waitfor>Username:</waitfor>
 				<write>device.user</write>
 				<write>device.password</write>
 			</howtoconnect>
+			<secondaryhowtoconnect><!--Used only with telnet connection-->
+				<waitfor>Username:</waitfor>
+				<write>device.secondaryuser</write>
+				<write>device.secondarypassword</write>
+			</secondaryhowtoconnect>
 			<howtosave>
 				<write>copy running-config startup-config</write>
 				<write></write>

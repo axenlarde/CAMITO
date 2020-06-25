@@ -392,6 +392,7 @@ public class UsefulMethod
 				ArrayList<String[][]> tabE = extendedList.get(i);
 				
 				ArrayList<OneLine> howToConnect = new ArrayList<OneLine>();
+				ArrayList<OneLine> secondaryHowToConnect = new ArrayList<OneLine>();
 				ArrayList<OneLine> howToSave = new ArrayList<OneLine>();
 				ArrayList<OneLine> howToReboot = new ArrayList<OneLine>();
 				
@@ -402,6 +403,13 @@ public class UsefulMethod
 						for(String[] s : tabE.get(j))
 							{
 							howToConnect.add(new OneLine(s[1],cliType.valueOf(s[0])));
+							}
+						}
+					else if(tab[j][0].equals("secondaryhowtoconnect"))
+						{
+						for(String[] s : tabE.get(j))
+							{
+							secondaryHowToConnect.add(new OneLine(s[1],cliType.valueOf(s[0])));
 							}
 						}
 					else if(tab[j][0].equals("howtosave"))
@@ -422,7 +430,9 @@ public class UsefulMethod
 				
 				deviceTypeList.add(new DeviceType(DeviceTypeName,
 						UsefulMethod.getItemByName("vendor", tab),
+						UsefulMethod.getItemByName("checktelnet", tab),
 						howToConnect,
+						secondaryHowToConnect,
 						howToSave,
 						howToReboot));
 				}
@@ -487,6 +497,7 @@ public class UsefulMethod
 				 * we create a copy of it for each device
 				 */
 				ArrayList<OneLine> howToConnect = new ArrayList<OneLine>();
+				ArrayList<OneLine> secondaryHowToConnect = new ArrayList<OneLine>();
 				ArrayList<OneLine> howToSave = new ArrayList<OneLine>();
 				ArrayList<OneLine> howToReboot = new ArrayList<OneLine>();
 				
@@ -496,7 +507,7 @@ public class UsefulMethod
 				for(OneLine ol : dt.getHowToSave())howToSave.add(new OneLine(ol.getCommand(), ol.getType()));
 				for(OneLine ol : dt.getHowToReboot())howToReboot.add(new OneLine(ol.getCommand(), ol.getType()));
 				
-				DeviceType dType = new DeviceType(dt.getName(), dt.getVendor(), howToConnect, howToSave, howToReboot);
+				DeviceType dType = new DeviceType(dt.getName(), dt.getVendor(), dt.getCheckTelnet(), howToConnect, secondaryHowToConnect, howToSave, howToReboot);
 				
 				try
 					{
@@ -507,6 +518,8 @@ public class UsefulMethod
 								UsefulMethod.getItemByName("officeid", s),
 								UsefulMethod.getItemByName("user", s),
 								UsefulMethod.getItemByName("password", s),
+								UsefulMethod.getItemByName("secondaryuser", s),
+								UsefulMethod.getItemByName("secondarypassword", s),
 								UsefulMethod.getCliProfile(UsefulMethod.getItemByName("cliprofile", s)),
 								UsefulMethod.getCliProfile(UsefulMethod.getItemByName("rollbackcliprofile", s)),
 								getProtocolType(UsefulMethod.getItemByName("protocol", s)),

@@ -61,6 +61,7 @@ public class Task extends Thread
 	private ThreadManager pingManager;
 	private String statusDescription;
 	private CUCM srccucm, dstcucm;
+	private String progress;
 	
 	/***************
 	 * Constructor
@@ -76,6 +77,7 @@ public class Task extends Thread
 		this.action = action;
 		this.srccucm = (action.equals(ActionType.rollback))?Variables.getDstcucm():Variables.getSrccucm();
 		this.dstcucm = (action.equals(ActionType.rollback))?Variables.getSrccucm():Variables.getDstcucm();
+		this.progress = "Init";
 		}
 	
 	public void run()
@@ -509,6 +511,8 @@ public class Task extends Thread
 			Variables.getLogger().debug("We wait for the cli manager to end");
 			while(cliManager.isAlive() && (!stop))
 				{
+				//We update the processing status
+				this.progress = "CLI in progress : "+cliManager.getIndex()+"/"+cliManager.getThreadList().size();
 				this.sleep(500);
 				}
 			Variables.getLogger().debug("Cli manager ends");
@@ -582,8 +586,11 @@ public class Task extends Thread
 			String forwardPrefix = UsefulMethod.getTargetOption("forwardprefix");
 			String forwardCSSName = UsefulMethod.getTargetOption("forwardcss");
 			
+			int index = 0;
 			for(Office o : officeList)
 				{
+				index++;
+				this.progress = "Forwarding lines : office '"+o.getInfo()+"' : "+index+"/"+officeList.size();
 				if(!o.getStatus().equals(StatusType.error))
 					{
 					OfficeTools.forwardOfficeLines(o, forwardPrefix, forwardCSSName, srccucm, dstcucm);
@@ -622,8 +629,12 @@ public class Task extends Thread
 				ArrayList<String> mismatchList = new ArrayList<String>();
 				String splitter = UsefulMethod.getTargetOption("csvsplitter");
 				
+				int index = 0;
 				for(Office o : officeList)
 					{
+					index++;
+					this.progress = "Fixing mismatch : office '"+o.getInfo()+"' : "+index+"/"+officeList.size();
+					
 					if(!o.getStatus().equals(StatusType.error))
 						{
 						mismatchList.addAll(OfficeTools.fixMismatch(o, srccucm, dstcucm));
@@ -760,6 +771,16 @@ public class Task extends Thread
 	public void setStatusDescription(String statusDescription)
 		{
 		this.statusDescription = statusDescription;
+		}
+
+	public String getProgress()
+		{
+		return progress;
+		}
+
+	public void setProgress(String progress)
+		{
+		this.progress = progress;
 		}
 	
 	

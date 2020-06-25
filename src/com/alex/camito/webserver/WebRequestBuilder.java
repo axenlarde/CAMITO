@@ -460,6 +460,7 @@ public class WebRequestBuilder
 		
 		content.append(tabs+"	<id>"+t.getTaskId()+"</id>\r\n");
 		content.append(tabs+"	<overallstatus>"+t.getStatus()+"</overallstatus>\r\n");
+		content.append(tabs+"	<progress>"+t.getProgress()+"</progress>\r\n");
 		content.append(tabs+"	<itemlist>\r\n");
 		
 		for(Office o : t.getOfficeList())

@@ -15,18 +15,21 @@ public class DeviceType
 	/**
 	 * Variables
 	 */
-	private String name, vendor;
+	private String name, vendor, checkTelnet;
 	private ArrayList<OneLine> howToConnect;
+	private ArrayList<OneLine> secondaryHowToConnect;
 	private ArrayList<OneLine> howToSave;
 	private ArrayList<OneLine> howToReboot;
 	
-	public DeviceType(String name, String vendor, ArrayList<OneLine> howToConnect, ArrayList<OneLine> howToSave,
-			ArrayList<OneLine> howToReboot) throws Exception
+	public DeviceType(String name, String vendor, String checkTelnet, ArrayList<OneLine> howToConnect, ArrayList<OneLine> secondaryHowToConnect,
+			ArrayList<OneLine> howToSave, ArrayList<OneLine> howToReboot) throws Exception
 		{
 		super();
 		this.name = name;
 		this.vendor = vendor;
+		this.checkTelnet = checkTelnet;
 		this.howToConnect = howToConnect;
+		this.secondaryHowToConnect = secondaryHowToConnect;
 		this.howToSave = howToSave;
 		this.howToReboot = howToReboot;
 		}
@@ -34,6 +37,11 @@ public class DeviceType
 	public void resolve(Device d) throws Exception
 		{
 		for(OneLine ol : howToConnect)
+			{
+			ol.resolve(d);
+			}
+		
+		for(OneLine ol : secondaryHowToConnect)
 			{
 			ol.resolve(d);
 			}
@@ -73,6 +81,18 @@ public class DeviceType
 		{
 		return howToReboot;
 		}
+
+	public String getCheckTelnet()
+		{
+		return checkTelnet;
+		}
+
+	public ArrayList<OneLine> getSecondaryHowToConnect()
+		{
+		return secondaryHowToConnect;
+		}
+	
+	
 	
 	/*2020*//*RATEL Alexandre 8)*/
 	}
