@@ -482,6 +482,22 @@ public class UsefulMethod
 					if(found)continue;
 					}
 				
+				/**
+				 * To allow to resolve the OneLine contained in each device type
+				 * we create a copy of it for each device
+				 */
+				ArrayList<OneLine> howToConnect = new ArrayList<OneLine>();
+				ArrayList<OneLine> howToSave = new ArrayList<OneLine>();
+				ArrayList<OneLine> howToReboot = new ArrayList<OneLine>();
+				
+				DeviceType dt = UsefulMethod.getDeviceType(UsefulMethod.getItemByName("type",s));
+				
+				for(OneLine ol : dt.getHowToConnect())howToConnect.add(new OneLine(ol.getCommand(), ol.getType()));
+				for(OneLine ol : dt.getHowToSave())howToSave.add(new OneLine(ol.getCommand(), ol.getType()));
+				for(OneLine ol : dt.getHowToReboot())howToReboot.add(new OneLine(ol.getCommand(), ol.getType()));
+				
+				DeviceType dType = new DeviceType(dt.getName(), dt.getVendor(), howToConnect, howToSave, howToReboot);
+				
 				try
 					{
 					BasicDevice	d = new BasicDevice(name,
@@ -494,7 +510,7 @@ public class UsefulMethod
 								UsefulMethod.getCliProfile(UsefulMethod.getItemByName("cliprofile", s)),
 								UsefulMethod.getCliProfile(UsefulMethod.getItemByName("rollbackcliprofile", s)),
 								getProtocolType(UsefulMethod.getItemByName("protocol", s)),
-								UsefulMethod.getDeviceType(UsefulMethod.getItemByName("type",s)));
+								dType);
 					
 					Variables.getLogger().debug("New device added to the device list : "+d.getInfo());
 					deviceList.add(d);
@@ -1324,7 +1340,17 @@ public class UsefulMethod
 	 */
 	public static boolean isNotEmpty(String s)
 		{
+		/*
 		if((s == null) || (s.equals("")))
+			{
+			return false;
+			}
+		else
+			{
+			return true;
+			}
+		*/
+		if(s == null)//To test
 			{
 			return false;
 			}

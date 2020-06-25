@@ -142,7 +142,10 @@ public class Variables
 		update,
 		migrate,
 		rollback,
-		reset
+		reset,
+		cli,
+		officesurvey,
+		devicesurvey
 		};
 		
 	/********************************************

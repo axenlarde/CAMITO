@@ -30,6 +30,24 @@ public class DeviceType
 		this.howToSave = howToSave;
 		this.howToReboot = howToReboot;
 		}
+	
+	public void resolve(Device d) throws Exception
+		{
+		for(OneLine ol : howToConnect)
+			{
+			ol.resolve(d);
+			}
+		
+		for(OneLine ol : howToReboot)
+			{
+			ol.resolve(d);
+			}
+		
+		for(OneLine ol : howToSave)
+			{
+			ol.resolve(d);
+			}
+		}
 
 	public String getName()
 		{

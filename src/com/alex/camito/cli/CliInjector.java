@@ -44,6 +44,11 @@ public class CliInjector extends Thread
 			l.resolve(device);
 			todo.add(l);
 			}
+		
+		/**
+		 * We also resolve the device type
+		 */
+		device.getDeviceType().resolve(device);
 		}
 	
 	public void run()

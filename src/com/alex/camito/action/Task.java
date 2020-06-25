@@ -84,23 +84,22 @@ public class Task extends Thread
 			{
 			Variables.getLogger().info(action+" task "+taskID+" begins");
 			
-			if(!stop)build();
-			
 			if(action.equals(ActionType.reset))
 				{
 				/**
 				 * Here we reset only the phones by reseting the device pool
 				 * There is no action on devices
 				 */
+				if(!stop)build();
 				pause = false;
 				status = TaskStatus.preaudit;
-				setOfficeStatus(StatusType.preaudit);
+				if(!stop)setOfficeStatus(StatusType.preaudit);
 				if(!stop)officeSurvey();
-				status = TaskStatus.processing;
-				setOfficeStatus(StatusType.processing);
+				if(!stop)status = TaskStatus.processing;
+				if(!stop)setOfficeStatus(StatusType.processing);
 				if(!stop)reset();
-				status = TaskStatus.postaudit;
-				setOfficeStatus(StatusType.postaudit);
+				if(!stop)status = TaskStatus.postaudit;
+				if(!stop)setOfficeStatus(StatusType.postaudit);
 				if(!stop)officeSurvey();
 				}
 			else if((action.equals(ActionType.migrate)) ||
@@ -120,11 +119,12 @@ public class Task extends Thread
 				 * - Try to fix phone with migration issue
 				 * - Test the selected office's did line
 				 */
-				status = TaskStatus.preaudit;
-				setOfficeStatus(StatusType.preaudit);
+				if(!stop)build();
+				if(!stop)status = TaskStatus.preaudit;
+				if(!stop)setOfficeStatus(StatusType.preaudit);
 				if(!stop)fixMismatch();
 				if(!stop)officeSurvey();
-				if(!stop)deviceSurvey();
+				//if(!stop)deviceSurvey();
 				
 				//We then wait for the user to accept the migration
 				int counter = 0;
@@ -142,29 +142,16 @@ public class Task extends Thread
 				if((pause == false) && (stop == false))Variables.getLogger().info(action+" task "+taskID+" starts");
 				
 				if(!stop)status = TaskStatus.processing;
-				setOfficeStatus(StatusType.processing);
+				if(!stop)setOfficeStatus(StatusType.processing);
 				if(!stop)sendDeviceCli();
 				if(!stop)reset();
 				if(!stop)forwardLines();
 				
-				if((cliManager != null) && cliManager.isAlive() && (!stop))
-					{
-					/**
-					 * If the cli manager is not ended yet we wait for it
-					 */
-					Variables.getLogger().debug("We wait for the cli manager to end");
-					while(cliManager.isAlive() && (!stop))
-						{
-						this.sleep(500);
-						}
-					Variables.getLogger().debug("Cli manager ends");
-					}
-				
-				setOfficeMigrationStatus();
+				if(!stop)setOfficeMigrationStatus();
 				if(!stop)status = TaskStatus.postaudit;
-				setOfficeStatus(StatusType.postaudit);
-				officeSurvey();
-				deviceSurvey();
+				if(!stop)setOfficeStatus(StatusType.postaudit);
+				if(!stop)officeSurvey();
+				//if(!stop)deviceSurvey();
 				
 				counter = 0;
 				while((!stop) && (counter<12))
@@ -177,10 +164,95 @@ public class Task extends Thread
 					 * Instead it is better to try several times to reach it
 					 */
 					officeSurvey();
-					deviceSurvey();
+					//deviceSurvey();
 					counter++;
 					this.sleep(10000);
 					}
+				
+				/**
+				 * We write the phone status
+				 */
+				ArrayList<Office> ol = new ArrayList<Office>();
+				for(Office o : officeList)
+					{
+					if(!o.getStatus().equals(StatusType.error))ol.add(o);
+					}
+				if(ol.size() > 0)OfficeTools.writePhoneSurveyToCSV(ol);
+				
+				/**
+				 * We write the Cli get outputs
+				 */
+				if(Variables.getCliGetOutputList().size() > 0)
+					{
+					CliTools.writeCliGetOutputToCSV();
+					}
+				}
+			else if(action.equals(ActionType.cli))
+				{
+				if(!stop)status = TaskStatus.preaudit;
+				if(!stop)setOfficeStatus(StatusType.preaudit);
+				//if(!stop)deviceSurvey();
+				
+				//We then wait for the user to accept the migration
+				int counter = 0;
+				while(pause && (!stop))
+					{
+					this.sleep(500);
+					counter++;
+					if(counter > 240)//240 = 2 minutes
+						{
+						Variables.getLogger().debug("Max time reached, we end the task");
+						stop = true;
+						}
+					}
+				
+				if((pause == false) && (stop == false))Variables.getLogger().info(action+" task "+taskID+" starts");
+				
+				if(!stop)status = TaskStatus.processing;
+				if(!stop)setOfficeStatus(StatusType.processing);
+				if(!stop)sendDeviceCli();
+				if(!stop)status = TaskStatus.postaudit;
+				if(!stop)setOfficeStatus(StatusType.postaudit);
+				if(!stop)deviceSurvey();
+				
+				/**
+				 * We write the Cli get outputs
+				 */
+				if(Variables.getCliGetOutputList().size() > 0)
+					{
+					CliTools.writeCliGetOutputToCSV();
+					}
+				}
+			else if(action.equals(ActionType.officesurvey))
+				{
+				if(!stop)build();
+				if(!stop)status = TaskStatus.preaudit;
+				if(!stop)setOfficeStatus(StatusType.preaudit);
+				if(!stop)status = TaskStatus.processing;
+				if(!stop)setOfficeStatus(StatusType.processing);
+				if(!stop)officeSurvey();
+				if(!stop)status = TaskStatus.postaudit;
+				if(!stop)setOfficeStatus(StatusType.postaudit);
+				
+				/**
+				 * We write the phone status
+				 */
+				ArrayList<Office> ol = new ArrayList<Office>();
+				for(Office o : officeList)
+					{
+					if(!o.getStatus().equals(StatusType.error))ol.add(o);
+					}
+				if(ol.size() > 0)OfficeTools.writePhoneSurveyToCSV(ol);
+				}
+			else if(action.equals(ActionType.devicesurvey))
+				{
+				if(!stop)status = TaskStatus.preaudit;
+				if(!stop)setOfficeStatus(StatusType.preaudit);
+				if(!stop)status = TaskStatus.processing;
+				if(!stop)setOfficeStatus(StatusType.processing);
+				if(!stop)deviceSurvey();
+				if(!stop)status = TaskStatus.postaudit;
+				if(!stop)setOfficeStatus(StatusType.postaudit);
 				}
 			else
 				{
@@ -195,24 +267,6 @@ public class Task extends Thread
 			
 			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
 			Variables.getLogger().info("UUID list cleared");
-			
-			/**
-			 * We write the phone status
-			 */
-			ArrayList<Office> ol = new ArrayList<Office>();
-			for(Office o : officeList)
-				{
-				if(!o.getStatus().equals(StatusType.error))ol.add(o);
-				}
-			if(ol.size() > 0)OfficeTools.writePhoneSurveyToCSV(ol);
-			
-			/**
-			 * We write the Cli get outputs
-			 */
-			if(Variables.getCliGetOutputList().size() > 0)
-				{
-				CliTools.writeCliGetOutputToCSV();
-				}
 			
 			/**
 			 * We write the overall result file
@@ -234,7 +288,14 @@ public class Task extends Thread
 				{
 				//Nothing
 				}
-			else o.setStatus(status);
+			else 
+				{
+				o.setStatus(status);
+				for(Device d : o.getDeviceList())
+					{
+					if(!d.getStatus().equals(StatusType.error))d.setStatus(status);
+					}
+				}
 			}
 		}
 	
@@ -441,6 +502,16 @@ public class Task extends Thread
 				{
 				cliManager.start();
 				}
+			
+			/**
+			 * If the cli manager is not ended yet we wait for it
+			 */
+			Variables.getLogger().debug("We wait for the cli manager to end");
+			while(cliManager.isAlive() && (!stop))
+				{
+				this.sleep(500);
+				}
+			Variables.getLogger().debug("Cli manager ends");
 			}
 		catch (Exception e)
 			{
