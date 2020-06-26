@@ -61,6 +61,7 @@ public class AnswerReceiver extends Thread
 		    		Variables.getLogger().debug(info+" : #CLI# "+row);
 		    		}
 		    	}
+			
 			/******
 			 * Deletion of the conversation to
 			 * avoid full memory error.
@@ -86,5 +87,5 @@ public class AnswerReceiver extends Thread
 	
 	
 	
-	/*2012*//*RATEL Alexandre 8)*/
+	/*2020*//*RATEL Alexandre 8)*/
 	}

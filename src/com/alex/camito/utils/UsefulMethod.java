@@ -504,6 +504,7 @@ public class UsefulMethod
 				DeviceType dt = UsefulMethod.getDeviceType(UsefulMethod.getItemByName("type",s));
 				
 				for(OneLine ol : dt.getHowToConnect())howToConnect.add(new OneLine(ol.getCommand(), ol.getType()));
+				for(OneLine ol : dt.getSecondaryHowToConnect())secondaryHowToConnect.add(new OneLine(ol.getCommand(), ol.getType()));
 				for(OneLine ol : dt.getHowToSave())howToSave.add(new OneLine(ol.getCommand(), ol.getType()));
 				for(OneLine ol : dt.getHowToReboot())howToReboot.add(new OneLine(ol.getCommand(), ol.getType()));
 				
@@ -1529,11 +1530,10 @@ public class UsefulMethod
 		{
 		for(CliProtocol p : CliProtocol.values())
 			{
-			if(protocol.toLowerCase().replaceAll(" ", "").contains(p.name().toLowerCase()))return p;
+			if(protocol.toLowerCase().replaceAll(" ", "").equals(p.name().toLowerCase()))return p;
 			}
 		
-		//throw new Exception("No cliProtocol found for protocol : "+protocol);
-		return null;
+		return CliProtocol.auto;
 		}
 	
 	/*****

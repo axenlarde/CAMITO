@@ -15,7 +15,6 @@ such as the way to authenticate
 				<write>device.password</write>
 			</howtoconnect>
 			<secondaryhowtoconnect><!--Used only with telnet connection-->
-				<waitfor>Username:</waitfor>
 				<write>device.secondaryuser</write>
 				<write>device.secondarypassword</write>
 			</secondaryhowtoconnect>
@@ -40,7 +39,6 @@ such as the way to authenticate
 				<write>device.password</write>
 			</howtoconnect>
 			<secondaryhowtoconnect><!--Used only with telnet connection-->
-				<waitfor>Username:</waitfor>
 				<write>device.secondaryuser</write>
 				<write>device.secondarypassword</write>
 			</secondaryhowtoconnect>
@@ -65,7 +63,6 @@ such as the way to authenticate
 				<write>device.password</write>
 			</howtoconnect>
 			<secondaryhowtoconnect><!--Used only with telnet connection-->
-				<waitfor>Username:</waitfor>
 				<write>device.secondaryuser</write>
 				<write>device.secondarypassword</write>
 			</secondaryhowtoconnect>
@@ -90,7 +87,6 @@ such as the way to authenticate
 				<write>device.password</write>
 			</howtoconnect>
 			<secondaryhowtoconnect><!--Used only with telnet connection-->
-				<waitfor>Username:</waitfor>
 				<write>device.secondaryuser</write>
 				<write>device.secondarypassword</write>
 			</secondaryhowtoconnect>

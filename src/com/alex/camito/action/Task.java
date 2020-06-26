@@ -215,7 +215,7 @@ public class Task extends Thread
 				if(!stop)sendDeviceCli();
 				if(!stop)status = TaskStatus.postaudit;
 				if(!stop)setOfficeStatus(StatusType.postaudit);
-				if(!stop)deviceSurvey();
+				//if(!stop)deviceSurvey();
 				
 				/**
 				 * We write the Cli get outputs
@@ -265,6 +265,7 @@ public class Task extends Thread
 			
 			status = TaskStatus.done;
 			setOfficeStatus(StatusType.done);
+			setProgress("Done");
 			Variables.getLogger().info(action+" task "+taskID+" ends");
 			
 			Variables.setUuidList(new ArrayList<storedUUID>());//We clean the UUID list
@@ -357,6 +358,7 @@ public class Task extends Thread
 			
 			if(ol.size() > 0)
 				{
+				setProgress("Office survey in progress");
 				OfficeTools.phoneSurvey(ol, srccucm, dstcucm);
 				}
 			}
@@ -432,6 +434,8 @@ public class Task extends Thread
 			Variables.getLogger().debug("We wait for the ping manager to end");
 			while(pingManager.isAlive() && (!stop))
 				{
+				//We update the processing status
+				setProgress("Device survey in progress : "+pingManager.getIndex()+"/"+pingManager.getThreadList().size());
 				this.sleep(200);
 				}
 			Variables.getLogger().debug("Ping manager ends");
@@ -512,8 +516,8 @@ public class Task extends Thread
 			while(cliManager.isAlive() && (!stop))
 				{
 				//We update the processing status
-				this.progress = "CLI in progress : "+cliManager.getIndex()+"/"+cliManager.getThreadList().size();
-				this.sleep(500);
+				setProgress("CLI in progress : "+cliManager.getIndex()+"/"+cliManager.getThreadList().size());
+				this.sleep(1000);
 				}
 			Variables.getLogger().debug("Cli manager ends");
 			}
@@ -781,6 +785,7 @@ public class Task extends Thread
 	public void setProgress(String progress)
 		{
 		this.progress = progress;
+		Variables.getLogger().debug(progress);
 		}
 	
 	

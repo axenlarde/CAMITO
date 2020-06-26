@@ -63,11 +63,13 @@ public class CliConnection implements TelnetNotificationHandler
 	 */
 	public void connect() throws Exception, ConnectionException
 		{
-		if(device.getCliProfile().equals(CliProtocol.ssh))
+		Variables.getLogger().debug(device.getInfo()+" : CLI : Starting connection using "+device.getConnexionProtocol().name());
+		
+		if(device.getConnexionProtocol().equals(CliProtocol.ssh))
 			{
 			trySSH();
 			}
-		else if(device.getCliProfile().equals(CliProtocol.telnet))
+		else if(device.getConnexionProtocol().equals(CliProtocol.telnet))
 			{
 			initTelnet();
 			cTech = connectedTech.telnet;
@@ -77,7 +79,7 @@ public class CliConnection implements TelnetNotificationHandler
 			/**
 			 * Only if "auto" is the choosen cli protocol
 			 */
-			Variables.getLogger().debug("CLI : auto connection protocol selected");
+			Variables.getLogger().debug(device.getInfo()+" : CLI : auto connection protocol selected");
 			
 			try
 				{
@@ -85,16 +87,16 @@ public class CliConnection implements TelnetNotificationHandler
 				}
 			catch(Exception e)
 				{
-				Variables.getLogger().error("CLI : Failed to connect using SSH : "+e.getMessage());
+				Variables.getLogger().error(device.getInfo()+" : CLI : Failed to connect using SSH : "+e.getMessage());
 				try
 					{
-					Variables.getLogger().debug("CLI : Trying with telnet");
+					Variables.getLogger().debug(device.getInfo()+" : CLI : Trying with telnet");
 					initTelnet();
 					cTech = connectedTech.telnet;
 					}
 				catch (Exception ex)
 					{
-					Variables.getLogger().error("CLI : Failed to connect using telnet as well : "+ex.getMessage());
+					Variables.getLogger().error(device.getInfo()+" : CLI : Failed to connect using telnet as well : "+ex.getMessage());
 					throw new ConnectionException(ex.getMessage());
 					}
 				}

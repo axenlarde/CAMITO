@@ -2,12 +2,12 @@ package com.alex.camito.cli;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import com.alex.camito.cli.CliConnection.connectedTech;
 import com.alex.camito.cli.CliProfile.CliProtocol;
 import com.alex.camito.device.Device;
-import com.alex.camito.device.DeviceType;
 import com.alex.camito.misc.CollectionTools;
 import com.alex.camito.utils.UsefulMethod;
 import com.alex.camito.utils.Variables;
@@ -31,6 +31,7 @@ public class CliLinker
 	private AnswerReceiver receiver;
 	private int timeout;
 	private String carrierReturn;
+	private boolean telnetSecondTime;
 	
 	public CliLinker(CliInjector clii)
 		{
@@ -67,22 +68,24 @@ public class CliLinker
 		{
 		try
 			{
-			if((connection == null) || (!connection.isConnected()))
+			if((connection != null) && (connection.isConnected()))
 				{
-				connection = new CliConnection(device, timeout);
-				connection.connect();
-				out = connection.getOut();
-				receiver = connection.getReceiver();
-				
-				/**
-				 * Using telnet credentials cannot be sent during the connection process
-				 * Instead, we have to send them once connected when prompted
-				 * So we add an extra step
-				 */
-				if(connection.getcTech().equals(connectedTech.telnet))
-					{
-					telnetAuth();
-					}
+				connection.close();
+				}
+			
+			connection = new CliConnection(device, timeout);
+			connection.connect();
+			out = connection.getOut();
+			receiver = connection.getReceiver();
+			
+			/**
+			 * Using telnet credentials cannot be sent during the connection process
+			 * Instead, we have to send them once connected when prompted
+			 * So we add an extra step
+			 */
+			if(connection.getcTech().equals(connectedTech.telnet))
+				{
+				telnetAuth();
 				}
 			}
 		catch (Exception e)
@@ -136,8 +139,8 @@ public class CliLinker
 					}
 				}
 			
-			clii.sleep(100);
-			if(timer>100)
+			clii.sleep(50);
+			if(timer>200)
 				{
 				Variables.getLogger().debug(device.getInfo()+" : CLI : We have been waiting too longfor '"+s+"' so we keep going");
 				break;
@@ -161,7 +164,7 @@ public class CliLinker
 			{
 			if(receiver.getExchange().size() > 0)return receiver.getExchange().get(0);
 			
-			clii.sleep(100);
+			clii.sleep(50);
 			if(timer>100)
 				{
 				Variables.getLogger().debug(device.getInfo()+" : CLI : We have been waiting too long so we keep going");
@@ -226,7 +229,7 @@ public class CliLinker
 		int howManyToReturn = 2;
 		String regex = null;
 		
-		clii.sleep(100);//Just to be sure we don't get something from the previous command
+		clii.sleep(1000);//Just to be sure we don't get something from the previous command
 		receiver.getExchange().clear();
 		out.write(cmdTab[1]+carrierReturn);
 		out.flush();
@@ -234,7 +237,7 @@ public class CliLinker
 		if(cmdTab.length>2 && Integer.parseInt(cmdTab[2])>2)howManyToReturn = Integer.parseInt(cmdTab[2])+1;
 		if(cmdTab.length>3)regex = cmdTab[3];
 		waitForAReturn();
-		clii.sleep(100);//We've seen some latency, so better to wait a bit to get the data
+		clii.sleep(1000);//We've seen some latency, so better to wait a bit to get the data
 		
 		//We get just what we need
 		StringBuffer replyWanted = new StringBuffer("");
@@ -261,7 +264,7 @@ public class CliLinker
 	
 	
 	/**
-	 * Aims to send telnet credentials once prompted
+	 * Send telnet credentials once prompted
 	 */
 	private void telnetAuth() throws Exception
 		{
@@ -270,39 +273,30 @@ public class CliLinker
 			/*******
 			 * Write instruction used to authenticate to gateway using telnet protocol 
 			 */
-			Variables.getLogger().debug(device.getInfo()+" : CLI : Authentication process begin");
-			for(OneLine l : device.getDeviceType().getHowToConnect())
+			Variables.getLogger().debug(device.getInfo()+" : CLI : Telnet authentication process begin");
+			
+			ArrayList<OneLine> howToConnect;
+			howToConnect = (telnetSecondTime)?device.getDeviceType().getSecondaryHowToConnect():device.getDeviceType().getHowToConnect();
+			for(OneLine l : howToConnect)
 				{
 				execute(l);
 				}
 			
 			/**
 			 * We check if the authentication was successful
-			 * If not we try the secondary credentials
 			 */
-			receiver.getExchange().clear();
-			waitForAReturn();
-			clii.sleep(1000);//Just to be sure we received the full answer
-			for(String s : receiver.getExchange())
+			if(waitFor(device.getDeviceType().getCheckTelnet().toLowerCase()) != null)
 				{
-				if(s.toLowerCase().contains(device.getDeviceType().getCheckTelnet().toLowerCase()))
+				if(telnetSecondTime)
 					{
+					Variables.getLogger().debug(device.getInfo()+" : CLI : Telnet authentication failed using the second credentials");
+					throw new Exception("Bad credentials");
+					}
+				else
+					{
+					telnetSecondTime = true;
 					Variables.getLogger().debug(device.getInfo()+" : CLI : Telnet authentication failed using the first credentials so we try the second ones");
-					for(OneLine l : device.getDeviceType().getSecondaryHowToConnect())
-						{
-						execute(l);
-						}
-					receiver.getExchange().clear();
-					waitForAReturn();
-					clii.sleep(1000);//Just to be sure we received the full answer
-					for(String s2 : receiver.getExchange())
-						{
-						if(s.toLowerCase().contains(device.getDeviceType().getCheckTelnet().toLowerCase()))
-							{
-							Variables.getLogger().debug(device.getInfo()+" : CLI : Telnet authentication failed using the second credentials");
-							throw new Exception("Bad credentials");
-							}
-						}
+					connect();
 					}
 				}
 			

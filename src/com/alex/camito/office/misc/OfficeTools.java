@@ -246,7 +246,7 @@ public class OfficeTools
 				
 				for(Device d : o.getDeviceList())
 					{
-					csvBuffer.write("Device"+splitter+d.getIp()+splitter+d.getOfficeid()+splitter+d.getName()+splitter+d.getStatus()+splitter+d.getDetailedStatus()+cr);
+					csvBuffer.write(d.getDeviceType().getName()+splitter+d.getIp()+splitter+d.getOfficeid()+splitter+d.getName()+splitter+d.getStatus()+splitter+d.getDetailedStatus()+cr);
 					}
 				}
 			
@@ -290,30 +290,27 @@ public class OfficeTools
 			if(office instanceof Office)
 				{
 				Office off = (Office)office;
-				for(BasicPhone bp : off.getPhoneList())
-					{
-					String request = "select np.dnorpattern as pattern, rp.name as partition from numplan np, routepartition rp, devicenumplanmap dnpm device d where d.pkid=dnpm.fkdevice and dnpm.fknumplan=np.pkid and np.usage='2' and d.name='"+bp.getName()+"'";
+				String request = "select np.dnorpattern as pattern, rp.name as partition from numplan np, routepartition rp, devicenumplanmap dnpm, device d, devicepool dp where d.pkid=dnpm.fkdevice and dnpm.fknumplan=np.pkid and dp.pkid=d.fkdevicepool and rp.pkid=np.fkroutepartition and np.tkpatternusage='2' and dp.name='"+off.getDevicePool().getName()+"'";
 					
-					List<Object> reply = SimpleRequest.doSQLQuery(request, srccucm);
-					for(Object o : reply)
+				List<Object> reply = SimpleRequest.doSQLQuery(request, srccucm);
+				for(Object o : reply)
+					{
+					Element rowElement = (Element) o;
+					NodeList list = rowElement.getChildNodes();
+					
+					String pattern = null, partition = null;
+					for(int i = 0; i< list.getLength(); i++)
 						{
-						Element rowElement = (Element) o;
-						NodeList list = rowElement.getChildNodes();
-						
-						String pattern = null, partition = null;
-						for(int i = 0; i< list.getLength(); i++)
+						if(list.item(i).getNodeName().equals("pattern"))
 							{
-							if(list.item(i).getNodeName().equals("pattern"))
-								{
-								pattern = list.item(i).getTextContent();
-								}
-							else if(list.item(i).getNodeName().equals("partition"))
-								{
-								partition = list.item(i).getTextContent();
-								}
+							pattern = list.item(i).getTextContent();
 							}
-						officelineList.add(new Line(pattern, partition));
+						else if(list.item(i).getNodeName().equals("partition"))
+							{
+							partition = list.item(i).getTextContent();
+							}
 						}
+					officelineList.add(new Line(pattern, partition));
 					}
 				for(Line l : officelineList)
 					{
@@ -328,8 +325,6 @@ public class OfficeTools
 						}
 					}
 				}
-			
-			
 			
 			
 			/**
@@ -548,6 +543,17 @@ public class OfficeTools
 							break;
 							}
 						}
+					
+					//Same with office line list
+					for(Line l : officelineList)
+						{
+						if(l.getName().equals(s))
+							{
+							found = true;
+							break;
+							}
+						}
+					
 					if(found)continue;
 					
 					

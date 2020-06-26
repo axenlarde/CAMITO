@@ -119,20 +119,19 @@ public class Device
 				}
 			}
 		
-		/*
-		if(cliInjector.getErrorList().size() > 0)
+		
+		if((errorList != null) && (errorList.size() > 0))
 			{
-			s.append("\r\n");
-			s.append("Cli error list : \r\n");
+			s.append(", Error found : ");
 			
-			for(ErrorTemplate e : cliInjector.getErrorList())
+			for(ErrorTemplate e : errorList)
 				{
-				s.append(e.getErrorDesc()+"\r\n");
+				s.append(e.getErrorDesc()+",");
 				}
-			}*/
+			}
 		
 		
-		if((errorList != null) && (errorList.size() > 0))s.append(", Error found");
+		//if((errorList != null) && (errorList.size() > 0))s.append(", Error found");
 		return s.toString();
 		}
 	

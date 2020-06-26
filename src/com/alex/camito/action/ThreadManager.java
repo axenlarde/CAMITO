@@ -54,6 +54,7 @@ public class ThreadManager extends Thread
 						}
 					}
 				this.sleep(sleepTime);
+				System.gc();
 				}
 			
 			/**
@@ -87,6 +88,8 @@ public class ThreadManager extends Thread
 			{
 			if(t.isAlive())totalInProgress++;
 			}
+		
+		//Variables.getLogger().debug("##Thread in progress : "+totalInProgress);
 		
 		if(totalInProgress<=maxConcurrentThread)return true;
 		return false;
