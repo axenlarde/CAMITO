@@ -270,6 +270,11 @@ public class LineLinker extends AXLItemLinker
 			CallFA.setDestination(new JAXBElement(new QName("destination"), String.class, this.fwAllDestination));
 			req.setCallForwardAll(CallFA);
 			}
+		if(tuList.contains(toUpdate.fwAllVoicemailEnable))
+			{
+			CallFA.setForwardToVoiceMail(Boolean.toString(this.fwAllVoicemailEnable));
+			req.setCallForwardAll(CallFA);
+			}
 		/*To do
 		if(tuList.contains(toUpdate.fwNoanDestination))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(itemType.callpickupgroup, this.callPickupGroupName));
 		if(tuList.contains(toUpdate.fwBusyDestination))req.setCallPickupGroupName(SimpleRequest.getUUIDV105(itemType.callpickupgroup, this.callPickupGroupName));

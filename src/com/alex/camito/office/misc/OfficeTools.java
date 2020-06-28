@@ -588,34 +588,7 @@ public class OfficeTools
 						break;//Should only return one line so we can break
 						}
 					
-					/**
-					 * We copy the source data to the destination one
-					 * For any reason, if the line is already forwarded we do not copy
-					 * the source data to the destination one
-					 */
-					Line dstCtiRP = new Line(ctiRP.getName(), ctiRP.getRoutePartitionName());
-					dstCtiRP.isExisting(dstcucm);
-					ctiRP.isExisting(srccucm);
-					
-					if(ctiRP.getFwAllDestination().startsWith(forwardPrefix))
-						{
-						Variables.getLogger().debug(office.getInfo()+" : CTI RP '"+s+"' : was already forwarded so we do nothing");
-						}
-					else
-						{
-						dstCtiRP.setFwAllCallingSearchSpaceName(ctiRP.getFwAllCallingSearchSpaceName());
-						dstCtiRP.setFwAllDestination("");
-						dstCtiRP.setFwAllVoicemailEnable("false");
-						dstCtiRP.resolve();
-						dstCtiRP.update(dstcucm);
-						
-						//We now forward the source cti route point
-						ctiRP.setFwAllCallingSearchSpaceName(forwardCSSName);
-						ctiRP.setFwAllDestination(forwardPrefix+ctiRP.getName());
-						ctiRP.resolve();
-						ctiRP.update(srccucm);
-						Variables.getLogger().debug(office.getInfo()+" : CTI RP '"+s+"' : forwarded");
-						}
+					forwardLine(ctiRP, office, forwardPrefix, forwardCSSName, srccucm, dstcucm);
 					}
 				catch (Exception e)
 					{
@@ -679,6 +652,7 @@ public class OfficeTools
 	 * Will look for configuration mismatch among the following :
 	 * - Devices
 	 * - Line group members
+	 * - Logged out members
 	 * - Lines
 	 * 
 	 * !!!! In this version we only report the mismatch, we do not fix them !!!!
@@ -808,7 +782,7 @@ public class OfficeTools
 							{
 							Line l = new Line(lgm.getNumber(), lgm.getPartition());
 							l.isExisting(dstcucm);
-							String LineHLogRequest = "select dhd.hlog as status from devicenumplanmap dnpm, devicehlogdynamic dhd where dnpm.fkdevice=dhd.fkdevice and dnpm.fknumplan='"+l.getUUID().toLowerCase().substring(1, l.getUUID().length()-1)+"'";//Substring to remove UUID{}
+							String LineHLogRequest = "select dnpm.fkdevice as deviceuuid, dhd.hlog as status from devicenumplanmap dnpm, devicehlogdynamic dhd where dnpm.fkdevice=dhd.fkdevice and dnpm.fknumplan='"+l.getUUID().toLowerCase().substring(1, l.getUUID().length()-1)+"'";//Substring to remove UUID{}
 							
 							List<Object> lineReply = SimpleRequest.doSQLQuery(LineHLogRequest, dstcucm);
 							for(Object o : lineReply)
@@ -816,17 +790,27 @@ public class OfficeTools
 								Element rowElement = (Element) o;
 								NodeList list = rowElement.getChildNodes();
 								
+								String deviceUUID=null, status="t";
 								for(int i = 0; i< list.getLength(); i++)
 									{
-									if(list.item(i).getNodeName().equals("status"))
+									if(list.item(i).getNodeName().equals("deviceuuid"))
 										{
-										if(list.item(i).getTextContent().equals("f"))
-											{
-											Variables.getLogger().debug(office.getInfo()+" : "+lg.getName()+" : Line group member logged out in the destination cluster : "+lgm.getNumber());
-											mismatchList.add(office.getInfo()+splitter+"Line group"+splitter+"Line group "+lg.getName()+" : Line group member logged out in the destination cluster : "+lgm.getNumber()+"\r\n");
-											}
-										break;
+										deviceUUID = list.item(i).getTextContent();
 										}
+									else if(list.item(i).getNodeName().equals("status"))
+										{
+										status = list.item(i).getTextContent();
+										}
+									}
+								
+								if(status.equals("f"))
+									{
+									//We now login the user
+									String loginRequest = "UPDATE devicehlogdynamic SET hlog='t' where fkdevice='"+deviceUUID+"'";
+									SimpleRequest.doSQLUpdate(loginRequest, dstcucm);
+									
+									Variables.getLogger().debug(office.getInfo()+" : "+lg.getName()+" : Logout line group member FIXED ! in the destination cluster : "+lgm.getNumber());
+									mismatchList.add(office.getInfo()+splitter+"Line group"+splitter+"Line group "+lg.getName()+" : Logout line group member FIXED ! in the destination cluster : "+lgm.getNumber()+"\r\n");
 									}
 								}
 							}
